@@ -2,11 +2,11 @@ package com.forwardline.api.pojo.fundera;
 
 import java.util.List;
 
-public class CreateLeadResponse {
+public class TestClientResp {
 	public boolean preapproved;
 	public List<Offer> offers;
 
-	public CreateLeadResponse() {
+	public TestClientResp() {
 	}
 
 	public boolean isPreapproved() {

@@ -7,8 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.apache.http.entity.StringEntity;
-import com.forwardline.api.pojo.fundera.CreateLeadRequest;
-import com.forwardline.api.pojo.fundera.CreateLeadResponse;
+import com.forwardline.api.pojo.fundera.TestClientReq;
+import com.forwardline.api.pojo.fundera.TestClientResp;
 import com.forwardline.salesforce.SalesforceFacade;
 import com.google.gson.Gson;
 
@@ -19,8 +19,8 @@ public class FunderaService {
 	@Path("/getOffer/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CreateLeadResponse getOffer(CreateLeadRequest request) {
-		CreateLeadResponse res = new CreateLeadResponse();
+	public TestClientResp getOffer(TestClientReq request) {
+		TestClientResp res = new TestClientResp();
 		Gson gson = new Gson();
 		String clReq = gson.toJson(request);
 		StringEntity strEty;
@@ -28,7 +28,8 @@ public class FunderaService {
 			strEty = new StringEntity(clReq);
 			System.out.println("This is post body:- " +strEty);
 			SalesforceFacade sfc = new SalesforceFacade();
-			res = sfc.postMerchant(strEty);
+			
+			// res = sfc.postMerchant(strEty);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,26 +1,19 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.pojo;
 
 public class RequestHeader {
-	public String ApiUserid;
-	public String ApiPassword;
-
-	public RequestHeader() {
+	private String operation;
+	private String partner;
+	
+	public String getOperation() {
+		return operation;
 	}
-
-	public String getApiUserid() {
-		return ApiUserid;
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
-
-	public void setApiUserid(String apiUserid) {
-		ApiUserid = apiUserid;
+	public String getPartner() {
+		return partner;
 	}
-
-	public String getApiPassword() {
-		return ApiPassword;
+	public void setPartner(String partner) {
+		this.partner = partner;
 	}
-
-	public void setApiPassword(String apiPassword) {
-		ApiPassword = apiPassword;
-	}
-
 }

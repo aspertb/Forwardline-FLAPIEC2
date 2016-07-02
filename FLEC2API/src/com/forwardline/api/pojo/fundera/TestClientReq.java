@@ -2,12 +2,21 @@ package com.forwardline.api.pojo.fundera;
 
 import java.util.List;
 
-public class CreateLeadRequest {
+import com.forwardline.salesforce.pojo.RequestHeader;
+
+public class TestClientReq {
 	public RequestHeader RequestHeader;
 	public List<Owners> owners;
 	public Company company;
 
-	public CreateLeadRequest() {
+	public TestClientReq(com.forwardline.salesforce.pojo.RequestHeader requestHeader, List<Owners> owners,
+			Company company) {
+		RequestHeader = requestHeader;
+		this.owners = owners;
+		this.company = company;
+	}
+
+	public TestClientReq() {
 	}
 
 	public RequestHeader getRequestHeader() {

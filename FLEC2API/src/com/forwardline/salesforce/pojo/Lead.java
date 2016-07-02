@@ -1,17 +1,25 @@
 package com.forwardline.salesforce.pojo;
 
-public class Contact extends SObject {
+public class Lead {
+	
 	private String id;
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String companyName;
+	private String phone;
+	private String mobilePhone;
 	
-	public Contact(String id, String firstName, String lastName, String email) {
+	public Lead(String id, String firstName, String lastName, String email, String companyName, String phone,
+			String mobilePhone) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.companyName = companyName;
+		this.phone = phone;
+		this.mobilePhone = mobilePhone;
 	}
 	
 	public String getId() {
@@ -37,6 +45,24 @@ public class Contact extends SObject {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
 	}
 
 }
