@@ -42,10 +42,16 @@ public class SalesforceFacade {
 
 	public CreateForsightResponse getForsight(String id) {
 		
+		ConnectSFForsight csf = new ConnectSFForsight();
+		String scfResp = csf.getForsight(logResp, id);
+		
 		return null;
 	}
 
-	public CreateForsightRequest postForsight(CreateForsightResponse cfr) {
+	public CreateForsightResponse postForsight(CreateForsightRequest cfr) {
+		
+		ConnectSFForsight csf = new ConnectSFForsight();
+		String scfResp = csf.postForsight(logResp, cfr);
 
 		return null;
 	}
@@ -65,12 +71,16 @@ public class SalesforceFacade {
 		return null;
 	}
 
-	public CreateOLAResponse getOLD(String id) {
+	public CreateOLAResponse getOLA(String id) {
+		ConnectSFOLA csfo = new ConnectSFOLA();
+		String csfoResp = csfo.getOLA(logResp, id);
 
 		return null;
 	}
 
 	public CreateOLAResponse postOLA(CreateOLARequest cor) {
+		ConnectSFOLA csfo = new ConnectSFOLA();
+		String csfoResp = csfo.postOLA(logResp, cor);
 
 		return null;
 	}

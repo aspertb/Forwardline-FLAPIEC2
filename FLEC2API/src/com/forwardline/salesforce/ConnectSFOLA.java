@@ -8,19 +8,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.api.pojo.fundera.CreateForsightRequest;
+import com.forwardline.api.pojo.fundera.CreateOLARequest;
 import com.forwardline.salesforce.pojo.LoginResponse;
 
-public class ConnectSFForsight {
-
-	public ConnectSFForsight() {
-
-	}
-
-	public String getForsight(LoginResponse loginResponse, String id) {
+public class ConnectSFOLA {
+	
+	public String getOLA(LoginResponse loginResponse, String id) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
-		HttpGet get = new HttpGet(loginResponse.getInstance_url() + "/services/apexrest/forwardline/forsight?");
+		HttpGet get = new HttpGet(loginResponse.getInstance_url() + "/services/apexrest/forwardline/ola?");
 		get.setHeader("Authorization", "OAuth " + loginResponse.getAccess_token());
 		get.setHeader("Content-Type", "application/json");
 
@@ -39,13 +35,13 @@ public class ConnectSFForsight {
 		return null;
 	}
 
-	public String postForsight(LoginResponse loginResponse, CreateForsightRequest cfr) {
+	public String postOLA(LoginResponse loginResponse, CreateOLARequest cor) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
-		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/forsight?");
+		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/ola?");
 		post.setHeader("Authorization", "OAuth " + loginResponse.getAccess_token());
 		post.setHeader("Content-Type", "application/json");
-		post.setEntity((HttpEntity) cfr);
+		post.setEntity((HttpEntity) cor);
 
 		try {
 			response = httpClient.execute(post);
@@ -58,4 +54,5 @@ public class ConnectSFForsight {
 		}
 		return null;
 	}
+
 }

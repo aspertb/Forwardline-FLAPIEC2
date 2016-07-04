@@ -42,7 +42,7 @@ public class ConnectSFCustomer {
 	public String postCustomer(LoginResponse loginResponse, CreateCustomerRequest cust) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
-		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/contact?");
+		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/customer?");
 		post.setHeader("Authorization", "OAuth " + loginResponse.getAccess_token());
 		post.setHeader("Content-Type", "application/json");
 		post.setEntity((HttpEntity)cust);
