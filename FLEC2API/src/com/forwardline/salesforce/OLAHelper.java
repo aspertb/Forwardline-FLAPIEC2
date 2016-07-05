@@ -8,10 +8,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.api.pojo.fundera.CreateOLARequest;
-import com.forwardline.salesforce.pojo.LoginResponse;
+import com.forwardline.salesforce.api.ApplicationRequest;
+import com.forwardline.salesforce.api.LoginResponse;
 
-public class ConnectSFOLA {
+public class OLAHelper {
 	
 	public String getOLA(LoginResponse loginResponse, String id) {
 		HttpClient httpClient = HttpClients.createDefault();
@@ -35,7 +35,7 @@ public class ConnectSFOLA {
 		return null;
 	}
 
-	public String postOLA(LoginResponse loginResponse, CreateOLARequest cor) {
+	public String postOLA(LoginResponse loginResponse, ApplicationRequest cor) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/ola?");

@@ -1,25 +1,27 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api.pojo;
 
-public class CreateOLARequest {
-	
+public class Forsight {
+
 	private String id;
 	private String name;
-	
-	public CreateOLARequest(String id, String name) {
-		super();
+
+	public Forsight(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

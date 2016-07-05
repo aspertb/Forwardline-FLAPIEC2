@@ -8,12 +8,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.api.pojo.fundera.CreateCustomerRequest;
-import com.forwardline.salesforce.pojo.LoginResponse;
+import com.forwardline.salesforce.api.CustomerRequest;
+import com.forwardline.salesforce.api.LoginResponse;
 
-public class ConnectSFCustomer {
+public class CustomerHelper {
 	
-	public ConnectSFCustomer(){
+	public CustomerHelper(){
 		
 	}
 	
@@ -39,7 +39,7 @@ public class ConnectSFCustomer {
 		return null;
 	}
 	
-	public String postCustomer(LoginResponse loginResponse, CreateCustomerRequest cust) {
+	public String postCustomer(LoginResponse loginResponse, CustomerRequest cust) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/customer?");

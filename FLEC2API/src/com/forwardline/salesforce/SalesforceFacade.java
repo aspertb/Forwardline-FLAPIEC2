@@ -1,14 +1,14 @@
 package com.forwardline.salesforce;
 
-import com.forwardline.api.pojo.fundera.CreateCustomerRequest;
-import com.forwardline.api.pojo.fundera.CreateCustomerResponse;
-import com.forwardline.api.pojo.fundera.CreateForsightRequest;
-import com.forwardline.api.pojo.fundera.CreateForsightResponse;
-import com.forwardline.api.pojo.fundera.CreateLeadRequest;
-import com.forwardline.api.pojo.fundera.CreateLeadResponse;
-import com.forwardline.api.pojo.fundera.CreateOLARequest;
-import com.forwardline.api.pojo.fundera.CreateOLAResponse;
-import com.forwardline.salesforce.pojo.LoginResponse;
+import com.forwardline.salesforce.api.CustomerRequest;
+import com.forwardline.salesforce.api.CustomerResponse;
+import com.forwardline.salesforce.api.ForsightRequest;
+import com.forwardline.salesforce.api.ForsightResponse;
+import com.forwardline.salesforce.api.LeadRequest;
+import com.forwardline.salesforce.api.LeadResponse;
+import com.forwardline.salesforce.api.ApplicationRequest;
+import com.forwardline.salesforce.api.ApplicationResponse;
+import com.forwardline.salesforce.api.LoginResponse;
 
 public class SalesforceFacade {
 
@@ -24,62 +24,62 @@ public class SalesforceFacade {
 				SalesforceFacade.CLIENT_ID, SalesforceFacade.SECRET_ID);
 	}
 
-	public CreateCustomerResponse getCustomer(String email) {
+	public CustomerResponse getCustomer(String email) {
 		
-		ConnectSFCustomer csf = new ConnectSFCustomer();
+		CustomerHelper csf = new CustomerHelper();
 		String scfResp = csf.getCustomer(logResp, email);
 
 		return null;
 	}
 
-	public CreateCustomerResponse postCustomer(CreateCustomerRequest ccr) {
+	public CustomerResponse postCustomer(CustomerRequest ccr) {
 
-		ConnectSFCustomer csf = new ConnectSFCustomer();
+		CustomerHelper csf = new CustomerHelper();
 		String scfResp = csf.postCustomer(logResp, ccr);
 
 		return null;
 	}
 
-	public CreateForsightResponse getForsight(String id) {
+	public ForsightResponse getForsight(String id) {
 		
-		ConnectSFForsight csf = new ConnectSFForsight();
+		ForsightHelper csf = new ForsightHelper();
 		String scfResp = csf.getForsight(logResp, id);
 		
 		return null;
 	}
 
-	public CreateForsightResponse postForsight(CreateForsightRequest cfr) {
+	public ForsightResponse postForsight(ForsightRequest cfr) {
 		
-		ConnectSFForsight csf = new ConnectSFForsight();
+		ForsightHelper csf = new ForsightHelper();
 		String scfResp = csf.postForsight(logResp, cfr);
 
 		return null;
 	}
 
-	public CreateLeadResponse getLead(String email) {
+	public LeadResponse getLead(String email) {
 		
-		ConnectSFLead csfl = new ConnectSFLead();
+		LeadHelper csfl = new LeadHelper();
 		String csflResp = csfl.getLead(logResp, email);
 
 		return null;
 	}
 
-	public CreateLeadResponse postLead(CreateLeadRequest clr) {
-		ConnectSFLead csfl = new ConnectSFLead();
+	public LeadResponse postLead(LeadRequest clr) {
+		LeadHelper csfl = new LeadHelper();
 		String csflResp = csfl.postLead(logResp, clr);
 
 		return null;
 	}
 
-	public CreateOLAResponse getOLA(String id) {
-		ConnectSFOLA csfo = new ConnectSFOLA();
+	public ApplicationResponse getOLA(String id) {
+		OLAHelper csfo = new OLAHelper();
 		String csfoResp = csfo.getOLA(logResp, id);
 
 		return null;
 	}
 
-	public CreateOLAResponse postOLA(CreateOLARequest cor) {
-		ConnectSFOLA csfo = new ConnectSFOLA();
+	public ApplicationResponse postOLA(ApplicationRequest cor) {
+		OLAHelper csfo = new OLAHelper();
 		String csfoResp = csfo.postOLA(logResp, cor);
 
 		return null;

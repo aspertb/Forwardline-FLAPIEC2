@@ -1,14 +1,14 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-import com.forwardline.salesforce.pojo.Lead;
+import com.forwardline.salesforce.api.pojo.Lead;
 
-public class CreateLeadResponse {
+public class LeadResponse {
 	
 	private boolean success;
 	private String errorMessage;
 	private Lead nLead;
 	
-	public CreateLeadResponse(boolean success, String errorMessage, Lead nLead) {
+	public LeadResponse(boolean success, String errorMessage, Lead nLead) {
 		super();
 		this.success = success;
 		this.errorMessage = errorMessage;

@@ -1,8 +1,8 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-import com.forwardline.salesforce.pojo.Forsight;
+import com.forwardline.salesforce.api.pojo.Forsight;
 
-public class CreateForsightResponse {
+public class ForsightResponse {
 	
 	private boolean success;
 	private String errorMessage;

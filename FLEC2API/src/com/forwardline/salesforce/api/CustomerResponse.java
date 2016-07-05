@@ -1,18 +1,17 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-import com.forwardline.salesforce.pojo.OLA;
+import com.forwardline.salesforce.api.pojo.Customer;
 
-public class CreateOLAResponse {
+public class CustomerResponse {
 	
 	private boolean success;
 	private String errorMessage;
-	private OLA ola;
+	private Customer customer;
 	
-	public CreateOLAResponse(boolean success, String errorMessage, OLA ola) {
-		super();
+	public CustomerResponse(boolean success, String errorMessage, Customer customer) {
 		this.success = success;
 		this.errorMessage = errorMessage;
-		this.ola = ola;
+		this.customer = customer;
 	}
 	
 	public boolean isSuccess() {
@@ -27,11 +26,11 @@ public class CreateOLAResponse {
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
-	public OLA getOla() {
-		return ola;
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setOla(OLA ola) {
-		this.ola = ola;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }

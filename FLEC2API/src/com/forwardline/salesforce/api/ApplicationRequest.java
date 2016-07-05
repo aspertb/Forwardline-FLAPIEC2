@@ -1,11 +1,11 @@
-package com.forwardline.salesforce.pojo;
+package com.forwardline.salesforce.api;
 
-public class OLA {
+public class ApplicationRequest {
 	
 	private String id;
 	private String name;
 	
-	public OLA(String id, String name) {
+	public ApplicationRequest(String id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,5 +23,5 @@ public class OLA {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

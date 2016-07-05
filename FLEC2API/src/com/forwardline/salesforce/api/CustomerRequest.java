@@ -1,14 +1,14 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-import com.forwardline.salesforce.pojo.Customer;
-import com.forwardline.salesforce.pojo.RequestHeader;
+import com.forwardline.salesforce.api.pojo.Customer;
+import com.forwardline.salesforce.api.pojo.RequestHeader;
 
-public class CreateCustomerRequest {
+public class CustomerRequest {
 
 	private RequestHeader header;
 	private Customer customer;
 	
-	public CreateCustomerRequest(RequestHeader header, Customer customer) {
+	public CustomerRequest(RequestHeader header, Customer customer) {
 		this.header = header;
 		this.customer = customer;
 	}

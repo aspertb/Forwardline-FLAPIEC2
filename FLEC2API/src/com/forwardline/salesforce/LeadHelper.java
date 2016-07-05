@@ -7,12 +7,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
-import com.forwardline.api.pojo.fundera.CreateLeadRequest;
-import com.forwardline.salesforce.pojo.LoginResponse;
 
-public class ConnectSFLead {
+import com.forwardline.salesforce.api.LeadRequest;
+import com.forwardline.salesforce.api.LoginResponse;
+
+public class LeadHelper {
 	
-public ConnectSFLead(){
+public LeadHelper(){
 		
 	}
 	
@@ -38,7 +39,7 @@ public ConnectSFLead(){
 		return null;
 	}
 	
-	public String postLead(LoginResponse loginResponse, CreateLeadRequest lead) {
+	public String postLead(LoginResponse loginResponse, LeadRequest lead) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/lead?");

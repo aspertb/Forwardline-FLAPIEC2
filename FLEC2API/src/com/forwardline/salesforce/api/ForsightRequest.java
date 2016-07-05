@@ -1,11 +1,11 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-public class CreateForsightRequest {
+public class ForsightRequest {
 	
 	private String id;
 	private String name;
 	
-	public CreateForsightRequest(String id, String name) {
+	public ForsightRequest(String id, String name) {
 		super();
 		this.id = id;
 		this.name = name;

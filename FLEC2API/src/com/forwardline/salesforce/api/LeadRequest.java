@@ -1,14 +1,14 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.salesforce.api;
 
-import com.forwardline.salesforce.pojo.Lead;
-import com.forwardline.salesforce.pojo.RequestHeader;
+import com.forwardline.salesforce.api.pojo.Lead;
+import com.forwardline.salesforce.api.pojo.RequestHeader;
 
-public class CreateLeadRequest {
+public class LeadRequest {
 	
 	private RequestHeader header;
 	private Lead nlead;
 	
-	public CreateLeadRequest(RequestHeader header, Lead nlead) {
+	public LeadRequest(RequestHeader header, Lead nlead) {
 		super();
 		this.header = header;
 		this.nlead = nlead;

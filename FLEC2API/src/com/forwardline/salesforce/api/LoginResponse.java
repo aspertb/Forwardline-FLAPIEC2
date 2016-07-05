@@ -1,4 +1,4 @@
-package com.forwardline.salesforce.pojo;
+package com.forwardline.salesforce.api;
 
 public class LoginResponse {
 	private String access_token;

@@ -8,12 +8,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.api.pojo.fundera.CreateForsightRequest;
-import com.forwardline.salesforce.pojo.LoginResponse;
+import com.forwardline.salesforce.api.ForsightRequest;
+import com.forwardline.salesforce.api.LoginResponse;
 
-public class ConnectSFForsight {
+public class ForsightHelper {
 
-	public ConnectSFForsight() {
+	public ForsightHelper() {
 
 	}
 
@@ -39,7 +39,7 @@ public class ConnectSFForsight {
 		return null;
 	}
 
-	public String postForsight(LoginResponse loginResponse, CreateForsightRequest cfr) {
+	public String postForsight(LoginResponse loginResponse, ForsightRequest cfr) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/forsight?");
