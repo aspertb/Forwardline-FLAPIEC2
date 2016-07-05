@@ -1,4 +1,4 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.api.fundera.pojo;
 
 import java.util.Date;
 

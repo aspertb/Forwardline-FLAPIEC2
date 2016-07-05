@@ -1,4 +1,4 @@
-package com.forwardline.api.pojo.fundera;
+package com.forwardline.api.fundera.pojo;
 
 public class Offer {
 	public String repayment;
