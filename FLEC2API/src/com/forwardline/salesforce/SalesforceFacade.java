@@ -11,15 +11,15 @@ import com.forwardline.salesforce.api.ApplicationResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 
 /*	TODO 1: This class should have only the operations supported by the APEX REST API. 
-   	See the Forwardline*API classes in FLDEVAPI. Each of those classes a OPERATION_* static variable. 
-  	Create methods based on those values.
+   			See the Forwardline*API classes in FLDEVAPI. Each of those classes a OPERATION_* static variable. 
+  			Create methods based on those values.
 	TODO 2: Doing the login in a constructor is not a good idea. 
-	Please move it to SalesforceHelper and add a login method in the facade. 
-	Caching the loginResponse in the class is fine. Always pass the keys and credentials to the login method. 
-	Do not cache those.
+			Please move it to SalesforceHelper and add a login method in the facade. 
+			Caching the loginResponse in the class is fine. Always pass the keys and credentials to the login method. 
+			Do not cache those.
 	TODO 3: I have renamed your connection* classes to helper classes. 
-	I am fine if you want just want to use the OLA helper for all the methods.
-	TODO 4: FYI, I might refactor this after your done.*/
+			I am fine if you want just want to use the OLA helper for all the methods.
+	TODO 4: FYI, I might refactor this after your done.	*/
 
 public class SalesforceFacade {
 
@@ -27,12 +27,17 @@ public class SalesforceFacade {
 	public static final String PASSWORD = "fl82NYla#";
 	public static final String CLIENTID = "3MVG98dostKihXN46h.7UoAs4kwDqkPbYxSJTg2mThCWISAJ7AidlI9JFAlKri6iMPVwhCGpvxLtDWGfUR1Ey";
 	public static final String SECRETID = "7786943219302079736";
-
-	SalesforceHelper sfHelper = new SalesforceHelper();
-	private LoginResponse logResp = sfHelper.sfLogin(USERNAME, PASSWORD, CLIENTID, SECRETID);
+	private LoginResponse logResp;
 
 	public SalesforceFacade() {
 
+	}
+
+	public LoginResponse login() {
+		SalesforceHelper sfHelper = new SalesforceHelper();
+		if (logResp == null)
+			logResp = sfHelper.sfLogin(USERNAME, PASSWORD, CLIENTID, SECRETID);
+		return logResp;
 	}
 
 	public CustomerResponse getCustomer(String email) {
