@@ -10,27 +10,33 @@ import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.ApplicationResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 
-//TODO 1: This class should have only the operations supported by the APEX REST API. See the Forwardline*API classes in FLDEVAPI. Each of those classes a OPERATION_* static variable. Create methods based on those values.
-//TODO 2: Doing the login in a constructor is not a good idea. Please move it to SalesforceHelper and add a login method in the facade. Caching the loginResponse in the class is fine. Always pass the keys and credentials to the login method. Do not cache those.
-//TODO 3: I have renamed your connection* classes to helper classes. I am fine if you want just want to use the OLA helper for all the methods.
-//TODO 4: FYI, I might refactor this after your done.
+/*	TODO 1: This class should have only the operations supported by the APEX REST API. 
+   	See the Forwardline*API classes in FLDEVAPI. Each of those classes a OPERATION_* static variable. 
+  	Create methods based on those values.
+	TODO 2: Doing the login in a constructor is not a good idea. 
+	Please move it to SalesforceHelper and add a login method in the facade. 
+	Caching the loginResponse in the class is fine. Always pass the keys and credentials to the login method. 
+	Do not cache those.
+	TODO 3: I have renamed your connection* classes to helper classes. 
+	I am fine if you want just want to use the OLA helper for all the methods.
+	TODO 4: FYI, I might refactor this after your done.*/
 
 public class SalesforceFacade {
 
-	private static final String USERNAME = "shujaath.mohammed@forwardline.com.fldevapi";
-	private static final String PASSWORD = "fl82NYla#";
-	private static final String CLIENT_ID = "3MVG98dostKihXN46h.7UoAs4kwDqkPbYxSJTg2mThCWISAJ7AidlI9JFAlKri6iMPVwhCGpvxLtDWGfUR1Ey";
-	private static final String SECRET_ID = "7786943219302079736";
-	private LoginResponse logResp;
+	public static final String USERNAME = "shujaath.mohammed@forwardline.com.fldevapi";
+	public static final String PASSWORD = "fl82NYla#";
+	public static final String CLIENTID = "3MVG98dostKihXN46h.7UoAs4kwDqkPbYxSJTg2mThCWISAJ7AidlI9JFAlKri6iMPVwhCGpvxLtDWGfUR1Ey";
+	public static final String SECRETID = "7786943219302079736";
+
+	SalesforceHelper sfHelper = new SalesforceHelper();
+	private LoginResponse logResp = sfHelper.sfLogin(USERNAME, PASSWORD, CLIENTID, SECRETID);
 
 	public SalesforceFacade() {
-		System.out.println("getting login..");
-		this.logResp = new RestLogin().login(SalesforceFacade.USERNAME, SalesforceFacade.PASSWORD,
-				SalesforceFacade.CLIENT_ID, SalesforceFacade.SECRET_ID);
+
 	}
-	
+
 	public CustomerResponse getCustomer(String email) {
-		
+
 		CustomerHelper csf = new CustomerHelper();
 		String scfResp = csf.getCustomer(logResp, email);
 
@@ -46,15 +52,15 @@ public class SalesforceFacade {
 	}
 
 	public ForsightResponse getForsight(String id) {
-		
+
 		ForsightHelper csf = new ForsightHelper();
 		String scfResp = csf.getForsight(logResp, id);
-		
+
 		return null;
 	}
 
 	public ForsightResponse postForsight(ForsightRequest cfr) {
-		
+
 		ForsightHelper csf = new ForsightHelper();
 		String scfResp = csf.postForsight(logResp, cfr);
 
@@ -62,7 +68,7 @@ public class SalesforceFacade {
 	}
 
 	public LeadResponse getLead(String email) {
-		
+
 		LeadHelper csfl = new LeadHelper();
 		String csflResp = csfl.getLead(logResp, email);
 
