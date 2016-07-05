@@ -23,20 +23,16 @@ import com.forwardline.salesforce.api.LoginResponse;
 
 public class SalesforceFacade {
 
-	public static final String USERNAME = "shujaath.mohammed@forwardline.com.fldevapi";
-	public static final String PASSWORD = "fl82NYla#";
-	public static final String CLIENTID = "3MVG98dostKihXN46h.7UoAs4kwDqkPbYxSJTg2mThCWISAJ7AidlI9JFAlKri6iMPVwhCGpvxLtDWGfUR1Ey";
-	public static final String SECRETID = "7786943219302079736";
 	private LoginResponse logResp;
 
 	public SalesforceFacade() {
 
 	}
 
-	public LoginResponse login() {
+	public LoginResponse login(String userName, String password, String clientId, String SecretId) {
 		SalesforceHelper sfHelper = new SalesforceHelper();
 		if (logResp == null)
-			logResp = sfHelper.sfLogin(USERNAME, PASSWORD, CLIENTID, SECRETID);
+			logResp = sfHelper.sfLogin(userName, password, clientId, SecretId);
 		return logResp;
 	}
 
