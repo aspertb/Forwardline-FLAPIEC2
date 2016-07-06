@@ -6,9 +6,11 @@ import com.forwardline.salesforce.api.ForsightRequest;
 import com.forwardline.salesforce.api.ForsightResponse;
 import com.forwardline.salesforce.api.LeadRequest;
 import com.forwardline.salesforce.api.LeadResponse;
+import com.forwardline.api.fundera.pojo.Offers;
 import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.ApplicationResponse;
 import com.forwardline.salesforce.api.LoginResponse;
+import com.forwardline.salesforce.api.pojo.Contact;
 
 /*	TODO 1: This class should have only the operations supported by the APEX REST API. 
    			See the Forwardline*API classes in FLDEVAPI. Each of those classes a OPERATION_* static variable. 
@@ -21,6 +23,7 @@ import com.forwardline.salesforce.api.LoginResponse;
 			I am fine if you want just want to use the OLA helper for all the methods.
 	TODO 4: FYI, I might refactor this after your done.	*/
 
+@SuppressWarnings("unused")
 public class SalesforceFacade {
 
 	private LoginResponse logResp;
@@ -36,21 +39,22 @@ public class SalesforceFacade {
 		return logResp;
 	}
 
-	public CustomerResponse getCustomer(String email) {
+	public Offers getCustomer(String email) {
 
-		CustomerHelper csf = new CustomerHelper();
-		String scfResp = csf.getCustomer(logResp, email);
+		CustomerHelper ch = new CustomerHelper();
+		Offers offers = ch.getCustomer(logResp, email);
 
-		return null;
+		return offers;
 	}
 
-	public CustomerResponse postCustomer(CustomerRequest ccr) {
+	/* Not needed at this time
+	 * public CustomerResponse postCustomer(CustomerRequest ccr) {
 
 		CustomerHelper csf = new CustomerHelper();
 		String scfResp = csf.postCustomer(logResp, ccr);
 
 		return null;
-	}
+	}*/
 
 	public ForsightResponse getForsight(String id) {
 
@@ -96,4 +100,19 @@ public class SalesforceFacade {
 
 		return null;
 	}
+	
+	public ApplicationResponse getContact(String email) {
+		OLAHelper csfo = new OLAHelper();
+		String csfoResp = csfo.getOLA(logResp, email);
+
+		return null;
+	}
+
+	/* Not needed at this time
+	 * public ApplicationResponse postContact(Contact con) {
+		OLAHelper csfo = new OLAHelper();
+		String csfoResp = csfo.postOLA(logResp, con);
+
+		return null;
+	}*/
 }

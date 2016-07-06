@@ -1,100 +1,48 @@
 package com.forwardline.api.fundera.pojo;
 
-import java.util.Date;
+import java.util.List;
+
+import com.forwardline.salesforce.api.pojo.Contact;
+import com.forwardline.salesforce.api.pojo.Customer;
+import com.forwardline.salesforce.api.pojo.RequestHeader;
 
 public class Owners {
 	
-	private String first_name;
-	private String last_name;
-	private String email;
-	private String phone_number;
-	private Date dob;
-	private String ssn;
-	private String street_line1;
-	private String street_line2;
-	private String city;
-	private String state;
-	private String zip;
-	private Double annual_income;
-	private Double ownership_pct;
-	
-	public String getFirst_name() {
-		return first_name;
+	public RequestHeader RequestHeader;
+	public List<Contact> conList;
+	public Customer cust;
+
+	public Owners(com.forwardline.salesforce.api.pojo.RequestHeader requestHeader, List<Contact> conList,
+			Customer cust) {
+		RequestHeader = requestHeader;
+		this.conList = conList;
+		this.cust = cust;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+
+	public Owners() {
 	}
-	public String getLast_name() {
-		return last_name;
+
+	public RequestHeader getRequestHeader() {
+		return RequestHeader;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+
+	public void setRequestHeader(RequestHeader requestHeader) {
+		RequestHeader = requestHeader;
 	}
-	public String getEmail() {
-		return email;
+
+	public List<Contact> getContats() {
+		return conList;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setOwners(List<Contact> conList) {
+		this.conList = conList;
 	}
-	public String getPhone_number() {
-		return phone_number;
+
+	public Customer getCompany() {
+		return cust;
 	}
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
+
+	public void setCompany(Customer cust) {
+		this.cust = cust;
 	}
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-	public String getStreet_line1() {
-		return street_line1;
-	}
-	public void setStreet_line1(String street_line1) {
-		this.street_line1 = street_line1;
-	}
-	public String getStreet_line2() {
-		return street_line2;
-	}
-	public void setStreet_line2(String street_line2) {
-		this.street_line2 = street_line2;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public Double getAnnual_income() {
-		return annual_income;
-	}
-	public void setAnnual_income(Double annual_income) {
-		this.annual_income = annual_income;
-	}
-	public Double getOwnership_pct() {
-		return ownership_pct;
-	}
-	public void setOwnership_pct(Double ownership_pct) {
-		this.ownership_pct = ownership_pct;
-	}
-	public String getSsn() {
-		return ssn;
-	}
-	public void setSsn(String ssn) {
-		this.ssn = ssn;
-	}
-	
 }

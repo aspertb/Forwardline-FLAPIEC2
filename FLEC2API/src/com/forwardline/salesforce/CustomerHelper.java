@@ -1,5 +1,7 @@
 package com.forwardline.salesforce;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -8,8 +10,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
+import com.forwardline.api.fundera.pojo.Offers;
 import com.forwardline.salesforce.api.CustomerRequest;
 import com.forwardline.salesforce.api.LoginResponse;
+import com.google.gson.Gson;
 
 public class CustomerHelper {
 	
@@ -17,7 +21,8 @@ public class CustomerHelper {
 		
 	}
 	
-	public String getCustomer(LoginResponse loginResponse, String email) {
+	public Offers getCustomer(LoginResponse loginResponse, String email) {
+		Offers offers = null;
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpGet get = new HttpGet(loginResponse.getInstance_url() + "/services/apexrest/forwardline/customer?");
@@ -26,17 +31,24 @@ public class CustomerHelper {
 		
 		URIBuilder uriBuilder = new URIBuilder(get.getURI());
 		uriBuilder.addParameter("email", email);
+		uriBuilder.addParameter("operation", "is_customer");
 
 		try {
 			response = httpClient.execute(get);
-		    HttpEntity respEntity = response.getEntity();
-		    if (respEntity != null) {
-		        // EntityUtils to get the response content
-		    }
+		    BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		    String in;
+			StringBuffer json = new StringBuffer();
+
+			while ((in = readResponse.readLine()) != null) {
+				json.append(in);
+			}
+			Gson gson = new Gson();
+			offers = gson.fromJson(json.toString(), Offers.class);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return offers;
 	}
 	
 	public String postCustomer(LoginResponse loginResponse, CustomerRequest cust) {

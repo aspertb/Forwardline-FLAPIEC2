@@ -16,9 +16,9 @@ import org.apache.http.message.BasicNameValuePair;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.google.gson.Gson;
 
-//TODO 1: This classes should be used for logic around the salesforce rest api
-//TODO 2: Do not cache anything here
-//TODO 3: Add the login method here. Remember credentials and tokens are passed as parameters.
+/*	TODO 1: This classes should be used for logic around the salesforce rest api
+	TODO 2: Do not cache anything here
+	TODO 3: Add the login method here. Remember credentials and tokens are passed as parameters.*/
 public class SalesforceHelper {
 
 	public SalesforceHelper() {
@@ -46,11 +46,8 @@ public class SalesforceHelper {
 				json = new StringBuffer(json).append(line).toString();
 
 			System.out.println("Login response......");
-			System.out.println(json);
 			Gson gson = new Gson();
 			LoginResponse lr = gson.fromJson(json, LoginResponse.class);
-			System.out.println("Instance Url " + lr.getInstance_url());
-			System.out.println("Access Token " + lr.getAccess_token());
 			return lr;
 		} catch (Exception e) {
 			e.printStackTrace();

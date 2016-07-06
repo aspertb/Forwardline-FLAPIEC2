@@ -10,7 +10,12 @@ public class Lead {
 	private String phone;
 	private String mobilePhone;
 
-	public Lead(String id, String firstName, String lastName, String email, String companyName, String phone, String mobilePhone) {
+	public Lead() {
+
+	}
+
+	public Lead(String id, String firstName, String lastName, String email, String companyName, String phone,
+			String mobilePhone) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

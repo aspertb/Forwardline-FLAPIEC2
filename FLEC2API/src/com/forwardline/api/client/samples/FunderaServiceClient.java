@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import com.forwardline.api.fundera.pojo.TestClientReq;
+import com.forwardline.api.fundera.pojo.Offers;
+import com.forwardline.api.fundera.pojo.Owners;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -17,7 +17,7 @@ public class FunderaServiceClient {
 	private static void getOffers() {
 		Gson gson = new Gson();
 		try {
-			TestClientReq request = new TestClientReq();
+			Owners request = new Owners();
 			ClientConfig clientConfig = new DefaultClientConfig();
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 			Client client = Client.create(clientConfig);
@@ -34,14 +34,14 @@ public class FunderaServiceClient {
 				json.append(inputLine);
 			}
 			if (json != null) {
-				request = gson.fromJson(json.toString(), TestClientReq.class);
+				request = gson.fromJson(json.toString(), Owners.class);
 			}
 
-			ClientResponse response = webResource.accept("application/json").type("application/json")
-					.post(ClientResponse.class, request);
+			Offers response = webResource.accept("application/json").type("application/json").header("operation", "is_customer")
+					.post(Offers.class, request);
 
-			if (response.getStatus() != 200)
-				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+			if (response == null)
+				throw new RuntimeException("Failed : HTTP error code : ");
 			// CreateLeadResponse res = response.getEntity(CreateLeadResponse.class);
 			System.out.println("Server response .... \n");
 
