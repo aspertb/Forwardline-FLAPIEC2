@@ -9,6 +9,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 
 import com.forwardline.salesforce.api.ForsightRequest;
+import com.forwardline.salesforce.api.ForsightResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 
 public class ForsightHelper {
@@ -17,7 +18,7 @@ public class ForsightHelper {
 
 	}
 
-	public String getForsight(LoginResponse loginResponse, String id) {
+	public ForsightResponse getForsight(LoginResponse loginResponse, String id) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpGet get = new HttpGet(loginResponse.getInstance_url() + "/services/apexrest/forwardline/forsight?");
@@ -39,13 +40,16 @@ public class ForsightHelper {
 		return null;
 	}
 
-	public String postForsight(LoginResponse loginResponse, ForsightRequest cfr) {
+	public ForsightResponse postForsight(LoginResponse loginResponse, ForsightRequest cfr) {
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpResponse response;
 		HttpPost post = new HttpPost(loginResponse.getInstance_url() + "/services/apexrest/forwardline/forsight?");
 		post.setHeader("Authorization", "OAuth " + loginResponse.getAccess_token());
 		post.setHeader("Content-Type", "application/json");
 		post.setEntity((HttpEntity) cfr);
+		
+		URIBuilder uriBuilder = new URIBuilder(post.getURI());
+		uriBuilder.addParameter("operation", "run_analysis");
 
 		try {
 			response = httpClient.execute(post);

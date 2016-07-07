@@ -8,7 +8,7 @@ public class CustomerLookupResponse {
 	public Customer customer;
 
 	public CustomerLookupResponse() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public boolean isSuccess() {

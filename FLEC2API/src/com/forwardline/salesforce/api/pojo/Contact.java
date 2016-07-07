@@ -13,6 +13,10 @@ public class Contact {
 		this.email = email;
 	}
 
+	public Contact() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getId() {
 		return id;
 	}

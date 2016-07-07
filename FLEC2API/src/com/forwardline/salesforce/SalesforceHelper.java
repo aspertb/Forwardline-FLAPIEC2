@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 public class SalesforceHelper {
 
 	public SalesforceHelper() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public LoginResponse sfLogin(String userName, String password, String clientId, String clientSecret) {

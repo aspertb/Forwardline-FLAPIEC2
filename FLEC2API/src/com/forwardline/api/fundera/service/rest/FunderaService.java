@@ -1,8 +1,5 @@
 package com.forwardline.api.fundera.service.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,14 +20,14 @@ public class FunderaService {
 	@Path("/getOffer/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Offers> getOffer(List<Owners> ownersList, String opr) {
+	public Offers getOffer(Owners owners, String opr) {
 		
-		List<Offers> oList = new ArrayList<Offers>();
+		Offers offers = new Offers();
 		FunderaAPIHelper fHelper = new FunderaAPIHelper();
-		oList = fHelper.getOffer(ownersList);
+		offers = fHelper.getOffer(owners);
 		System.out.println("Returning list of offers...");
 		
-		return oList;
+		return offers;
 		
 	}
 }

@@ -1,13 +1,9 @@
 package com.forwardline.salesforce;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -20,11 +16,6 @@ import com.forwardline.salesforce.api.LoginResponse;
 import com.google.gson.Gson;
 
 public class RestLogin {
-	
-	private String userName = "";
-	private String password = "";
-	private String clientId = "";
-	private String secretId = "";
 	
 	public LoginResponse login(String userName, String password, String clientId, String clientSecret) {
 		HttpClient http = HttpClients.createDefault();
@@ -59,17 +50,17 @@ public class RestLogin {
 		return null;
 	}
 	
-	public LoginResponse getLoginRes(){
+	/*public LoginResponse getLoginRes(){
 		
 		RestLogin login = new RestLogin();
 		Properties p = new Properties();
 		
 		FileInputStream f;
 		try {
-			/*
+			
 			 * This absolute path will be changed at a later point of time, it
 			 * was working earlier but somehow system is unable to find it.
-			 */
+			 
 			f = new FileInputStream("C:\\Users\\shujaath.mohammed\\Desktop\\FL_WS\\FLEC2API\\application.properties");
 			// f = new FileInputStream("application.properties");
 			p.load(f);
@@ -86,10 +77,5 @@ public class RestLogin {
 		}
 		
 		return null;
-	}
-
-	/*
-	 * public static void main(String args[]) { RestLogin l = new RestLogin();
-	 * l.login("xyx", "xyx", "3122", "sdfsdfsdf"); }
-	 */
+	}*/
 }

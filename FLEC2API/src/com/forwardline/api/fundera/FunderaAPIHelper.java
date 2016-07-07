@@ -28,21 +28,22 @@ public class FunderaAPIHelper {
 		TODO 2: Based on the fundera documentation, find the root type of the response and that 
 				should be the return type for this method.*/
 
-	public List<Offers> getOffer(List<Owners> owners) {
-		List<Offers> oList = new ArrayList<Offers>();
+	public Offers getOffer(Owners owners) {
+		Offers offrs = new Offers();
 
 		Gson gson = new Gson();
-		String clReq = gson.toJson(oList);
+		String clReq = gson.toJson(offrs);
 		StringEntity strEty;
 		try {
 			strEty = new StringEntity(clReq);
 			SalesforceFacade sfc = new SalesforceFacade();
 			LoginResponse lr = sfc.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
+			// sfc.isCustomer("xyz@xyz.com");
 			sfc.getCustomer("xyz@xyz.com");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return oList;
+		return offrs;
 	}
 }

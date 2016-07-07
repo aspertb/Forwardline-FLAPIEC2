@@ -9,6 +9,7 @@ import com.forwardline.salesforce.api.LeadResponse;
 import com.forwardline.api.fundera.pojo.Offers;
 import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.ApplicationResponse;
+import com.forwardline.salesforce.api.ContactLookupResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Contact;
 
@@ -39,6 +40,7 @@ public class SalesforceFacade {
 		return logResp;
 	}
 
+	// SET APPROPRIATE VALUE FOR OPERATION VALUE IN ORDER TO USE IT.
 	public Offers getCustomer(String email) {
 
 		CustomerHelper ch = new CustomerHelper();
@@ -46,6 +48,14 @@ public class SalesforceFacade {
 
 		return offers;
 	}
+	
+	/*public Boolean isCustomer(String email) {
+
+		CustomerHelper ch = new CustomerHelper();
+		Boolean isCust = ch.isCustomer(logResp, email);
+
+		return isCust;
+	}*/
 
 	/* Not needed at this time
 	 * public CustomerResponse postCustomer(CustomerRequest ccr) {
@@ -59,53 +69,60 @@ public class SalesforceFacade {
 	public ForsightResponse getForsight(String id) {
 
 		ForsightHelper csf = new ForsightHelper();
-		String scfResp = csf.getForsight(logResp, id);
+		ForsightResponse scfResp = csf.getForsight(logResp, id);
 
-		return null;
+		return scfResp;
 	}
 
 	public ForsightResponse postForsight(ForsightRequest cfr) {
 
 		ForsightHelper csf = new ForsightHelper();
-		String scfResp = csf.postForsight(logResp, cfr);
+		ForsightResponse scfResp = csf.postForsight(logResp, cfr);
 
-		return null;
+		return scfResp;
 	}
 
 	public LeadResponse getLead(String email) {
 
 		LeadHelper csfl = new LeadHelper();
-		String csflResp = csfl.getLead(logResp, email);
+		LeadResponse csflResp = csfl.getLead(logResp, email);
 
 		return null;
 	}
 
 	public LeadResponse postLead(LeadRequest clr) {
 		LeadHelper csfl = new LeadHelper();
-		String csflResp = csfl.postLead(logResp, clr);
+		LeadResponse csflResp = csfl.postLead(logResp, clr);
 
-		return null;
+		return csflResp;
+	}
+	
+	public LeadResponse convertLead(LeadRequest clr) {
+		LeadHelper csfl = new LeadHelper();
+		LeadResponse csflResp = csfl.convertLead(logResp, clr);
+
+		return csflResp;
 	}
 
 	public ApplicationResponse getOLA(String id) {
-		OLAHelper csfo = new OLAHelper();
-		String csfoResp = csfo.getOLA(logResp, id);
+		OLAHelper olaH = new OLAHelper();
+		ApplicationResponse aResp = olaH.getOLA(logResp, id);
 
-		return null;
+		return aResp;
 	}
 
 	public ApplicationResponse postOLA(ApplicationRequest cor) {
-		OLAHelper csfo = new OLAHelper();
-		String csfoResp = csfo.postOLA(logResp, cor);
+		OLAHelper olaH = new OLAHelper();
+		ApplicationResponse aResp = olaH.postOLA(logResp, cor);
 
-		return null;
+		return aResp;
 	}
 	
-	public ApplicationResponse getContact(String email) {
-		OLAHelper csfo = new OLAHelper();
-		String csfoResp = csfo.getOLA(logResp, email);
+	public ContactLookupResponse getContact(String email) {
+		ContactHelper ch = new ContactHelper();
+		ContactLookupResponse chResp = ch.getContact(logResp, email);
 
-		return null;
+		return chResp;
 	}
 
 	/* Not needed at this time

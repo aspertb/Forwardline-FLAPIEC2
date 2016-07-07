@@ -15,6 +15,10 @@ public class LeadResponse {
 		this.nLead = nLead;
 	}
 	
+	public LeadResponse() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
