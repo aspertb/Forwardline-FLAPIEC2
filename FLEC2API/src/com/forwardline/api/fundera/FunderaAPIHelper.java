@@ -39,7 +39,7 @@ public class FunderaAPIHelper {
 			SalesforceFacade sfc = new SalesforceFacade();
 			LoginResponse lr = sfc.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
 			// sfc.isCustomer("xyz@xyz.com");
-			sfc.getCustomer("xyz@xyz.com");
+			sfc.isCustomerExist("xyz@xyz.com");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

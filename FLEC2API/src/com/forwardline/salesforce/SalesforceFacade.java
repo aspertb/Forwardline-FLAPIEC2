@@ -41,7 +41,7 @@ public class SalesforceFacade {
 	}
 
 	// SET APPROPRIATE VALUE FOR OPERATION VALUE IN ORDER TO USE IT.
-	public Offers getCustomer(String email) {
+	public Offers isCustomerExist(String email) {
 
 		CustomerHelper ch = new CustomerHelper();
 		Offers offers = ch.getCustomer(logResp, email);
@@ -66,7 +66,7 @@ public class SalesforceFacade {
 		return null;
 	}*/
 
-	public ForsightResponse getForsight(String id) {
+	public ForsightResponse lookupForsight(String id) {
 
 		ForsightHelper csf = new ForsightHelper();
 		ForsightResponse scfResp = csf.getForsight(logResp, id);
@@ -74,7 +74,7 @@ public class SalesforceFacade {
 		return scfResp;
 	}
 
-	public ForsightResponse postForsight(ForsightRequest cfr) {
+	public ForsightResponse runAnalysis(ForsightRequest cfr) {
 
 		ForsightHelper csf = new ForsightHelper();
 		ForsightResponse scfResp = csf.postForsight(logResp, cfr);
@@ -82,7 +82,7 @@ public class SalesforceFacade {
 		return scfResp;
 	}
 
-	public LeadResponse getLead(String email) {
+	public LeadResponse isExistingLead(String email) {
 
 		LeadHelper csfl = new LeadHelper();
 		LeadResponse csflResp = csfl.getLead(logResp, email);
@@ -90,7 +90,7 @@ public class SalesforceFacade {
 		return null;
 	}
 
-	public LeadResponse postLead(LeadRequest clr) {
+	public LeadResponse createLead(LeadRequest clr) {
 		LeadHelper csfl = new LeadHelper();
 		LeadResponse csflResp = csfl.postLead(logResp, clr);
 
@@ -104,31 +104,31 @@ public class SalesforceFacade {
 		return csflResp;
 	}
 
-	public ApplicationResponse getOLA(String id) {
+	public ApplicationResponse hasApplication(String id) {
 		OLAHelper olaH = new OLAHelper();
 		ApplicationResponse aResp = olaH.getOLA(logResp, id);
 
 		return aResp;
 	}
 
-	public ApplicationResponse postOLA(ApplicationRequest cor) {
+	public ApplicationResponse createApplication(ApplicationRequest cor) {
 		OLAHelper olaH = new OLAHelper();
 		ApplicationResponse aResp = olaH.postOLA(logResp, cor);
 
 		return aResp;
 	}
 	
-	public ContactLookupResponse getContact(String email) {
+	public ContactLookupResponse isContactExist(String email) {
 		ContactHelper ch = new ContactHelper();
 		ContactLookupResponse chResp = ch.getContact(logResp, email);
 
 		return chResp;
 	}
 
-	/* Not needed at this time
-	 * public ApplicationResponse postContact(Contact con) {
+	// Not needed at this time
+	  /*public ApplicationResponse createContact(ApplicationRequest con) {
 		OLAHelper csfo = new OLAHelper();
-		String csfoResp = csfo.postOLA(logResp, con);
+		ApplicationResponse csfoResp = csfo.postOLA(logResp, con);
 
 		return null;
 	}*/
