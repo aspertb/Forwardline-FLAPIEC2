@@ -1,27 +1,30 @@
 package com.forwardline.salesforce.api;
 
+import com.forwardline.salesforce.api.pojo.Application;
+import com.forwardline.salesforce.api.pojo.RequestHeader;
+
 public class ApplicationRequest {
-	
-	private String id;
-	private String name;
-	
-	public ApplicationRequest(String id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	private RequestHeader header;
+	private Application application;
+
+	public ApplicationRequest() {
+
 	}
-	
-	public String getId() {
-		return id;
+
+	public RequestHeader getHeader() {
+		return header;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public void setHeader(RequestHeader header) {
+		this.header = header;
 	}
-	public String getName() {
-		return name;
+
+	public Application getApplication() {
+		return application;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 
 }

@@ -1,19 +1,19 @@
 package com.forwardline.api.fundera;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.entity.StringEntity;
-
-import com.forwardline.api.fundera.pojo.Offers;
-import com.forwardline.api.fundera.pojo.Owners;
+import com.forwardline.api.fundera.pojo.Company;
+import com.forwardline.api.fundera.pojo.FunderaRequest;
+import com.forwardline.api.fundera.pojo.FunderaResponse;
+import com.forwardline.api.fundera.pojo.Person;
 import com.forwardline.salesforce.SalesforceFacade;
 import com.forwardline.salesforce.api.LoginResponse;
-import com.google.gson.Gson;
+import com.forwardline.salesforce.api.pojo.Contact;
+import com.forwardline.salesforce.api.pojo.Lead;
 
 @SuppressWarnings("unused")
 public class FunderaAPIHelper {
-	
+
 	public static final String USERNAME = "shujaath.mohammed@forwardline.com.fldevapi";
 	public static final String PASSWORD = "fl82NYla#";
 	public static final String CLIENTID = "3MVG98dostKihXN46h.7UoAs4kwDqkPbYxSJTg2mThCWISAJ7AidlI9JFAlKri6iMPVwhCGpvxLtDWGfUR1Ey";
@@ -22,28 +22,51 @@ public class FunderaAPIHelper {
 	public FunderaAPIHelper() {
 
 	}
-	
-	/*	TODO 1: Based on the fundera documentation determine what that root type is in the request. 
-				The root type must passed as a parameter to this method
-		TODO 2: Based on the fundera documentation, find the root type of the response and that 
-				should be the return type for this method.*/
 
-	public Offers getOffer(Owners owners) {
-		Offers offrs = new Offers();
+	private Lead getLead(FunderaRequest request) {
+		Company merchant = request.company;
+		Lead l = new Lead();
+		l.setCompanyName(merchant.getBusiness_name());
+		// TODO: set other fields
+		return l;
+	}
 
-		Gson gson = new Gson();
-		String clReq = gson.toJson(offrs);
-		StringEntity strEty;
+	private Contact getPrimaryContact(FunderaRequest request) {
+		List<Person> owners = request.owners;
+		Person primaryOwner = owners.get(0);
+		// TODO. for future. how do we determine who the primary is when there
+		// are multiple owners.
+		Contact cont = new Contact();
+		cont.setEmail(primaryOwner.getEmail());
+		// TODO: fillin in the other fields
+		return cont;
+	}
+
+	public FunderaResponse getOffers(FunderaRequest request) {
+		FunderaResponse fndResponse = new FunderaResponse();
+		// TODO: For future. validations here. Assume happy path for now.
+
+		Contact primaryContact = getPrimaryContact(request);
+		Lead merchant = getLead(request);
 		try {
-			strEty = new StringEntity(clReq);
-			SalesforceFacade sfc = new SalesforceFacade();
-			LoginResponse lr = sfc.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
-			// sfc.isCustomer("xyz@xyz.com");
-			sfc.isCustomerExist("xyz@xyz.com");
+			SalesforceFacade sfFacade = new SalesforceFacade();
+			sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			fndResponse.setSuccess(false);
 		}
-		return offrs;
+
+		/**
+		 * ????? Offer offrs = new Offer();
+		 * 
+		 * Gson gson = new Gson(); String clReq = gson.toJson(offrs);
+		 * StringEntity strEty; try { strEty = new StringEntity(clReq);
+		 * SalesforceFacade sfc = new SalesforceFacade(); LoginResponse lr =
+		 * sfc.login(USERNAME, PASSWORD, CLIENTID, SECRETID); //
+		 * sfc.isCustomer("xyz@xyz.com"); sfc.isCustomerExist("xyz@xyz.com");
+		 * 
+		 * } catch (Exception e) { e.printStackTrace(); }
+		 **/
+		return fndResponse;
 	}
 }

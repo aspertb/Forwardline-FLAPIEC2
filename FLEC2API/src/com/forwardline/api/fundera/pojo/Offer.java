@@ -1,13 +1,13 @@
 package com.forwardline.api.fundera.pojo;
 
-public class Offers {
+public class Offer {
 	public String repayment;
 	public Double loan_amount;
 	public Double interest_rate;
 	public Integer term;
 	public Double origination_fee;
 
-	public Offers() {
+	public Offer() {
 	}
 
 	public String getRepayment() {
