@@ -62,12 +62,11 @@ public class FunderaAPIHelper {
 		List<Contact> conList = new ArrayList<Contact>();
 		Lead merchant = getLead(request);
 		Opportunity opp = new Opportunity();
-		opp.setName(request.getCompany().business_name + "_Opp");
 
 		conList.add(primaryContact);
 		app.setGuarantors(conList);
 		app.setLead(merchant);
-		app.setName(request.getCompany().business_name);
+		// app.setName(request.getCompany().business_name);
 
 		// TODO Set Customer at the time of creation of Application
 		// app.setAccount(account);
@@ -85,7 +84,6 @@ public class FunderaAPIHelper {
 		Application appl = getApplication(request);
 		String partner = "Fundera";
 
-		FunderaAPIHelper helper = new FunderaAPIHelper();
 		try {
 			SalesforceFacade sfFacade = new SalesforceFacade();
 			sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
@@ -117,7 +115,7 @@ public class FunderaAPIHelper {
 
 					if (l != null) {
 						Opportunity opp = new Opportunity();
-						opp.setName(appl.getName() + "-IF");
+						opp.setName(l.getCompanyName() + "_IF");
 						appl.setAccount(c);
 						newApp = sfFacade.createApplication(appl, partner);
 					}
@@ -143,6 +141,8 @@ public class FunderaAPIHelper {
 					if (con != null) {
 
 						// Create application
+						Opportunity opp = new Opportunity();
+						opp.setName(l.getCompanyName() + "_IF");
 						appl.setAccount(c);
 						newApp = sfFacade.createApplication(appl, partner);
 					}
