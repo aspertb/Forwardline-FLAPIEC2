@@ -31,6 +31,7 @@ public class FunderaAPIHelper {
 
 		Company merchant = request.company;
 		Person guarantor = request.getOwners().get(0);
+
 		Lead l = new Lead();
 		l.setCompanyName(merchant.getBusiness_name());
 		l.setPhone(merchant.getPhone_number());
@@ -59,16 +60,17 @@ public class FunderaAPIHelper {
 
 		Application app = new Application();
 		Contact primaryContact = getPrimaryContact(request);
+
 		List<Contact> conList = new ArrayList<Contact>();
+
 		Lead merchant = getLead(request);
-		Opportunity opp = new Opportunity();
 
 		conList.add(primaryContact);
 		app.setGuarantors(conList);
 		app.setLead(merchant);
 		// app.setName(request.getCompany().business_name);
 
-		// TODO Set Customer at the time of creation of Application
+		// TODO Set Customer and Opportunity at the time of Application creation
 		// app.setAccount(account);
 		// app.setOpportunity(opportunity);
 
@@ -92,24 +94,26 @@ public class FunderaAPIHelper {
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
 			Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 
-			// If customer exist, look for application using primary contact's
-			// email
+			// If customer exist, look for application using merchant's email
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
 
 				// If application exisit, throw error
 				if (app != null) {
+
 					fndResponse.setSuccess(false);
+					throw new RuntimeException("Application Already exists");
+
 				} else {
 
-					// Creating Lead, and then create an Application upon
-					// successful creation of Lead
+					// Create Lead, and then create an Application
 
 					Lead l;
 					Application newApp;
 
 					if (existingLead == null)
 						l = sfFacade.createLead(merchant, partner);
+
 					else
 						l = existingLead;
 
@@ -122,8 +126,7 @@ public class FunderaAPIHelper {
 				}
 			} else {
 
-				// Create Lead, then create a contact, and then create an
-				// application
+				// If customer doesn't exist - Create Lead/contact/application
 
 				Lead l;
 				if (existingLead == null)
