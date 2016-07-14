@@ -89,13 +89,13 @@ public class FunderaAPIHelper {
 			sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
 
 			// Get customer using Primary contact's email address
-			Customer c = sfFacade.getCustomer(primaryContact.getEmail(), partner);
+			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
 			Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 
 			// If customer exist, look for application using primary contact's
 			// email
 			if (c != null) {
-				Application app = sfFacade.getApplication(primaryContact.getEmail(), partner);
+				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
 
 				// If application exisit, throw error
 				if (app != null) {
@@ -124,13 +124,13 @@ public class FunderaAPIHelper {
 
 				// Create Lead, then create a contact, and then create an
 				// application
-				
+
 				Lead l;
 				if (existingLead == null)
 					l = sfFacade.createLead(merchant, partner);
 				else
 					l = existingLead;
-				
+
 				Contact con;
 				Application newApp;
 
