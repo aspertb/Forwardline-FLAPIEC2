@@ -13,7 +13,6 @@ import com.forwardline.salesforce.api.pojo.Application;
 import com.forwardline.salesforce.api.pojo.Contact;
 import com.forwardline.salesforce.api.pojo.Customer;
 import com.forwardline.salesforce.api.pojo.Lead;
-import com.forwardline.salesforce.api.pojo.Opportunity;
 
 @SuppressWarnings("unused")
 public class FunderaAPIHelper {
@@ -118,8 +117,6 @@ public class FunderaAPIHelper {
 						l = existingLead;
 
 					if (l != null) {
-						Opportunity opp = new Opportunity();
-						opp.setName(l.getCompanyName() + "_IF");
 						appl.setAccount(c);
 						newApp = sfFacade.createApplication(appl, partner);
 					}
@@ -144,8 +141,6 @@ public class FunderaAPIHelper {
 					if (con != null) {
 
 						// Create application
-						Opportunity opp = new Opportunity();
-						opp.setName(l.getCompanyName() + "_IF");
 						appl.setAccount(c);
 						newApp = sfFacade.createApplication(appl, partner);
 					}
