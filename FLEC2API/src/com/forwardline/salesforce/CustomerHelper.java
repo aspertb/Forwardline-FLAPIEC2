@@ -19,7 +19,6 @@ import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Customer;
 import com.google.gson.Gson;
 
-@SuppressWarnings("unused")
 public class CustomerHelper {
 
 	public CustomerHelper() {
@@ -46,6 +45,7 @@ public class CustomerHelper {
 			HttpResponse response = httpClient.execute(httpGet);
 			if (response.getStatusLine().getStatusCode() != 200) {
 				// TODO: throw exception
+				throw new RuntimeException("...exception from getCustomer...");
 			}
 			BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			String in;
@@ -54,6 +54,7 @@ public class CustomerHelper {
 				json.append(in);
 			Gson gson = new Gson();
 			CustomerLookupResponse clkResponse = gson.fromJson(json.toString(), CustomerLookupResponse.class);
+			System.out.println("..Customer Helper.. getCustomer()" +clkResponse.getCustomer());
 			return clkResponse.getCustomer();
 		} catch (Exception e) {
 			// todo: throw custome exception.

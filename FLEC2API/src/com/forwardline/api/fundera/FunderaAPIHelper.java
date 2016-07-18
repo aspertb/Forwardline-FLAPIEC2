@@ -72,11 +72,11 @@ public class FunderaAPIHelper {
 		// TODO Set Customer and Opportunity at the time of Application creation
 		// app.setAccount(account);
 		// app.setOpportunity(opportunity);
-
 		return app;
 	}
 
 	public FunderaResponse getOffers(FunderaRequest request) {
+		System.out.println("...Inside Get Offers - API Helper...");
 		FunderaResponse fndResponse = new FunderaResponse();
 		// TODO: For future. validations here. Assume happy path for now.
 
@@ -91,6 +91,9 @@ public class FunderaAPIHelper {
 
 			// Get customer using Primary contact's email address
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
+			
+			System.out.println("Cust is returned:- " +sfFacade.getCustomer(merchant.getEmail(), partner));
+			
 			Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 
 			// If customer exist, look for application using merchant's email
@@ -99,8 +102,8 @@ public class FunderaAPIHelper {
 
 				// If application exisit, throw error
 				if (app != null) {
-
 					fndResponse.setSuccess(false);
+					System.out.println("...application exists...");
 					throw new RuntimeException("Application Already exists");
 
 				} else {
@@ -115,6 +118,8 @@ public class FunderaAPIHelper {
 
 					else
 						l = existingLead;
+					
+					System.out.println("Lead when cust exist:- " + l.getEmail());
 
 					if (l != null) {
 						appl.setAccount(c);
@@ -130,6 +135,8 @@ public class FunderaAPIHelper {
 					l = sfFacade.createLead(merchant, partner);
 				else
 					l = existingLead;
+				
+				System.out.println("Lead when cust doesn't exist:- " + l.getEmail());
 
 				Contact con;
 				Application newApp;
@@ -151,18 +158,6 @@ public class FunderaAPIHelper {
 		} catch (Exception e) {
 			fndResponse.setSuccess(false);
 		}
-
-		/**
-		 * ????? Offer offrs = new Offer();
-		 * 
-		 * Gson gson = new Gson(); String clReq = gson.toJson(offrs);
-		 * StringEntity strEty; try { strEty = new StringEntity(clReq);
-		 * SalesforceFacade sfc = new SalesforceFacade(); LoginResponse lr =
-		 * sfc.login(USERNAME, PASSWORD, CLIENTID, SECRETID); //
-		 * sfc.isCustomer("xyz@xyz.com"); sfc.isCustomerExist("xyz@xyz.com");
-		 * 
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 **/
 		return fndResponse;
 	}
 }

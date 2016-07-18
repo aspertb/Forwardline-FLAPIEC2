@@ -10,7 +10,6 @@ import com.forwardline.salesforce.api.pojo.Customer;
 import com.forwardline.salesforce.api.pojo.Lead;
 import com.forwardline.salesforce.api.pojo.RequestHeader;
 
-@SuppressWarnings("unused")
 public class SalesforceFacade {
 
 	private LoginResponse sfLoginResponse;
@@ -27,6 +26,7 @@ public class SalesforceFacade {
 	}
 
 	public Customer getCustomer(String email, String partner) {
+		System.out.println("...Inside SF Facade getCustomer..." +email);
 		CustomerHelper helper = new CustomerHelper();
 		return helper.getCustomer(sfLoginResponse, email, partner);
 	}
