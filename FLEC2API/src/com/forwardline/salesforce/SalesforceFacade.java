@@ -52,6 +52,7 @@ public class SalesforceFacade {
 	public Application createApplication(Application application, String partner) {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);
+		header.setOperation("create_application");
 		ApplicationRequest request = new ApplicationRequest();
 		request.setApplication(application);
 		request.setHeader(header);

@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import com.forwardline.salesforce.api.ApplicationLookupResponse;
 import com.forwardline.salesforce.api.ApplicationRequest;
@@ -28,7 +29,8 @@ public class OLAHelper {
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("operation", "has_application"));
 
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/ola").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
+				.append("/services/apexrest/forwardline/ola").toString();
 
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -51,6 +53,7 @@ public class OLAHelper {
 				json.append(in);
 			Gson gson = new Gson();
 			ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
+			EntityUtils.consume(response.getEntity());
 			return applkResponse.getApplication();
 		} catch (Exception e) {
 			// todo: throw custome exception.
@@ -60,7 +63,8 @@ public class OLAHelper {
 	}
 
 	public Application createApplication(LoginResponse sfLoginResponse, ApplicationRequest request) {
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/ola").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
+				.append("/services/apexrest/forwardline/ola").toString();
 		request.getHeader().setOperation("create_application");
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -70,22 +74,27 @@ public class OLAHelper {
 			post.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
-			post.setEntity((HttpEntity) request);
+			post.setEntity((HttpEntity)request);
+			System.out.println("This is my post entity:- " +post.getEntity().getClass().getName());
 
 			try {
 				HttpClient httpClient = HttpClients.createDefault();
 				HttpResponse response = httpClient.execute(post);
 				HttpEntity respEntity = response.getEntity();
+				String content = null;
 				if (respEntity != null) {
 					// EntityUtils to get the response content
 				}
-				BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+				BufferedReader readResponse = new BufferedReader(
+						new InputStreamReader(response.getEntity().getContent()));
 				String in;
 				StringBuffer json = new StringBuffer();
 				while ((in = readResponse.readLine()) != null)
 					json.append(in);
 				Gson gson = new Gson();
-				ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
+				ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(),
+						ApplicationLookupResponse.class);
+				EntityUtils.consume(respEntity);
 				return applkResponse.getApplication();
 			} catch (Exception e) {
 				e.printStackTrace();

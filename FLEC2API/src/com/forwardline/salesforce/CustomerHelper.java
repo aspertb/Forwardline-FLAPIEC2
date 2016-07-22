@@ -30,7 +30,8 @@ public class CustomerHelper {
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("operation", "is_customer"));
 
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/customer").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
+				.append("/services/apexrest/forwardline/customer").toString();
 
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -54,7 +55,7 @@ public class CustomerHelper {
 				json.append(in);
 			Gson gson = new Gson();
 			CustomerLookupResponse clkResponse = gson.fromJson(json.toString(), CustomerLookupResponse.class);
-			System.out.println("..Customer Helper.. getCustomer()" +clkResponse.getCustomer());
+			System.out.println("..Customer Helper.. getCustomer()" + clkResponse.getCustomer());
 			return clkResponse.getCustomer();
 		} catch (Exception e) {
 			// todo: throw custome exception.

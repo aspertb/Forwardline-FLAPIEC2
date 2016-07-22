@@ -2,6 +2,7 @@ package com.forwardline.salesforce;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -34,7 +36,8 @@ public class LeadHelper {
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("operation", "is_existing_lead"));
 
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/lead").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
+				.append("/services/apexrest/forwardline/lead").toString();
 
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -66,14 +69,27 @@ public class LeadHelper {
 	}
 
 	public Lead createLead(LoginResponse sfLoginResponse, LeadRequest request) {
+
+		LeadRequest lr = new LeadRequest();
+		Gson gs = new Gson();
+		String clReq = gs.toJson(lr);
+		StringEntity strEty = null;
+		try {
+			strEty = new StringEntity(clReq);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		request.getHeader().setOperation("create_lead");
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/lead").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
+				.append("/services/apexrest/forwardline/lead").toString();
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpPost post = new HttpPost(endpoint);
 		post.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 		post.setHeader("Content-Type", "application/json");
 		post.setHeader("Partner", request.getHeader().getPartner());
-		post.setEntity((HttpEntity) request);
+		post.setEntity((HttpEntity) strEty);
 		try {
 			HttpResponse response = httpClient.execute(post);
 			BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
@@ -82,8 +98,11 @@ public class LeadHelper {
 			while ((in = readResponse.readLine()) != null)
 				json.append(in);
 			Gson gson = new Gson();
-			LeadResponse leadRes = gson.fromJson(json.toString(), LeadResponse.class);
-			return leadRes.getnLead();
+			LeadResponse leadRes = new LeadResponse();
+			if (json != null){
+				leadRes = gson.fromJson(json.toString(), LeadResponse.class);
+				return leadRes.getnLead();
+			}				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

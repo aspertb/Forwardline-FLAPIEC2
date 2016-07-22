@@ -14,6 +14,10 @@ public class LeadRequest {
 		this.nlead = nlead;
 	}
 	
+	public LeadRequest() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public RequestHeader getHeader() {
 		return header;
 	}

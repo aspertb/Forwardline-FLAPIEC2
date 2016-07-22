@@ -30,7 +30,6 @@ public class FunderaAPIHelper {
 
 		Company merchant = request.company;
 		Person guarantor = request.getOwners().get(0);
-
 		Lead l = new Lead();
 		l.setCompanyName(merchant.getBusiness_name());
 		l.setPhone(merchant.getPhone_number());
@@ -51,6 +50,8 @@ public class FunderaAPIHelper {
 		cont.setEmail(primaryOwner.getEmail());
 		cont.setFirstName(primaryOwner.getFirst_name());
 		cont.setLastName(primaryOwner.getLast_name());
+		cont.setMobilePhone(primaryOwner.phone_number);
+		cont.setPhone(primaryOwner.phone_number);
 
 		return cont;
 	}
@@ -59,16 +60,13 @@ public class FunderaAPIHelper {
 
 		Application app = new Application();
 		Contact primaryContact = getPrimaryContact(request);
-
 		List<Contact> conList = new ArrayList<Contact>();
-
 		Lead merchant = getLead(request);
-
+		app.setPrimaryContact(primaryContact);
 		conList.add(primaryContact);
 		app.setGuarantors(conList);
 		app.setLead(merchant);
 		// app.setName(request.getCompany().business_name);
-
 		// TODO Set Customer and Opportunity at the time of Application creation
 		// app.setAccount(account);
 		// app.setOpportunity(opportunity);
@@ -91,15 +89,10 @@ public class FunderaAPIHelper {
 
 			// Get customer using Primary contact's email address
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
-			
-			System.out.println("Cust is returned:- " +sfFacade.getCustomer(merchant.getEmail(), partner));
-			
 			Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
-
 			// If customer exist, look for application using merchant's email
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
-
 				// If application exisit, throw error
 				if (app != null) {
 					fndResponse.setSuccess(false);
@@ -107,54 +100,37 @@ public class FunderaAPIHelper {
 					throw new RuntimeException("Application Already exists");
 
 				} else {
-
 					// Create Lead, and then create an Application
+					System.out.println("...App is Null...");
+					Application newApp = new Application();
 
-					Lead l;
-					Application newApp;
-
-					if (existingLead == null)
-						l = sfFacade.createLead(merchant, partner);
-
-					else
-						l = existingLead;
-					
-					System.out.println("Lead when cust exist:- " + l.getEmail());
-
-					if (l != null) {
-						appl.setAccount(c);
-						newApp = sfFacade.createApplication(appl, partner);
-					}
+					appl.setAccount(c);
+					newApp = sfFacade.createApplication(appl, partner);
 				}
 			} else {
-
+				System.out.println("...Cust is Null...");
 				// If customer doesn't exist - Create Lead/contact/application
-
-				Lead l;
+				Lead l = new Lead();
 				if (existingLead == null)
 					l = sfFacade.createLead(merchant, partner);
 				else
 					l = existingLead;
-				
+
 				System.out.println("Lead when cust doesn't exist:- " + l.getEmail());
 
-				Contact con;
-				Application newApp;
+				Contact con = new Contact();
+				Application newApp = new Application();
 
 				if (l != null) {
-
 					// Create contact
 					con = sfFacade.createContact(primaryContact, partner);
 					if (con != null) {
-
 						// Create application
 						appl.setAccount(c);
 						newApp = sfFacade.createApplication(appl, partner);
 					}
 				}
-
 			}
-
 		} catch (Exception e) {
 			fndResponse.setSuccess(false);
 		}

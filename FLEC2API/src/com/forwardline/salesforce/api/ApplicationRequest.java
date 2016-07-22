@@ -1,9 +1,16 @@
 package com.forwardline.salesforce.api;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+
 import com.forwardline.salesforce.api.pojo.Application;
 import com.forwardline.salesforce.api.pojo.RequestHeader;
 
-public class ApplicationRequest {
+public class ApplicationRequest implements HttpEntity {
 	private RequestHeader header;
 	private Application application;
 
@@ -25,6 +32,60 @@ public class ApplicationRequest {
 
 	public void setApplication(Application application) {
 		this.application = application;
+	}
+
+	@Override
+	public boolean isRepeatable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isChunked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public long getContentLength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Header getContentType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Header getContentEncoding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getContent() throws IOException, UnsupportedOperationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void writeTo(OutputStream outstream) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isStreaming() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void consumeContent() throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

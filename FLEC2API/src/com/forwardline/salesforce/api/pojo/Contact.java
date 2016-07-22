@@ -5,12 +5,16 @@ public class Contact {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String phone;
+	private String mobilePhone;
 
-	public Contact(String id, String firstName, String lastName, String email) {
+	public Contact(String id, String firstName, String lastName, String email, String phone, String mobilePhone) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.setPhone(phone);
+		this.setMobilePhone(mobilePhone);
 	}
 
 	public Contact() {
@@ -47,6 +51,22 @@ public class Contact {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
 	}
 
 }

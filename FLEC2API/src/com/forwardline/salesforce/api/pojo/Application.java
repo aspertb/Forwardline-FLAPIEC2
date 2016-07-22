@@ -3,10 +3,11 @@ package com.forwardline.salesforce.api.pojo;
 import java.util.List;
 
 public class Application {
-	
+
 	private String id;
 	private String name;
 	private Customer account;
+	private Contact primaryContact;
 	private Lead lead;
 	private Opportunity opportunity;
 	private List<Contact> guarantors;
@@ -61,6 +62,14 @@ public class Application {
 
 	public void setGuarantors(List<Contact> guarantors) {
 		this.guarantors = guarantors;
+	}
+
+	public Contact getPrimaryContact() {
+		return primaryContact;
+	}
+
+	public void setPrimaryContact(Contact primaryContact) {
+		this.primaryContact = primaryContact;
 	}
 
 }
