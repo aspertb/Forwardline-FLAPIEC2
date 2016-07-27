@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -69,19 +70,20 @@ public class OLAHelper {
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
 			URI uri = uriBuilder.build();
-
 			HttpPost post = new HttpPost(uri);
 			post.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
-			post.setEntity((HttpEntity)request);
-			System.out.println("This is my post entity:- " +post.getEntity().getClass().getName());
+			Gson gs = new Gson();
+			String str = gs.toJson(request, ApplicationRequest.class);
+			System.out.println("This is json:- " + str);
+			StringEntity app = new StringEntity(str);
+			post.setEntity(app);
 
 			try {
 				HttpClient httpClient = HttpClients.createDefault();
 				HttpResponse response = httpClient.execute(post);
 				HttpEntity respEntity = response.getEntity();
-				String content = null;
 				if (respEntity != null) {
 					// EntityUtils to get the response content
 				}
@@ -89,13 +91,17 @@ public class OLAHelper {
 						new InputStreamReader(response.getEntity().getContent()));
 				String in;
 				StringBuffer json = new StringBuffer();
-				while ((in = readResponse.readLine()) != null)
+				while ((in = readResponse.readLine()) != null) {
+					System.out.println("This is JSON String:- " + response.getEntity().getContent());
 					json.append(in);
+				}
 				Gson gson = new Gson();
-				ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(),
-						ApplicationLookupResponse.class);
-				EntityUtils.consume(respEntity);
-				return applkResponse.getApplication();
+				if (json != null) {
+					ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(),
+							ApplicationLookupResponse.class);
+					return applkResponse.getApplication();
+				}
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
