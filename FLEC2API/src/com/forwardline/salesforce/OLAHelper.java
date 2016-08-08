@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,6 +23,7 @@ import com.forwardline.salesforce.api.ApplicationLookupResponse;
 import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Application;
+import com.forwardline.salesforce.api.pojo.SalesforceRequest;
 import com.google.gson.Gson;
 
 public class OLAHelper {
@@ -30,8 +32,7 @@ public class OLAHelper {
 		params.add(new BasicNameValuePair("email", email));
 		params.add(new BasicNameValuePair("operation", "has_application"));
 
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
-				.append("/services/apexrest/forwardline/ola").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/ola").toString();
 
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -64,8 +65,7 @@ public class OLAHelper {
 	}
 
 	public Application createApplication(LoginResponse sfLoginResponse, ApplicationRequest request) {
-		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url())
-				.append("/services/apexrest/forwardline/ola").toString();
+		String endpoint = new StringBuffer(sfLoginResponse.getInstance_url()).append("/services/apexrest/forwardline/ola").toString();
 		request.getHeader().setOperation("create_application");
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpoint);
@@ -74,31 +74,29 @@ public class OLAHelper {
 			post.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
+
 			Gson gs = new Gson();
-			String str = gs.toJson(request, ApplicationRequest.class);
-			System.out.println("This is json:- " + str);
-			StringEntity app = new StringEntity(str);
-			post.setEntity(app);
+			SalesforceRequest<ApplicationRequest> sr = new SalesforceRequest<ApplicationRequest>();
+			sr.setRequest(request);
+			String strEntity = gs.toJson(sr);
+			System.out.println("ContactHelper.createContact :: JSON");
+			System.out.println(strEntity);
+			post.setEntity(new StringEntity(strEntity, ContentType.APPLICATION_JSON));
 
 			try {
 				HttpClient httpClient = HttpClients.createDefault();
 				HttpResponse response = httpClient.execute(post);
-				HttpEntity respEntity = response.getEntity();
-				if (respEntity != null) {
-					// EntityUtils to get the response content
-				}
-				BufferedReader readResponse = new BufferedReader(
-						new InputStreamReader(response.getEntity().getContent()));
+				BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 				String in;
 				StringBuffer json = new StringBuffer();
 				while ((in = readResponse.readLine()) != null) {
-					System.out.println("This is JSON String:- " + response.getEntity().getContent());
 					json.append(in);
 				}
+				System.out.println("OLAHelper.createApplication output");
+				System.out.println(json);
 				Gson gson = new Gson();
 				if (json != null) {
-					ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(),
-							ApplicationLookupResponse.class);
+					ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
 					return applkResponse.getApplication();
 				}
 

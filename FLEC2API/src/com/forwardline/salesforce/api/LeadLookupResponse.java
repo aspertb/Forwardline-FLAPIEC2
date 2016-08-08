@@ -5,7 +5,7 @@ import com.forwardline.salesforce.api.pojo.Lead;
 public class LeadLookupResponse {
 	private boolean success;
 	private String errorMessage;
-	private Lead lead;
+	private Lead nLead;
 
 	public LeadLookupResponse() {
 
@@ -27,12 +27,12 @@ public class LeadLookupResponse {
 		this.errorMessage = errorMessage;
 	}
 
-	public Lead getLead() {
-		return lead;
+	public Lead getnLead() {
+		return nLead;
 	}
 
-	public void setLead(Lead lead) {
-		this.lead = lead;
+	public void setnLead(Lead nLead) {
+		this.nLead = nLead;
 	}
 
 }

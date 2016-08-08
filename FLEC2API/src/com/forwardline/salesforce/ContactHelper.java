@@ -9,12 +9,15 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
 import com.forwardline.salesforce.api.ContactRequest;
 import com.forwardline.salesforce.api.ContactResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Contact;
+import com.forwardline.salesforce.api.pojo.SalesforceRequest;
 import com.google.gson.Gson;
 
 public class ContactHelper {
@@ -29,20 +32,28 @@ public class ContactHelper {
 			post.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
-			post.setEntity((HttpEntity) request);
+
+			Gson gs = new Gson();
+			SalesforceRequest<ContactRequest> sr = new SalesforceRequest<ContactRequest>();
+			sr.setRequest(request);
+			String strEntity = gs.toJson(sr);
+			System.out.println("ContactHelper.createContact :: JSON");
+			System.out.println(strEntity);
+			// post.setEntity((HttpEntity) strEty);
+			post.setEntity(new StringEntity(strEntity, ContentType.APPLICATION_JSON));
 
 			try {
 				HttpClient httpClient = HttpClients.createDefault();
 				HttpResponse response = httpClient.execute(post);
-				HttpEntity respEntity = response.getEntity();
-				if (respEntity != null) {
-					// EntityUtils to get the response content
-				}
 				BufferedReader readResponse = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 				String in;
 				StringBuffer json = new StringBuffer();
 				while ((in = readResponse.readLine()) != null)
 					json.append(in);
+				
+				System.out.println("ContactHelper.createContact output");
+				System.out.println(json);
+				
 				Gson gson = new Gson();
 				ContactResponse cntResponse = gson.fromJson(json.toString(), ContactResponse.class);
 				return cntResponse.getContact();

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import com.forwardline.api.fundera.FunderaAPIHelper;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
@@ -16,7 +17,7 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 
-public class TestFunderaService{
+public class TestFunderaService {
 	private static void getOffers(String endPoint) {
 
 		try {
@@ -38,24 +39,50 @@ public class TestFunderaService{
 				json.append(inputLine);
 			}
 			br.close();
-			if(json != null){
+			if (json != null) {
 				Gson gson = new Gson();
 				request = gson.fromJson(json.toString(), FunderaRequest.class);
 			}
-			
-			ClientResponse response = webResource.accept("application/json").type("application/json")
-					.post(ClientResponse.class, request);
-			
+
+			ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, request);
+
 			if (response.getStatus() != 200)
-				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus() +" - " + response.getHeaders());
+				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus() + " - " + response.getHeaders());
 			FunderaResponse res = response.getEntity(FunderaResponse.class);
-			List<Offer> offersList  = res.getOffers();
-			
-			if(offersList != null){
+			List<Offer> offersList = res.getOffers();
+
+			if (offersList != null) {
 				System.out.println("...Offers returned successfully...");
 			}
-			
+
 			System.out.println("Server response .... \n");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testAPIHelper() {
+
+		try {
+			FunderaRequest request = new FunderaRequest();
+			FileInputStream f = new FileInputStream("C:\\sampleReqMinified2.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(f));
+
+			String inputLine;
+			StringBuffer json = new StringBuffer("");
+
+			while ((inputLine = br.readLine()) != null) {
+				json.append(inputLine);
+			}
+			br.close();
+			if (json != null) {
+				Gson gson = new Gson();
+				request = gson.fromJson(json.toString(), FunderaRequest.class);
+			}
+			FunderaAPIHelper helper = new FunderaAPIHelper();
+
+			FunderaResponse res = helper.getOffers(request);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +93,7 @@ public class TestFunderaService{
 		// getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		System.out.println("Inside Main");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
-		getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
+		// getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
+		testAPIHelper();
 	}
 }
-

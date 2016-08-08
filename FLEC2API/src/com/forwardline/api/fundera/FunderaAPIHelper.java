@@ -8,7 +8,6 @@ import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Person;
 import com.forwardline.salesforce.SalesforceFacade;
-import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Application;
 import com.forwardline.salesforce.api.pojo.Contact;
 import com.forwardline.salesforce.api.pojo.Customer;
@@ -87,29 +86,22 @@ public class FunderaAPIHelper {
 			SalesforceFacade sfFacade = new SalesforceFacade();
 			sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
 
-			// Get customer using Primary contact's email address
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
-			Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
-			// If customer exist, look for application using merchant's email
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
-				// If application exisit, throw error
 				if (app != null) {
 					fndResponse.setSuccess(false);
 					System.out.println("...application exists...");
 					throw new RuntimeException("Application Already exists");
-
 				} else {
-					// Create Lead, and then create an Application
 					System.out.println("...App is Null...");
 					Application newApp = new Application();
-
 					appl.setAccount(c);
 					newApp = sfFacade.createApplication(appl, partner);
 				}
 			} else {
 				System.out.println("...Cust is Null...");
-				// If customer doesn't exist - Create Lead/contact/application
+				Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 				Lead l = new Lead();
 				if (existingLead == null)
 					l = sfFacade.createLead(merchant, partner);
@@ -121,14 +113,11 @@ public class FunderaAPIHelper {
 				Contact con = new Contact();
 				Application newApp = new Application();
 
-				if (l != null) {
-					// Create contact
-					con = sfFacade.createContact(primaryContact, partner);
-					if (con != null) {
-						// Create application
-						appl.setAccount(c);
-						newApp = sfFacade.createApplication(appl, partner);
-					}
+				con = sfFacade.createContact(primaryContact, partner);
+				if (con != null) {
+					// Create application
+					appl.setAccount(c);
+					newApp = sfFacade.createApplication(appl, partner);
 				}
 			}
 		} catch (Exception e) {
