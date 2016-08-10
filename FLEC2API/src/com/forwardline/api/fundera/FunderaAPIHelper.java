@@ -81,6 +81,11 @@ public class FunderaAPIHelper {
 		app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
 		app.setNumberOfEmployees(request.getCompany().getNumber_of_employees());
 		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien_bool());
+		app.setBusinessAddressStreet1(request.getCompany().getStreet_line1());
+		app.setBusinessAddressStreet2(request.getCompany().getStreet_line2());
+		app.setBusinessAddressCity(request.getCompany().getCity());
+		app.setBusinessAddressState(request.getCompany().getState());
+		app.setBusinessAddressZip(request.getCompany().getZip());
 		return app;
 	}
 

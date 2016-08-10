@@ -27,6 +27,12 @@ public class Application {
 	public Date lastBankruptcy;
 	public Boolean outstandingTaxLien;
 
+	public String businessAddressStreet1;
+	public String businessAddressStreet2;
+	public String businessAddressCity;
+	public String businessAddressState;
+	public String businessAddressZip;
+
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
@@ -189,6 +195,46 @@ public class Application {
 
 	public void setOutstandingTaxLien(Boolean outstandingTaxLien) {
 		this.outstandingTaxLien = outstandingTaxLien;
+	}
+
+	public String getBusinessAddressStreet1() {
+		return businessAddressStreet1;
+	}
+
+	public void setBusinessAddressStreet1(String businessAddressStreet1) {
+		this.businessAddressStreet1 = businessAddressStreet1;
+	}
+
+	public String getBusinessAddressStreet2() {
+		return businessAddressStreet2;
+	}
+
+	public void setBusinessAddressStreet2(String businessAddressStreet2) {
+		this.businessAddressStreet2 = businessAddressStreet2;
+	}
+
+	public String getBusinessAddressCity() {
+		return businessAddressCity;
+	}
+
+	public void setBusinessAddressCity(String businessAddressCity) {
+		this.businessAddressCity = businessAddressCity;
+	}
+
+	public String getBusinessAddressState() {
+		return businessAddressState;
+	}
+
+	public void setBusinessAddressState(String businessAddressState) {
+		this.businessAddressState = businessAddressState;
+	}
+
+	public String getBusinessAddressZip() {
+		return businessAddressZip;
+	}
+
+	public void setBusinessAddressZip(String businessAddressZip) {
+		this.businessAddressZip = businessAddressZip;
 	}
 
 }
