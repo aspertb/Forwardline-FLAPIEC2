@@ -1,27 +1,36 @@
 package com.forwardline.salesforce.api;
 
+import com.forwardline.salesforce.api.pojo.Analysis;
+import com.forwardline.salesforce.api.pojo.Application;
+import com.forwardline.salesforce.api.pojo.RequestHeader;
+
 public class ForsightRequest {
-	
-	private String id;
-	private String name;
-	
-	public ForsightRequest(String id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	private RequestHeader header;
+	private Application application;
+	private Analysis analysis;
+
+	public RequestHeader getHeader() {
+		return header;
 	}
-	
-	public String getId() {
-		return id;
+
+	public void setHeader(RequestHeader header) {
+		this.header = header;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public Application getApplication() {
+		return application;
 	}
-	public String getName() {
-		return name;
+
+	public void setApplication(Application application) {
+		this.application = application;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public Analysis getAnalysis() {
+		return analysis;
+	}
+
+	public void setAnalysis(Analysis analysis) {
+		this.analysis = analysis;
 	}
 
 }

@@ -45,7 +45,7 @@ public class SalesforceHelper {
 			while ((line = rd.readLine()) != null)
 				json = new StringBuffer(json).append(line).toString();
 
-			System.out.println("Login response......");
+			System.out.println("Login response...... " + json);
 			Gson gson = new Gson();
 			LoginResponse lr = gson.fromJson(json, LoginResponse.class);
 			return lr;

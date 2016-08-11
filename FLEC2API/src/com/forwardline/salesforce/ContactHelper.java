@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -19,6 +18,7 @@ import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Contact;
 import com.forwardline.salesforce.api.pojo.SalesforceRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class ContactHelper {
 	public Contact createContact(LoginResponse sfLoginResponse, ContactRequest request) {
@@ -33,10 +33,11 @@ public class ContactHelper {
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
 
-			Gson gs = new Gson();
+			// Gson gs = new Gson();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			SalesforceRequest<ContactRequest> sr = new SalesforceRequest<ContactRequest>();
 			sr.setRequest(request);
-			String strEntity = gs.toJson(sr);
+			String strEntity = gson.toJson(sr);
 			System.out.println("ContactHelper.createContact :: JSON");
 			System.out.println(strEntity);
 			// post.setEntity((HttpEntity) strEty);
@@ -50,11 +51,11 @@ public class ContactHelper {
 				StringBuffer json = new StringBuffer();
 				while ((in = readResponse.readLine()) != null)
 					json.append(in);
-				
+
 				System.out.println("ContactHelper.createContact output");
 				System.out.println(json);
-				
-				Gson gson = new Gson();
+
+				// Gson gson = new Gson();
 				ContactResponse cntResponse = gson.fromJson(json.toString(), ContactResponse.class);
 				return cntResponse.getContact();
 			} catch (Exception e) {

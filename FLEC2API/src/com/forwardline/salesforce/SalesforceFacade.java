@@ -2,11 +2,13 @@ package com.forwardline.salesforce;
 
 import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.ContactRequest;
+import com.forwardline.salesforce.api.ForsightRequest;
 import com.forwardline.salesforce.api.LeadRequest;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Application;
 import com.forwardline.salesforce.api.pojo.Contact;
 import com.forwardline.salesforce.api.pojo.Customer;
+import com.forwardline.salesforce.api.pojo.ForsightDecision;
 import com.forwardline.salesforce.api.pojo.Lead;
 import com.forwardline.salesforce.api.pojo.RequestHeader;
 
@@ -26,7 +28,7 @@ public class SalesforceFacade {
 	}
 
 	public Customer getCustomer(String email, String partner) {
-		System.out.println("...Inside SF Facade getCustomer..." +email);
+		System.out.println("...Inside SF Facade getCustomer..." + email);
 		CustomerHelper helper = new CustomerHelper();
 		return helper.getCustomer(sfLoginResponse, email, partner);
 	}
@@ -58,6 +60,17 @@ public class SalesforceFacade {
 		request.setHeader(header);
 		OLAHelper helper = new OLAHelper();
 		return helper.createApplication(sfLoginResponse, request);
+	}
+
+	public ForsightDecision scoreApplication(Application application, String partner) {
+		RequestHeader header = new RequestHeader();
+		header.setPartner(partner);
+		header.setOperation("start_scoring");
+		ForsightRequest request = new ForsightRequest();
+		request.setApplication(application);
+		request.setHeader(header);
+		ForsightHelper helper = new ForsightHelper();
+		return helper.scoreApplication(sfLoginResponse, request);
 	}
 
 	public Contact createContact(Contact contact, String partner) {

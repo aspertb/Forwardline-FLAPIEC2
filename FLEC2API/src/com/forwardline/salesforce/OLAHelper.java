@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -21,10 +20,12 @@ import org.apache.http.util.EntityUtils;
 
 import com.forwardline.salesforce.api.ApplicationLookupResponse;
 import com.forwardline.salesforce.api.ApplicationRequest;
+import com.forwardline.salesforce.api.ApplicationResponse;
 import com.forwardline.salesforce.api.LoginResponse;
 import com.forwardline.salesforce.api.pojo.Application;
 import com.forwardline.salesforce.api.pojo.SalesforceRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class OLAHelper {
 	public Application getApplication(LoginResponse sfLoginResponse, String email, String partner) {
@@ -53,7 +54,8 @@ public class OLAHelper {
 			StringBuffer json = new StringBuffer();
 			while ((in = readResponse.readLine()) != null)
 				json.append(in);
-			Gson gson = new Gson();
+			// Gson gson = new Gson();
+			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
 			EntityUtils.consume(response.getEntity());
 			return applkResponse.getApplication();
@@ -75,11 +77,11 @@ public class OLAHelper {
 			post.setHeader("Content-Type", "application/json");
 			post.setHeader("Partner", request.getHeader().getPartner());
 
-			Gson gs = new Gson();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			SalesforceRequest<ApplicationRequest> sr = new SalesforceRequest<ApplicationRequest>();
 			sr.setRequest(request);
-			String strEntity = gs.toJson(sr);
-			System.out.println("ContactHelper.createContact :: JSON");
+			String strEntity = gson.toJson(sr);
+			System.out.println("ContactHelper.createApplication :: JSON");
 			System.out.println(strEntity);
 			post.setEntity(new StringEntity(strEntity, ContentType.APPLICATION_JSON));
 
@@ -94,9 +96,11 @@ public class OLAHelper {
 				}
 				System.out.println("OLAHelper.createApplication output");
 				System.out.println(json);
-				Gson gson = new Gson();
+				// Gson gson = new Gson();
+				// Gson gson = new
+				// GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 				if (json != null) {
-					ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
+					ApplicationResponse applkResponse = gson.fromJson(json.toString(), ApplicationResponse.class);
 					return applkResponse.getApplication();
 				}
 

@@ -5,9 +5,9 @@ public class ForsightDecision {
 	private Analysis analysis;
 	private Offer offer;
 	private Boolean approved;
-	
-	public ForsightDecision(){
-		
+
+	public ForsightDecision() {
+
 	}
 
 	public Analysis getAnalysis() {
@@ -33,6 +33,5 @@ public class ForsightDecision {
 	public void setApproved(Boolean approved) {
 		this.approved = approved;
 	}
-
 
 }
