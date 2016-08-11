@@ -8,7 +8,7 @@ public class Analysis {
 	private Boolean branchingComplete;
 	private String nextStep;
 	private String currentReportType;
-	private Integer consumerIndex;
+	private Integer consumerIndex; 
 
 	public String getId() {
 		return id;

@@ -54,7 +54,7 @@ public class ForsightHelper {
 				StringBuffer json = new StringBuffer();
 				while ((in = readResponse.readLine()) != null)
 					json.append(in);
-				System.out.println("Response \\n" + json);
+				System.out.println("Response \\n" + json); 
 				if (json != null) {
 					fsResponse = gson.fromJson(json.toString(), ForsightResponse.class);
 					if (fsResponse.isSuccess()) {

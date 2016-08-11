@@ -40,7 +40,7 @@ public class CustomerHelper {
 			HttpGet httpGet = new HttpGet(uri);
 			httpGet.setHeader("Authorization", "OAuth " + sfLoginResponse.getAccess_token());
 			httpGet.setHeader("Content-Type", "application/json");
-			httpGet.setHeader("Partner", partner);
+			httpGet.setHeader("Partner", partner); 
 
 			HttpClient httpClient = HttpClients.createDefault();
 			HttpResponse response = httpClient.execute(httpGet);

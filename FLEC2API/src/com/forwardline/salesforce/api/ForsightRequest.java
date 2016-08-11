@@ -6,7 +6,7 @@ import com.forwardline.salesforce.api.pojo.RequestHeader;
 
 public class ForsightRequest {
 	private RequestHeader header;
-	private Application application;
+	private Application application; 
 	private Analysis analysis;
 
 	public RequestHeader getHeader() {
@@ -22,11 +22,11 @@ public class ForsightRequest {
 	}
 
 	public void setApplication(Application application) {
-		this.application = application;
+		this.application = application; 
 	}
 
 	public Analysis getAnalysis() {
-		return analysis;
+		return analysis;  
 	}
 
 	public void setAnalysis(Analysis analysis) {

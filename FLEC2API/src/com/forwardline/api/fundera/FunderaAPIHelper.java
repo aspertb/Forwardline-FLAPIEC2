@@ -127,7 +127,7 @@ public class FunderaAPIHelper {
 					Lead newLead = sfFacade.createLead(merchant, partner);
 					Contact con = sfFacade.createContact(primaryContact, partner);
 					appl.setPrimaryContact(con);
-					appl.setLead(newLead);
+					appl.setLead(newLead);  
 					Application newApplication = sfFacade.createApplication(appl, partner);
 					ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 				} else {

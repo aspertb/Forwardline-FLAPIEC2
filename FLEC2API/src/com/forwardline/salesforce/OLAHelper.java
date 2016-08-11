@@ -58,7 +58,7 @@ public class OLAHelper {
 			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			ApplicationLookupResponse applkResponse = gson.fromJson(json.toString(), ApplicationLookupResponse.class);
 			EntityUtils.consume(response.getEntity());
-			return applkResponse.getApplication();
+			return applkResponse.getApplication(); 
 		} catch (Exception e) {
 			// todo: throw custome exception.
 			e.printStackTrace();

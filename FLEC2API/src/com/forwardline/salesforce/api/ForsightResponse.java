@@ -17,7 +17,7 @@ public class ForsightResponse {
 	}
 
 	public String getErrorMessage() {
-		return errorMessage;
+		return errorMessage; 
 	}
 
 	public void setErrorMessage(String errorMessage) {

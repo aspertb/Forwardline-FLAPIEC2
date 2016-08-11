@@ -39,7 +39,7 @@ public class SalesforceFacade {
 	}
 
 	public Lead createLead(Lead lead, String partner) {
-		RequestHeader header = new RequestHeader();
+		RequestHeader header = new RequestHeader(); 
 		header.setPartner(partner);
 		LeadRequest request = new LeadRequest(header, lead);
 		LeadHelper helper = new LeadHelper();

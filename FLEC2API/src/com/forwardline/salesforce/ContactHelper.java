@@ -40,7 +40,7 @@ public class ContactHelper {
 			String strEntity = gson.toJson(sr);
 			System.out.println("ContactHelper.createContact :: JSON");
 			System.out.println(strEntity);
-			// post.setEntity((HttpEntity) strEty);
+			// post.setEntity((HttpEntity) strEty); 
 			post.setEntity(new StringEntity(strEntity, ContentType.APPLICATION_JSON));
 
 			try {

@@ -15,7 +15,7 @@ public class ForsightDecision {
 	}
 
 	public void setAnalysis(Analysis analysis) {
-		this.analysis = analysis;
+		this.analysis = analysis; 
 	}
 
 	public Offer getOffer() {
