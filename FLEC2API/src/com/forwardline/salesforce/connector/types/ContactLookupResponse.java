@@ -1,4 +1,4 @@
-package com.forwardline.salesforce.api;
+package com.forwardline.salesforce.connector.types;
 
 public class ContactLookupResponse {
 

@@ -1,18 +1,12 @@
-package com.forwardline.salesforce.api;
+package com.forwardline.salesforce.connector.types;
 
-import com.forwardline.salesforce.api.pojo.Application;
-
-public class ApplicationResponse {
-
+public class ApplicationLookupResponse {
 	private boolean success;
 	private String errorMessage;
 	private Application application;
 
-	public ApplicationResponse(boolean success, String errorMessage, Application application) {
-		super();
-		this.success = success;
-		this.errorMessage = errorMessage;
-		this.application = application;
+	public ApplicationLookupResponse() {
+
 	}
 
 	public boolean isSuccess() {

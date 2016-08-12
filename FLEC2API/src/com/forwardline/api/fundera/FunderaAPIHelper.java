@@ -7,12 +7,12 @@ import com.forwardline.api.fundera.pojo.Company;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Person;
-import com.forwardline.salesforce.api.pojo.Application;
-import com.forwardline.salesforce.api.pojo.Contact;
-import com.forwardline.salesforce.api.pojo.Customer;
-import com.forwardline.salesforce.api.pojo.ForsightDecision;
-import com.forwardline.salesforce.api.pojo.Lead;
 import com.forwardline.salesforce.connector.SalesforceFacade;
+import com.forwardline.salesforce.connector.types.Application;
+import com.forwardline.salesforce.connector.types.Contact;
+import com.forwardline.salesforce.connector.types.Customer;
+import com.forwardline.salesforce.connector.types.ForsightDecision;
+import com.forwardline.salesforce.connector.types.Lead;
 
 @SuppressWarnings("unused")
 public class FunderaAPIHelper {

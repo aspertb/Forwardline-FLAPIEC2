@@ -4,8 +4,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 
-import com.forwardline.salesforce.api.pojo.SalesforceResponse;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
+import com.forwardline.salesforce.connector.types.SalesforceResponse;
 
 public class PostCommand extends BaseHttpCommand {
 

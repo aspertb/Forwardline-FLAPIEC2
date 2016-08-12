@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.http.client.methods.HttpGet;
 
-import com.forwardline.salesforce.api.pojo.SalesforceResponse;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
+import com.forwardline.salesforce.connector.types.SalesforceResponse;
 
 public class GetCommand extends BaseHttpCommand {
 	private Map<String, String> parameters;

@@ -18,12 +18,12 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.forwardline.salesforce.api.ApplicationLookupResponse;
-import com.forwardline.salesforce.api.ApplicationRequest;
-import com.forwardline.salesforce.api.ApplicationResponse;
-import com.forwardline.salesforce.api.LoginResponse;
-import com.forwardline.salesforce.api.pojo.Application;
-import com.forwardline.salesforce.api.pojo.SalesforceRequest;
+import com.forwardline.salesforce.connector.types.Application;
+import com.forwardline.salesforce.connector.types.ApplicationLookupResponse;
+import com.forwardline.salesforce.connector.types.ApplicationRequest;
+import com.forwardline.salesforce.connector.types.ApplicationResponse;
+import com.forwardline.salesforce.connector.types.LoginResponse;
+import com.forwardline.salesforce.connector.types.SalesforceRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

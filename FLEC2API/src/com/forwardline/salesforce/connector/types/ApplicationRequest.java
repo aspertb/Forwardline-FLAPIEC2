@@ -1,4 +1,4 @@
-package com.forwardline.salesforce.api;
+package com.forwardline.salesforce.connector.types;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,9 +6,6 @@ import java.io.OutputStream;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-
-import com.forwardline.salesforce.api.pojo.Application;
-import com.forwardline.salesforce.api.pojo.RequestHeader;
 
 public class ApplicationRequest implements HttpEntity {
 	private RequestHeader header;

@@ -17,12 +17,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.forwardline.salesforce.api.LeadLookupResponse;
-import com.forwardline.salesforce.api.LeadRequest;
-import com.forwardline.salesforce.api.LeadResponse;
-import com.forwardline.salesforce.api.LoginResponse;
-import com.forwardline.salesforce.api.pojo.Lead;
-import com.forwardline.salesforce.api.pojo.SalesforceRequest;
+import com.forwardline.salesforce.connector.types.Lead;
+import com.forwardline.salesforce.connector.types.LeadLookupResponse;
+import com.forwardline.salesforce.connector.types.LeadRequest;
+import com.forwardline.salesforce.connector.types.LeadResponse;
+import com.forwardline.salesforce.connector.types.LoginResponse;
+import com.forwardline.salesforce.connector.types.SalesforceRequest;
 import com.google.gson.Gson;
 
 public class LeadHelper {

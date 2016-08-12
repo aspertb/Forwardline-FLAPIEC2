@@ -15,8 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.forwardline.salesforce.api.pojo.SalesforceSession;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
+import com.forwardline.salesforce.connector.types.SalesforceSession;
 import com.google.gson.Gson;
 
 public class SalesforceLoginPort {

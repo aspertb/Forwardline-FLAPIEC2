@@ -1,7 +1,4 @@
-package com.forwardline.salesforce.api;
-
-import com.forwardline.salesforce.api.pojo.Contact;
-import com.forwardline.salesforce.api.pojo.RequestHeader;
+package com.forwardline.salesforce.connector.types;
 
 public class ContactRequest {
 	private Contact contact;

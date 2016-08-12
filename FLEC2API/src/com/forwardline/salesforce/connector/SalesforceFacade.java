@@ -1,16 +1,16 @@
 package com.forwardline.salesforce.connector;
 
-import com.forwardline.salesforce.api.ApplicationRequest;
-import com.forwardline.salesforce.api.ContactRequest;
-import com.forwardline.salesforce.api.ForsightRequest;
-import com.forwardline.salesforce.api.LeadRequest;
-import com.forwardline.salesforce.api.LoginResponse;
-import com.forwardline.salesforce.api.pojo.Application;
-import com.forwardline.salesforce.api.pojo.Contact;
-import com.forwardline.salesforce.api.pojo.Customer;
-import com.forwardline.salesforce.api.pojo.ForsightDecision;
-import com.forwardline.salesforce.api.pojo.Lead;
-import com.forwardline.salesforce.api.pojo.RequestHeader;
+import com.forwardline.salesforce.connector.types.Application;
+import com.forwardline.salesforce.connector.types.ApplicationRequest;
+import com.forwardline.salesforce.connector.types.Contact;
+import com.forwardline.salesforce.connector.types.ContactRequest;
+import com.forwardline.salesforce.connector.types.Customer;
+import com.forwardline.salesforce.connector.types.ForsightDecision;
+import com.forwardline.salesforce.connector.types.ForsightRequest;
+import com.forwardline.salesforce.connector.types.Lead;
+import com.forwardline.salesforce.connector.types.LeadRequest;
+import com.forwardline.salesforce.connector.types.LoginResponse;
+import com.forwardline.salesforce.connector.types.RequestHeader;
 
 public class SalesforceFacade {
 

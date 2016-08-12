@@ -12,7 +12,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.forwardline.salesforce.api.LoginResponse;
+import com.forwardline.salesforce.connector.types.LoginResponse;
 import com.google.gson.Gson;
 
 public class RestLogin {

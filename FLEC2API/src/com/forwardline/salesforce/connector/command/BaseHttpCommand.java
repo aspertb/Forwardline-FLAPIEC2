@@ -10,8 +10,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.salesforce.api.pojo.SalesforceResponse;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
+import com.forwardline.salesforce.connector.types.SalesforceResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

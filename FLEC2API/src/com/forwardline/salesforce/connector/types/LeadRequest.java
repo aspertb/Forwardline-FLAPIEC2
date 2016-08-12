@@ -1,7 +1,4 @@
-package com.forwardline.salesforce.api;
-
-import com.forwardline.salesforce.api.pojo.Lead;
-import com.forwardline.salesforce.api.pojo.RequestHeader;
+package com.forwardline.salesforce.connector.types;
 
 public class LeadRequest {
 	

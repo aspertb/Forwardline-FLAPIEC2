@@ -12,12 +12,12 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
-import com.forwardline.salesforce.api.ForsightRequest;
-import com.forwardline.salesforce.api.ForsightResponse;
-import com.forwardline.salesforce.api.LoginResponse;
-import com.forwardline.salesforce.api.pojo.Analysis;
-import com.forwardline.salesforce.api.pojo.ForsightDecision;
-import com.forwardline.salesforce.api.pojo.SalesforceRequest;
+import com.forwardline.salesforce.connector.types.Analysis;
+import com.forwardline.salesforce.connector.types.ForsightDecision;
+import com.forwardline.salesforce.connector.types.ForsightRequest;
+import com.forwardline.salesforce.connector.types.ForsightResponse;
+import com.forwardline.salesforce.connector.types.LoginResponse;
+import com.forwardline.salesforce.connector.types.SalesforceRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

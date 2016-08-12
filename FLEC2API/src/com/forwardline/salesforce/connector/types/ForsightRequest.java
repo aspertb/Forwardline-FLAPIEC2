@@ -1,8 +1,4 @@
-package com.forwardline.salesforce.api;
-
-import com.forwardline.salesforce.api.pojo.Analysis;
-import com.forwardline.salesforce.api.pojo.Application;
-import com.forwardline.salesforce.api.pojo.RequestHeader;
+package com.forwardline.salesforce.connector.types;
 
 public class ForsightRequest {
 	private RequestHeader header;

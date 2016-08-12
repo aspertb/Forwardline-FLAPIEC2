@@ -1,6 +1,4 @@
-package com.forwardline.salesforce.api;
-
-import com.forwardline.salesforce.api.pojo.Contact;
+package com.forwardline.salesforce.connector.types;
 
 public class ContactResponse {
 	private boolean success;
