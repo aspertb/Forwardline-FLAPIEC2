@@ -1,4 +1,4 @@
-package com.forwardline.salesforce;
+package com.forwardline.salesforce.connector;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package com.forwardline.salesforce;
+package com.forwardline.salesforce.connector;
 
 import com.forwardline.salesforce.api.ApplicationRequest;
 import com.forwardline.salesforce.api.ContactRequest;
