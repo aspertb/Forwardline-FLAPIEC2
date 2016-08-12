@@ -18,9 +18,9 @@ import com.forwardline.salesforce.connector.types.Lead;
 public class FunderaAPIHelper {
 
 	public static final String USERNAME = "aspert.b@forwardline.com.fldev";
-	public static final String PASSWORD = "FLfin123zSQrWlxO4Yo2V2tYcfl5y6qg";
-	// public static final String USERNAME = "aspertedison@gmail.com.fldev";
-	// public static final String PASSWORD = "FLfin123";
+	public static final String PASSWORD = "FLfin123";
+	public static final String TOKEN = "zSQrWlxO4Yo2V2tYcfl5y6qg";
+	public static final String LOGIN_ENDPOINT = "https://test.salesforce.com/services/oauth2/token";
 	public static final String CLIENTID = "3MVG9sLbBxQYwWquMUxRzV_8ieCNEc8.bdJ88tzWeCQ1_bZcSGRlHr4M.7LIW_gRnQydN1dqJgPSZeM.qBsdY";
 	public static final String SECRETID = "6959566901876856983";
 
@@ -93,7 +93,7 @@ public class FunderaAPIHelper {
 	}
 
 	public FunderaResponse getOffers(FunderaRequest request) {
-		System.out.println("...Inside Get Offers - API Helper...");
+		
 		FunderaResponse fndResponse = new FunderaResponse();
 		// TODO: For future. validations here. Assume happy path for now.
 
@@ -104,30 +104,31 @@ public class FunderaAPIHelper {
 
 		try {
 			SalesforceFacade sfFacade = new SalesforceFacade();
-			sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
+			// sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
+			sfFacade.login(LOGIN_ENDPOINT, USERNAME, PASSWORD, TOKEN, CLIENTID, SECRETID);
 
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
 				if (app != null) {
 					fndResponse.setSuccess(false);
-					System.out.println("...application exists...");
+					
 					throw new RuntimeException("Application Already exists");
 				} else {
-					System.out.println("...App is Null...");
+					
 					Application newApp = new Application();
 					appl.setAccount(c);
 					newApp = sfFacade.createApplication(appl, partner);
 				}
 			} else {
-				System.out.println("...Cust is Null...");
+				
 				Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 				Lead l = new Lead();
 				if (existingLead == null) {
 					Lead newLead = sfFacade.createLead(merchant, partner);
 					Contact con = sfFacade.createContact(primaryContact, partner);
 					appl.setPrimaryContact(con);
-					appl.setLead(newLead);  
+					appl.setLead(newLead);
 					Application newApplication = sfFacade.createApplication(appl, partner);
 					ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 				} else {

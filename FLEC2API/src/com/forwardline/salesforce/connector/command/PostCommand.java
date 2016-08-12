@@ -19,6 +19,8 @@ public class PostCommand extends BaseHttpCommand {
 		post.addHeader("Authorization", "Bearer " + getAccessToken());
 		post.addHeader("Content-Type", "application/json");
 		post.setEntity(new StringEntity(getJson(), ContentType.APPLICATION_JSON));
+		System.out.println("Post Command");
+		System.out.println(getJson());
 		return processRequest(post);
 	}
 }

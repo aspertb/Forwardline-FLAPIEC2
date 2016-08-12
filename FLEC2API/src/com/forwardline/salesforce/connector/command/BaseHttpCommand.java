@@ -58,6 +58,9 @@ public abstract class BaseHttpCommand {
 			String line = "";
 			while ((line = rd.readLine()) != null)
 				json.append(line);
+
+			System.out.println("Response");
+			System.out.println(json);
 		} catch (IOException e) {
 			throw new ServiceCalloutException(e);
 		}

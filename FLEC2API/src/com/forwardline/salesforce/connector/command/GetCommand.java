@@ -29,11 +29,13 @@ public class GetCommand extends BaseHttpCommand {
 				addSeperator = true;
 			}
 		}
+		System.out.println(query.toString());
 		return query.toString();
 	}
 
 	@Override
 	public SalesforceResponse execute() throws ServiceCalloutException {
+		System.out.println("GET Command");
 		HttpGet get = new HttpGet(getQueryString(getInstanceUrl()));
 		get.addHeader("Authorization", "Bearer " + getAccessToken());
 		return processRequest(get);
