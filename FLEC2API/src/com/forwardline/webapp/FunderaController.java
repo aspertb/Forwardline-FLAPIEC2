@@ -11,14 +11,14 @@ public class FunderaController {
 
 	@RequestMapping(value = "/funderaRequest", method=RequestMethod.GET)
 	public String funderaRequestInit(Model model) {
-		System.out.println("FunderaController: Passing through...");
+		System.out.println("FunderaController.funderaRequestInit: Passing through...");
 		model.addAttribute("request", new FunderaRequest());
         return "FunderaRequest";
 	}
 	
 	@RequestMapping(value = "/getOffer", method=RequestMethod.POST)
 	public String getOffer(@ModelAttribute FunderaRequest request, Model model) {
-		System.out.println("FunderaController: Passing through...");
+		System.out.println("FunderaController.getOffer: Passing through...");
 		model.addAttribute("offer", new FunderaRequest());
         return "FunderaResponse";
 	}
