@@ -32,11 +32,8 @@ import com.sun.jersey.api.json.JSONConfiguration;
 public class FunderaController {
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
-	            //The date format to parse or output your dates
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	            //Create a new CustomDateEditor
 	    CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-	            //Register it as custom editor for the Date type
 	    binder.registerCustomEditor(Date.class, editor);
 	}
 	
