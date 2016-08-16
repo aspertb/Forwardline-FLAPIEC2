@@ -6,6 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>FLWEB :: Fundera Response Page</title>
 </head>
-<body>Hello!!!
+<body>
+	<h3>Request JSON</h3>
+	<p>${requestJSON}</p>
+	<br/>
+	<h3>Response JSON</h3>
+	<p>${responseJSON}</p>
 </body>
 </html>
