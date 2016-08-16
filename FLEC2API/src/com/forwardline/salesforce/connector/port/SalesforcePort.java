@@ -24,7 +24,6 @@ import com.forwardline.salesforce.connector.types.Lead;
 import com.forwardline.salesforce.connector.types.LeadLookupResponse;
 import com.forwardline.salesforce.connector.types.LeadRequest;
 import com.forwardline.salesforce.connector.types.LeadResponse;
-import com.forwardline.salesforce.connector.types.RequestHeader;
 import com.forwardline.salesforce.connector.types.SalesforceRequest;
 import com.forwardline.salesforce.connector.types.SalesforceResponse;
 import com.forwardline.salesforce.connector.types.SalesforceSession;

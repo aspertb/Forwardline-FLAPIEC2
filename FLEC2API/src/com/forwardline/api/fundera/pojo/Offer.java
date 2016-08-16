@@ -6,6 +6,8 @@ public class Offer {
 	public Double interest_rate;
 	public Integer term;
 	public Double origination_fee;
+	public boolean approved;
+	public String reason;
 
 	public Offer() {
 	}
@@ -48,6 +50,22 @@ public class Offer {
 
 	public void setOrigination_fee(Double origination_fee) {
 		this.origination_fee = origination_fee;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 }

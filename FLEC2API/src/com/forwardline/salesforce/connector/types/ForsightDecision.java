@@ -5,6 +5,7 @@ public class ForsightDecision {
 	private Analysis analysis;
 	private Offer offer;
 	private Boolean approved;
+	private String reason;
 
 	public ForsightDecision() {
 
@@ -15,7 +16,7 @@ public class ForsightDecision {
 	}
 
 	public void setAnalysis(Analysis analysis) {
-		this.analysis = analysis; 
+		this.analysis = analysis;
 	}
 
 	public Offer getOffer() {
@@ -32,6 +33,14 @@ public class ForsightDecision {
 
 	public void setApproved(Boolean approved) {
 		this.approved = approved;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 }

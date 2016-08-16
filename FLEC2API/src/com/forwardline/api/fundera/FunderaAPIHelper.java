@@ -6,6 +6,7 @@ import java.util.List;
 import com.forwardline.api.fundera.pojo.Company;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
+import com.forwardline.api.fundera.pojo.Offer;
 import com.forwardline.api.fundera.pojo.Person;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
@@ -89,11 +90,17 @@ public class FunderaAPIHelper {
 		app.setBusinessAddressCity(request.getCompany().getCity());
 		app.setBusinessAddressState(request.getCompany().getState());
 		app.setBusinessAddressZip(request.getCompany().getZip());
+		app.setBusinessAcceptsCreditCard(request.getCompany().getBusiness_accepts_credit_card());
+		app.setAverageMonthlySales(request.getCompany().getAverage_monthly_sales());
+		app.setCcSalesLastMonth(request.getCompany().getCc_sales_last_month());
+		app.setCcSalesTwoMonthsAgo(request.getCompany().getCc_sales_two_months_ago());
+		app.setCcSalesThreeMonthsAgo(request.getCompany().getCc_sales_three_months_ago());
+		app.setCcSalesFourMonthsAgo(request.getCompany().getCc_sales_four_months_ago());
 		return app;
 	}
 
 	public FunderaResponse getOffers(FunderaRequest request) {
-		
+
 		FunderaResponse fndResponse = new FunderaResponse();
 		// TODO: For future. validations here. Assume happy path for now.
 
@@ -112,16 +119,16 @@ public class FunderaAPIHelper {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
 				if (app != null) {
 					fndResponse.setSuccess(false);
-					
+
 					throw new RuntimeException("Application Already exists");
 				} else {
-					
+
 					Application newApp = new Application();
 					appl.setAccount(c);
 					newApp = sfFacade.createApplication(appl, partner);
 				}
 			} else {
-				
+
 				Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 				Lead l = new Lead();
 				if (existingLead == null) {
@@ -130,7 +137,34 @@ public class FunderaAPIHelper {
 					appl.setPrimaryContact(con);
 					appl.setLead(newLead);
 					Application newApplication = sfFacade.createApplication(appl, partner);
-					ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
+					if (newApplication.declinedInPreScoreBranching) {
+						Offer off = new Offer();
+						off.setApproved(false);
+						off.setReason(newApplication.getReason());
+						List<Offer> lst = new ArrayList<Offer>();
+						lst.add(off);
+						fndResponse.setOffers(lst);
+						return fndResponse;
+					} else {
+						ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
+						if (!decision.getApproved()) {
+							Offer off = new Offer();
+							off.setApproved(false);
+							off.setReason(decision.getReason());
+							List<Offer> lst = new ArrayList<Offer>();
+							lst.add(off);
+							fndResponse.setOffers(lst);
+							return fndResponse;
+						} else {
+							Offer off = new Offer();
+							off.setApproved(true);
+							off.setInterest_rate(decision.getOffer().getRate());
+							List<Offer> lst = new ArrayList<Offer>();
+							lst.add(off);
+							fndResponse.setOffers(lst);
+							return fndResponse;
+						}
+					}
 				} else {
 					l = existingLead;
 					// TODO: 1. Lookup and create contact. 2. lookup and create

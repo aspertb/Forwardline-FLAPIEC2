@@ -33,6 +33,16 @@ public class Application {
 	public String businessAddressState;
 	public String businessAddressZip;
 
+	public Boolean businessAcceptsCreditCard;
+	public Double ccSalesLastMonth;
+	public Double ccSalesTwoMonthsAgo;
+	public Double ccSalesThreeMonthsAgo;
+	public Double ccSalesFourMonthsAgo;
+	public Double averageMonthlySales;
+
+	public Boolean declinedInPreScoreBranching;
+	public String reason;
+
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
@@ -235,6 +245,70 @@ public class Application {
 
 	public void setBusinessAddressZip(String businessAddressZip) {
 		this.businessAddressZip = businessAddressZip;
+	}
+
+	public Boolean getDeclinedInPreScoreBranching() {
+		return declinedInPreScoreBranching;
+	}
+
+	public void setDeclinedInPreScoreBranching(Boolean declinedInPreScoreBranching) {
+		this.declinedInPreScoreBranching = declinedInPreScoreBranching;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public Boolean getBusinessAcceptsCreditCard() {
+		return businessAcceptsCreditCard;
+	}
+
+	public void setBusinessAcceptsCreditCard(Boolean businessAcceptsCreditCard) {
+		this.businessAcceptsCreditCard = businessAcceptsCreditCard;
+	}
+
+	public Double getCcSalesLastMonth() {
+		return ccSalesLastMonth;
+	}
+
+	public void setCcSalesLastMonth(Double ccSalesLastMonth) {
+		this.ccSalesLastMonth = ccSalesLastMonth;
+	}
+
+	public Double getCcSalesTwoMonthsAgo() {
+		return ccSalesTwoMonthsAgo;
+	}
+
+	public void setCcSalesTwoMonthsAgo(Double ccSalesTwoMonthsAgo) {
+		this.ccSalesTwoMonthsAgo = ccSalesTwoMonthsAgo;
+	}
+
+	public Double getCcSalesThreeMonthsAgo() {
+		return ccSalesThreeMonthsAgo;
+	}
+
+	public void setCcSalesThreeMonthsAgo(Double ccSalesThreeMonthsAgo) {
+		this.ccSalesThreeMonthsAgo = ccSalesThreeMonthsAgo;
+	}
+
+	public Double getCcSalesFourMonthsAgo() {
+		return ccSalesFourMonthsAgo;
+	}
+
+	public void setCcSalesFourMonthsAgo(Double ccSalesFourMonthsAgo) {
+		this.ccSalesFourMonthsAgo = ccSalesFourMonthsAgo;
+	}
+
+	public Double getAverageMonthlySales() {
+		return averageMonthlySales;
+	}
+
+	public void setAverageMonthlySales(Double averageMonthlySales) {
+		this.averageMonthlySales = averageMonthlySales;
 	}
 
 }

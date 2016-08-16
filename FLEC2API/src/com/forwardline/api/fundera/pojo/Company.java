@@ -23,6 +23,13 @@ public class Company {
 	public Date last_bankruptcy;
 	public Boolean outstanding_tax_lien_bool;
 
+	public Boolean business_accepts_credit_card;
+	public Double cc_sales_last_month;
+	public Double cc_sales_two_months_ago;
+	public Double cc_sales_three_months_ago;
+	public Double cc_sales_four_months_ago;
+	public Double average_monthly_sales;
+
 	public Company() {
 	}
 
@@ -176,6 +183,54 @@ public class Company {
 
 	public void setOutstanding_tax_lien_bool(Boolean outstanding_tax_lien_bool) {
 		this.outstanding_tax_lien_bool = outstanding_tax_lien_bool;
+	}
+
+	public Boolean getBusiness_accepts_credit_card() {
+		return business_accepts_credit_card;
+	}
+
+	public void setBusiness_accepts_credit_card(Boolean business_accepts_credit_card) {
+		this.business_accepts_credit_card = business_accepts_credit_card;
+	}
+
+	public Double getCc_sales_last_month() {
+		return cc_sales_last_month;
+	}
+
+	public void setCc_sales_last_month(Double cc_sales_last_month) {
+		this.cc_sales_last_month = cc_sales_last_month;
+	}
+
+	public Double getCc_sales_two_months_ago() {
+		return cc_sales_two_months_ago;
+	}
+
+	public void setCc_sales_two_months_ago(Double cc_sales_two_months_ago) {
+		this.cc_sales_two_months_ago = cc_sales_two_months_ago;
+	}
+
+	public Double getCc_sales_three_months_ago() {
+		return cc_sales_three_months_ago;
+	}
+
+	public void setCc_sales_three_months_ago(Double cc_sales_three_months_ago) {
+		this.cc_sales_three_months_ago = cc_sales_three_months_ago;
+	}
+
+	public Double getCc_sales_four_months_ago() {
+		return cc_sales_four_months_ago;
+	}
+
+	public void setCc_sales_four_months_ago(Double cc_sales_four_months_ago) {
+		this.cc_sales_four_months_ago = cc_sales_four_months_ago;
+	}
+
+	public Double getAverage_monthly_sales() {
+		return average_monthly_sales;
+	}
+
+	public void setAverage_monthly_sales(Double average_monthly_sales) {
+		this.average_monthly_sales = average_monthly_sales;
 	}
 
 }

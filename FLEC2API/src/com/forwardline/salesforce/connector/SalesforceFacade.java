@@ -8,6 +8,7 @@ import com.forwardline.salesforce.connector.port.SalesforcePort;
 import com.forwardline.salesforce.connector.types.Analysis;
 import com.forwardline.salesforce.connector.types.Application;
 import com.forwardline.salesforce.connector.types.ApplicationRequest;
+import com.forwardline.salesforce.connector.types.ApplicationResponse;
 import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.ContactRequest;
 import com.forwardline.salesforce.connector.types.Customer;
@@ -94,7 +95,8 @@ public class SalesforceFacade {
 		request.setHeader(header);
 		SalesforcePort port = new SalesforcePort(session);
 		try {
-			return port.createApplication(request);
+			Application createdApplication = port.createApplication(request);
+			return createdApplication;
 		} catch (ServiceCalloutException se) {
 			throw new ConnectorException(se.getMessage());
 		} catch (InvalidSessionException ive) {
