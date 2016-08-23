@@ -22,7 +22,7 @@ public class Application {
 	public Integer numberOfEmployees;
 	public Double annualRevenue;
 	public Double averageBankBalance;
-	public Integer accountsReceivable;
+	public Double accountsReceivable;
 	public Date businessInception;
 	public Date lastBankruptcy;
 	public Boolean outstandingTaxLien;
@@ -175,11 +175,11 @@ public class Application {
 		this.averageBankBalance = averageBankBalance;
 	}
 
-	public Integer getAccountsReceivable() {
+	public Double getAccountsReceivable() {
 		return accountsReceivable;
 	}
 
-	public void setAccountsReceivable(Integer accountsReceivable) {
+	public void setAccountsReceivable(Double accountsReceivable) {
 		this.accountsReceivable = accountsReceivable;
 	}
 

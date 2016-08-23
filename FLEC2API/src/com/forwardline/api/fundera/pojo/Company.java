@@ -3,9 +3,10 @@ package com.forwardline.api.fundera.pojo;
 import java.util.Date;
 
 public class Company {
+	public String uuid;
 	public Double loan_amount;
 	public String loan_purpose;
-	public Integer industry_id;
+	public Integer industry;
 	public String business_name;
 	public String business_dba;
 	public String entity_type;
@@ -15,22 +16,28 @@ public class Company {
 	public String state;
 	public String zip;
 	public String phone_number;
+	public String ein;
 	public Integer number_of_employees;
 	public Double annual_revenue;
 	public Double average_bank_balance;
-	public Integer accounts_receivable;
+	public Double accounts_receivable;
 	public Date business_inception;
-	public Date last_bankruptcy;
-	public Boolean outstanding_tax_lien_bool;
-
-	public Boolean business_accepts_credit_card;
-	public Double cc_sales_last_month;
-	public Double cc_sales_two_months_ago;
-	public Double cc_sales_three_months_ago;
-	public Double cc_sales_four_months_ago;
-	public Double average_monthly_sales;
+	public Integer outstanding_tax_lien;
+	public Double credit_card_volume_per_month;
+	public String business_location_type;
+	public Double monthly_business_location_payment;
+	public String business_location_rent_or_own;
+	public String officer_in_lawsuit;
 
 	public Company() {
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public Double getLoan_amount() {
@@ -49,12 +56,12 @@ public class Company {
 		this.loan_purpose = loan_purpose;
 	}
 
-	public Integer getIndustry_id() {
-		return industry_id;
+	public Integer getIndustry() {
+		return industry;
 	}
 
-	public void setIndustry_id(Integer industry_id) {
-		this.industry_id = industry_id;
+	public void setIndustry(Integer industry) {
+		this.industry = industry;
 	}
 
 	public String getBusiness_name() {
@@ -129,6 +136,14 @@ public class Company {
 		this.phone_number = phone_number;
 	}
 
+	public String getEin() {
+		return ein;
+	}
+
+	public void setEin(String ein) {
+		this.ein = ein;
+	}
+
 	public Integer getNumber_of_employees() {
 		return number_of_employees;
 	}
@@ -153,11 +168,11 @@ public class Company {
 		this.average_bank_balance = average_bank_balance;
 	}
 
-	public Integer getAccounts_receivable() {
+	public Double getAccounts_receivable() {
 		return accounts_receivable;
 	}
 
-	public void setAccounts_receivable(Integer accounts_receivable) {
+	public void setAccounts_receivable(Double accounts_receivable) {
 		this.accounts_receivable = accounts_receivable;
 	}
 
@@ -169,68 +184,52 @@ public class Company {
 		this.business_inception = business_inception;
 	}
 
-	public Date getLast_bankruptcy() {
-		return last_bankruptcy;
+	public Integer getOutstanding_tax_lien() {
+		return outstanding_tax_lien;
 	}
 
-	public void setLast_bankruptcy(Date last_bankruptcy) {
-		this.last_bankruptcy = last_bankruptcy;
+	public void setOutstanding_tax_lien(Integer outstanding_tax_lien) {
+		this.outstanding_tax_lien = outstanding_tax_lien;
 	}
 
-	public Boolean getOutstanding_tax_lien_bool() {
-		return outstanding_tax_lien_bool;
+	public Double getCredit_card_volume_per_month() {
+		return credit_card_volume_per_month;
 	}
 
-	public void setOutstanding_tax_lien_bool(Boolean outstanding_tax_lien_bool) {
-		this.outstanding_tax_lien_bool = outstanding_tax_lien_bool;
+	public void setCredit_card_volume_per_month(Double credit_card_volume_per_month) {
+		this.credit_card_volume_per_month = credit_card_volume_per_month;
 	}
 
-	public Boolean getBusiness_accepts_credit_card() {
-		return business_accepts_credit_card;
+	public String getBusiness_location_type() {
+		return business_location_type;
 	}
 
-	public void setBusiness_accepts_credit_card(Boolean business_accepts_credit_card) {
-		this.business_accepts_credit_card = business_accepts_credit_card;
+	public void setBusiness_location_type(String business_location_type) {
+		this.business_location_type = business_location_type;
 	}
 
-	public Double getCc_sales_last_month() {
-		return cc_sales_last_month;
+	public Double getMonthly_business_location_payment() {
+		return monthly_business_location_payment;
 	}
 
-	public void setCc_sales_last_month(Double cc_sales_last_month) {
-		this.cc_sales_last_month = cc_sales_last_month;
+	public void setMonthly_business_location_payment(Double monthly_business_location_payment) {
+		this.monthly_business_location_payment = monthly_business_location_payment;
 	}
 
-	public Double getCc_sales_two_months_ago() {
-		return cc_sales_two_months_ago;
+	public String getBusiness_location_rent_or_own() {
+		return business_location_rent_or_own;
 	}
 
-	public void setCc_sales_two_months_ago(Double cc_sales_two_months_ago) {
-		this.cc_sales_two_months_ago = cc_sales_two_months_ago;
+	public void setBusiness_location_rent_or_own(String business_location_rent_or_own) {
+		this.business_location_rent_or_own = business_location_rent_or_own;
 	}
 
-	public Double getCc_sales_three_months_ago() {
-		return cc_sales_three_months_ago;
+	public String getOfficer_in_lawsuit() {
+		return officer_in_lawsuit;
 	}
 
-	public void setCc_sales_three_months_ago(Double cc_sales_three_months_ago) {
-		this.cc_sales_three_months_ago = cc_sales_three_months_ago;
-	}
-
-	public Double getCc_sales_four_months_ago() {
-		return cc_sales_four_months_ago;
-	}
-
-	public void setCc_sales_four_months_ago(Double cc_sales_four_months_ago) {
-		this.cc_sales_four_months_ago = cc_sales_four_months_ago;
-	}
-
-	public Double getAverage_monthly_sales() {
-		return average_monthly_sales;
-	}
-
-	public void setAverage_monthly_sales(Double average_monthly_sales) {
-		this.average_monthly_sales = average_monthly_sales;
+	public void setOfficer_in_lawsuit(String officer_in_lawsuit) {
+		this.officer_in_lawsuit = officer_in_lawsuit;
 	}
 
 }

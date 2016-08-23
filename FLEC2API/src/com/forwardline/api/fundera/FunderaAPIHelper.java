@@ -50,7 +50,7 @@ public class FunderaAPIHelper {
 		cont.setLastName(primaryOwner.getLast_name());
 		cont.setMobilePhone(primaryOwner.phone_number);
 		cont.setPhone(primaryOwner.phone_number);
-		cont.setDob(primaryOwner.getDob());
+		cont.setDob(primaryOwner.getDate_of_birth());
 		cont.setSsn(primaryOwner.getSsn());
 		String st = (primaryOwner.getStreet_line1() != null) ? primaryOwner.getStreet_line1() : "";
 		st += (primaryOwner.getStreet_line2() != null) ? "\\n" + primaryOwner.getStreet_line2() : "";
@@ -58,8 +58,8 @@ public class FunderaAPIHelper {
 		cont.setCity(primaryOwner.getCity());
 		cont.setState(primaryOwner.getState());
 		cont.setZip(primaryOwner.getZip());
-		cont.setAnnualIncome(primaryOwner.getAnnual_income());
-		cont.setOwnershipPercent(primaryOwner.getOwnership_pct());
+		cont.setAnnualIncome(primaryOwner.getPersonal_annual_income());
+		cont.setOwnershipPercent(primaryOwner.getOwnership_percentage());
 		return cont;
 	}
 
@@ -79,29 +79,30 @@ public class FunderaAPIHelper {
 		app.setBusinessInception(request.getCompany().getBusiness_inception());
 		app.setBusinessName(request.getCompany().getBusiness_name());
 		app.setEntityType(request.getCompany().getEntity_type());
-		app.setIndustryId(request.getCompany().getIndustry_id());
-		app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
+		app.setIndustryId(request.getCompany().getIndustry());
+		// app.setLastBankruptcy(request.getCompany().getL);
 		app.setLoanAmount(request.getCompany().getLoan_amount());
-		app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
+		// app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
 		app.setNumberOfEmployees(request.getCompany().getNumber_of_employees());
-		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien_bool());
+		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien() == 1);
 		app.setBusinessAddressStreet1(request.getCompany().getStreet_line1());
 		app.setBusinessAddressStreet2(request.getCompany().getStreet_line2());
 		app.setBusinessAddressCity(request.getCompany().getCity());
 		app.setBusinessAddressState(request.getCompany().getState());
 		app.setBusinessAddressZip(request.getCompany().getZip());
-		app.setBusinessAcceptsCreditCard(request.getCompany().getBusiness_accepts_credit_card());
-		app.setAverageMonthlySales(request.getCompany().getAverage_monthly_sales());
-		app.setCcSalesLastMonth(request.getCompany().getCc_sales_last_month());
-		app.setCcSalesTwoMonthsAgo(request.getCompany().getCc_sales_two_months_ago());
-		app.setCcSalesThreeMonthsAgo(request.getCompany().getCc_sales_three_months_ago());
-		app.setCcSalesFourMonthsAgo(request.getCompany().getCc_sales_four_months_ago());
+		app.setBusinessAcceptsCreditCard(request.getCompany().getMonthly_business_location_payment() != null);
+		app.setAverageMonthlySales(request.getCompany().getMonthly_business_location_payment());
+		app.setCcSalesLastMonth(request.getCompany().getMonthly_business_location_payment());
+		app.setCcSalesTwoMonthsAgo(request.getCompany().getMonthly_business_location_payment());
+		app.setCcSalesThreeMonthsAgo(request.getCompany().getMonthly_business_location_payment());
+		app.setCcSalesFourMonthsAgo(request.getCompany().getMonthly_business_location_payment());
 		return app;
 	}
 
 	public FunderaResponse getOffers(FunderaRequest request) {
 
 		FunderaResponse fndResponse = new FunderaResponse();
+		fndResponse.setUpdated(false);
 		// TODO: For future. validations here. Assume happy path for now.
 
 		Contact primaryContact = getPrimaryContact(request);
@@ -118,7 +119,7 @@ public class FunderaAPIHelper {
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
 				if (app != null) {
-					fndResponse.setSuccess(false);
+					fndResponse.setUpdated(false);
 
 					throw new RuntimeException("Application Already exists");
 				} else {
@@ -139,8 +140,8 @@ public class FunderaAPIHelper {
 					Application newApplication = sfFacade.createApplication(appl, partner);
 					if (newApplication.declinedInPreScoreBranching) {
 						Offer off = new Offer();
-						off.setApproved(false);
-						off.setReason(newApplication.getReason());
+						fndResponse.setPreapproved(false);
+						fndResponse.setRejection_reason(newApplication.getReason());
 						List<Offer> lst = new ArrayList<Offer>();
 						lst.add(off);
 						fndResponse.setOffers(lst);
@@ -149,15 +150,15 @@ public class FunderaAPIHelper {
 						ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 						if (!decision.getApproved()) {
 							Offer off = new Offer();
-							off.setApproved(false);
-							off.setReason(decision.getReason());
+							fndResponse.setPreapproved(false);
+							fndResponse.setRejection_reason(newApplication.getReason());
 							List<Offer> lst = new ArrayList<Offer>();
 							lst.add(off);
 							fndResponse.setOffers(lst);
 							return fndResponse;
 						} else {
 							Offer off = new Offer();
-							off.setApproved(true);
+							fndResponse.setPreapproved(true);
 							off.setInterest_rate(decision.getOffer().getRate());
 							List<Offer> lst = new ArrayList<Offer>();
 							lst.add(off);
@@ -172,7 +173,8 @@ public class FunderaAPIHelper {
 				}
 			}
 		} catch (Exception e) {
-			fndResponse.setSuccess(false);
+			fndResponse.setPreapproved(false);
+			fndResponse.setRejection_reason(e.getMessage());
 		}
 		return fndResponse;
 	}
