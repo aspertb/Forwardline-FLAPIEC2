@@ -6,7 +6,7 @@ public class Company {
 	public String uuid;
 	public Double loan_amount;
 	public String loan_purpose;
-	public Integer industry;
+	public String industry;
 	public String business_name;
 	public String business_dba;
 	public String entity_type;
@@ -56,11 +56,11 @@ public class Company {
 		this.loan_purpose = loan_purpose;
 	}
 
-	public Integer getIndustry() {
+	public String getIndustry() {
 		return industry;
 	}
 
-	public void setIndustry(Integer industry) {
+	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
 
