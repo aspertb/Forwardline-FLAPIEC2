@@ -79,7 +79,7 @@ public class FunderaAPIHelper {
 		app.setBusinessInception(request.getCompany().getBusiness_inception());
 		app.setBusinessName(request.getCompany().getBusiness_name());
 		app.setEntityType(request.getCompany().getEntity_type());
-		app.setIndustryId(request.getCompany().getIndustry());
+		///app.setIndustryId(request.getCompany().getIndustry()); TODO
 		// app.setLastBankruptcy(request.getCompany().getL);
 		app.setLoanAmount(request.getCompany().getLoan_amount());
 		// app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
