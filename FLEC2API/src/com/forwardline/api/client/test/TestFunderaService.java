@@ -66,7 +66,7 @@ public class TestFunderaService {
 
 		try {
 			FunderaRequest request = new FunderaRequest();
-			FileInputStream f = new FileInputStream("C:\\sampleReqMinified2.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
