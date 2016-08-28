@@ -8,7 +8,8 @@ public class Analysis {
 	private Boolean branchingComplete;
 	private String nextStep;
 	private String currentReportType;
-	private Integer consumerIndex; 
+	private Integer consumerIndex;
+	private Integer contactIndex;
 
 	public String getId() {
 		return id;
@@ -64,6 +65,14 @@ public class Analysis {
 
 	public void setConsumerIndex(Integer consumerIndex) {
 		this.consumerIndex = consumerIndex;
+	}
+
+	public Integer getContactIndex() {
+		return contactIndex;
+	}
+
+	public void setContactIndex(Integer contactIndex) {
+		this.contactIndex = contactIndex;
 	}
 
 }

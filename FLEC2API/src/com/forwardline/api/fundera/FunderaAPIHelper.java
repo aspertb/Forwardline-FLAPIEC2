@@ -41,26 +41,43 @@ public class FunderaAPIHelper {
 		return l;
 	}
 
+	private Contact getContact(Person p) {
+		Contact cont = new Contact();
+		cont.setEmail(p.getEmail());
+		cont.setFirstName(p.getFirst_name());
+		cont.setLastName(p.getLast_name());
+		cont.setMobilePhone(p.phone_number);
+		cont.setPhone(p.phone_number);
+		cont.setDob(p.getDate_of_birth());
+		cont.setSsn(p.getSsn());
+		String st = (p.getStreet_line1() != null) ? p.getStreet_line1() : "";
+		st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() : "";
+		cont.setStreet(st);
+		cont.setCity(p.getCity());
+		cont.setState(p.getState());
+		cont.setZip(p.getZip());
+		cont.setAnnualIncome(p.getPersonal_annual_income());
+		cont.setOwnershipPercent(p.getOwnership_percentage());
+		return cont;
+	}
+
 	private Contact getPrimaryContact(FunderaRequest request) {
 		List<Person> owners = request.owners;
 		Person primaryOwner = owners.get(0);
-		Contact cont = new Contact();
-		cont.setEmail(primaryOwner.getEmail());
-		cont.setFirstName(primaryOwner.getFirst_name());
-		cont.setLastName(primaryOwner.getLast_name());
-		cont.setMobilePhone(primaryOwner.phone_number);
-		cont.setPhone(primaryOwner.phone_number);
-		cont.setDob(primaryOwner.getDate_of_birth());
-		cont.setSsn(primaryOwner.getSsn());
-		String st = (primaryOwner.getStreet_line1() != null) ? primaryOwner.getStreet_line1() : "";
-		st += (primaryOwner.getStreet_line2() != null) ? "\\n" + primaryOwner.getStreet_line2() : "";
-		cont.setStreet(st);
-		cont.setCity(primaryOwner.getCity());
-		cont.setState(primaryOwner.getState());
-		cont.setZip(primaryOwner.getZip());
-		cont.setAnnualIncome(primaryOwner.getPersonal_annual_income());
-		cont.setOwnershipPercent(primaryOwner.getOwnership_percentage());
-		return cont;
+		return getContact(primaryOwner);
+	}
+
+	private List<Contact> getGuarantors(FunderaRequest request) {
+		List<Person> owners = request.owners;
+		if (owners.size() == 1)
+			return null;
+		List<Contact> cLst = new ArrayList<Contact>();
+		for (Integer i = 1; i < owners.size(); i++) {
+			Person p = owners.get(i);
+			Contact c = getContact(p);
+			cLst.add(c);
+		}
+		return cLst;
 	}
 
 	private Application getApplication(FunderaRequest request) {
@@ -79,7 +96,7 @@ public class FunderaAPIHelper {
 		app.setBusinessInception(request.getCompany().getBusiness_inception());
 		app.setBusinessName(request.getCompany().getBusiness_name());
 		app.setEntityType(request.getCompany().getEntity_type());
-		///app.setIndustryId(request.getCompany().getIndustry()); TODO
+		/// app.setIndustryId(request.getCompany().getIndustry()); TODO
 		// app.setLastBankruptcy(request.getCompany().getL);
 		app.setLoanAmount(request.getCompany().getLoan_amount());
 		// app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
@@ -137,6 +154,7 @@ public class FunderaAPIHelper {
 					Contact con = sfFacade.createContact(primaryContact, partner);
 					appl.setPrimaryContact(con);
 					appl.setLead(newLead);
+					appl.setGuarantors(getGuarantors(request));
 					Application newApplication = sfFacade.createApplication(appl, partner);
 					if (newApplication.declinedInPreScoreBranching) {
 						Offer off = new Offer();
