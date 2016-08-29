@@ -2,7 +2,7 @@
   "owners" : [
     {
       "uuid" : "cde65dcb-ac03-40b2-86af-3620e721e95f",
-      "email" : "test.9660766666@funderatest.com",
+      "email" : "test.96607666666@funderatest.com",
       "phone_number" : "5035813157",
       "first_name" : "Kelly",
       "last_name" : "Desphande",
@@ -32,7 +32,7 @@
     },
     {
       "uuid" : "79dd90ff-72e2-4688-b1a1-d461a3bf8562",
-      "email" : "test.8c37dccccc@funderatest.com",
+      "email" : "test.8c37dcccccc@funderatest.com",
       "phone_number" : "5038077247",
       "first_name" : "Jenny",
       "last_name" : "Jones",
@@ -62,7 +62,7 @@
     },
     {
       "uuid" : "2072d3ce-c8b9-43b1-b88f-00108741e7ed",
-      "email" : "test.96ae9ddddd@funderatest.com",
+      "email" : "test.96ae9dddddd@funderatest.com",
       "phone_number" : "5036327303",
       "first_name" : "Kelly",
       "last_name" : "Smith",
