@@ -2,28 +2,24 @@ package com.forwardline.api.fundera;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.forwardline.api.fundera.pojo.Company;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
 import com.forwardline.api.fundera.pojo.Person;
+import com.forwardline.api.persistence.APIPropertiesDAO;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
 import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.Customer;
 import com.forwardline.salesforce.connector.types.ForsightDecision;
 import com.forwardline.salesforce.connector.types.Lead;
+import com.forwardline.util.IFLAPIConstants;
 
 @SuppressWarnings("unused")
 public class FunderaAPIHelper {
-
-	public static final String USERNAME = "aspert.b@forwardline.com.fldev";
-	public static final String PASSWORD = "FLfin123";
-	public static final String TOKEN = "zSQrWlxO4Yo2V2tYcfl5y6qg";
-	public static final String LOGIN_ENDPOINT = "https://test.salesforce.com/services/oauth2/token";
-	public static final String CLIENTID = "3MVG9sLbBxQYwWquMUxRzV_8ieCNEc8.bdJ88tzWeCQ1_bZcSGRlHr4M.7LIW_gRnQydN1dqJgPSZeM.qBsdY";
-	public static final String SECRETID = "6959566901876856983";
 
 	public FunderaAPIHelper() {
 	}
@@ -120,7 +116,6 @@ public class FunderaAPIHelper {
 
 		FunderaResponse fndResponse = new FunderaResponse();
 		fndResponse.setUpdated(false);
-		// TODO: For future. validations here. Assume happy path for now.
 
 		Contact primaryContact = getPrimaryContact(request);
 		Lead merchant = getLead(request);
@@ -129,24 +124,19 @@ public class FunderaAPIHelper {
 
 		try {
 			SalesforceFacade sfFacade = new SalesforceFacade();
-			// sfFacade.login(USERNAME, PASSWORD, CLIENTID, SECRETID);
-			sfFacade.login(LOGIN_ENDPOINT, USERNAME, PASSWORD, TOKEN, CLIENTID, SECRETID);
+			APIPropertiesDAO apiDAO = new APIPropertiesDAO();
+			Map<String, String> apiProperties = apiDAO.getAPIProperties();
+
+			sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),
+					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
 
 			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
 			if (c != null) {
 				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
-				if (app != null) {
-					fndResponse.setUpdated(false);
-
-					throw new RuntimeException("Application Already exists");
-				} else {
-
-					Application newApp = new Application();
-					appl.setAccount(c);
-					newApp = sfFacade.createApplication(appl, partner);
-				}
+				if (app != null)
+					return new FunderaResponse(false, "Merchant already has an application in progress.");
+				return new FunderaResponse(false, "Merchant is a forwardline customer.");
 			} else {
-
 				Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
 				Lead l = new Lead();
 				if (existingLead == null) {
@@ -185,9 +175,7 @@ public class FunderaAPIHelper {
 						}
 					}
 				} else {
-					l = existingLead;
-					// TODO: 1. Lookup and create contact. 2. lookup and create
-					// application
+					return new FunderaResponse(false, "Merchant is a lead at Forwardline.");
 				}
 			}
 		} catch (Exception e) {

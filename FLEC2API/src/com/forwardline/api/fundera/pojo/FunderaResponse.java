@@ -11,7 +11,12 @@ public class FunderaResponse {
 	public FunderaResponse() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public FunderaResponse(boolean preapproved, String rejection_reason) {
+		this.preapproved = preapproved;
+		this.rejection_reason = rejection_reason;
+	}
+	
 	public boolean isUpdated() {
 		return updated;
 	}
