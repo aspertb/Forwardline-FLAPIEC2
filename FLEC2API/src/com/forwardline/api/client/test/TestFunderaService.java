@@ -93,7 +93,7 @@ public class TestFunderaService {
 		// getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		System.out.println("Inside Main");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
-		// getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
-		testAPIHelper();
+		getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
+		//testAPIHelper();
 	}
 }

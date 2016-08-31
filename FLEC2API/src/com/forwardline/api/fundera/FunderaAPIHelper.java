@@ -10,6 +10,7 @@ import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
 import com.forwardline.api.fundera.pojo.Person;
 import com.forwardline.api.persistence.APIPropertiesDAO;
+import com.forwardline.exception.InternalServerException;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
 import com.forwardline.salesforce.connector.types.Contact;
@@ -112,7 +113,7 @@ public class FunderaAPIHelper {
 		return app;
 	}
 
-	public FunderaResponse getOffers(FunderaRequest request) {
+	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
 
 		FunderaResponse fndResponse = new FunderaResponse();
 		fndResponse.setUpdated(false);
@@ -179,9 +180,7 @@ public class FunderaAPIHelper {
 				}
 			}
 		} catch (Exception e) {
-			fndResponse.setPreapproved(false);
-			fndResponse.setRejection_reason(e.getMessage());
+			throw new InternalServerException(e.getMessage());
 		}
-		return fndResponse;
 	}
 }

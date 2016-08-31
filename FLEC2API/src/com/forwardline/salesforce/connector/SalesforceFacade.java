@@ -1,6 +1,6 @@
 package com.forwardline.salesforce.connector;
 
-import com.forwardline.api.exception.ConnectorException;
+import com.forwardline.exception.ConnectorException;
 import com.forwardline.salesforce.connector.exception.InvalidSessionException;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
 import com.forwardline.salesforce.connector.port.SalesforceLoginPort;
