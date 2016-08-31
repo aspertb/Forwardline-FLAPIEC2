@@ -180,7 +180,9 @@ public class FunderaAPIHelper {
 				}
 			}
 		} catch (Exception e) {
-			throw new InternalServerException(e.getMessage());
+			e.printStackTrace();
+			// throw new InternalServerException(e.getMessage());
+			return new FunderaResponse(false, e.getMessage());
 		}
 	}
 }

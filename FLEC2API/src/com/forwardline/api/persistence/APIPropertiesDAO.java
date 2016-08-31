@@ -20,7 +20,7 @@ public class APIPropertiesDAO {
 			Connection conn = cm.getConnection();
 			pStmt = conn.prepareStatement("select Property_Name, Property_Value from API_Properties");
 			rs = pStmt.executeQuery();
-			if (rs.next())
+			while (rs.next())
 				propertiesMap.put(rs.getString(1), rs.getString(2));
 			rs.close();
 			pStmt.close();

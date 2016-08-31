@@ -9,6 +9,7 @@ import com.forwardline.api.fundera.FunderaAPIHelper;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
+import com.forwardline.util.APIUtil;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -28,7 +29,7 @@ public class TestFunderaService {
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 			Client client = Client.create(clientConfig);
 			WebResource webResource = client.resource(endPoint);
-			
+
 			FileInputStream f = new FileInputStream("sampleReqMininfied.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
@@ -44,7 +45,10 @@ public class TestFunderaService {
 				request = gson.fromJson(json.toString(), FunderaRequest.class);
 			}
 
-			ClientResponse response = webResource.accept("application/json").type("application/json").post(ClientResponse.class, request);
+			String s = "FunderAPIUser:1472676134675";
+			ClientResponse response = webResource.accept("application/json").type("application/json").header("Authorization", "Basic " + APIUtil.encode(s)).post(ClientResponse.class, request);
+
+			//System.out.println(response.getEntity(String.class));
 
 			if (response.getStatus() != 200)
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus() + " - " + response.getHeaders());
@@ -94,6 +98,6 @@ public class TestFunderaService {
 		System.out.println("Inside Main");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
 		getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
-		//testAPIHelper();
+		// testAPIHelper();
 	}
 }
