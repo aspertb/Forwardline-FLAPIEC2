@@ -20,7 +20,7 @@ public class PartnerDAO {
 		ResultSet rs = null;
 		ConnectionManager cm = null;
 		try {
-			cm = ConnectionManager.getInstance();
+			cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
 			pStmt = conn.prepareStatement("select Partner_Name, Partner_Id from Forwardline_Partner where Partner_Id = ? and User_Name = ? and Password = ?");
 			pStmt.setString(1, p.getPartnerId());
@@ -54,7 +54,8 @@ public class PartnerDAO {
 			}
 
 			try {
-				cm.close();
+				if (cm != null)
+					cm.close();
 			} catch (SQLException sqe) {
 				throw new QueryException(sqe.getMessage());
 			}

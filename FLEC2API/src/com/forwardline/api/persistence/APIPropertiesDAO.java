@@ -16,7 +16,7 @@ public class APIPropertiesDAO {
 		ResultSet rs = null;
 		ConnectionManager cm = null;
 		try {
-			cm = ConnectionManager.getInstance();
+			cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
 			pStmt = conn.prepareStatement("select Property_Name, Property_Value from API_Properties");
 			rs = pStmt.executeQuery();

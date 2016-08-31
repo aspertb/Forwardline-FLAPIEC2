@@ -18,18 +18,12 @@ public class ConnectionManager {
 		host = "aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com";
 		port = "3306";
 		userName = "fladmin";
-		password = "!#FlFiN16app%$";
+		password = "!#FlFiN16app--$";
 		db = "flapimysqldb";
 	}
 
-	private ConnectionManager() throws Exception {
+	public ConnectionManager() throws Exception {
 		loadConnection();
-	}
-
-	public static ConnectionManager getInstance() throws Exception {
-		if (cm == null)
-			cm = new ConnectionManager();
-		return cm;
 	}
 
 	private void loadConnection() throws Exception {
@@ -57,7 +51,7 @@ public class ConnectionManager {
 
 	public static void main(String args[]) {
 		try {
-			ConnectionManager cm = ConnectionManager.getInstance();
+			ConnectionManager cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();

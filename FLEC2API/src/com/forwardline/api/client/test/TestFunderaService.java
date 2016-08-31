@@ -28,7 +28,7 @@ public class TestFunderaService {
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 			Client client = Client.create(clientConfig);
 			WebResource webResource = client.resource(endPoint);
-
+			
 			FileInputStream f = new FileInputStream("sampleReqMininfied.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 

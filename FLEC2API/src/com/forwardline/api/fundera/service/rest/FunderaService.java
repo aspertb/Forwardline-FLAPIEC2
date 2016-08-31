@@ -36,6 +36,7 @@ public class FunderaService {
 				} else
 					throw new UnauthorizedException("Unauthorized.");
 			} catch (DataAccessException dae) {
+				dae.printStackTrace();
 				throw new InternalServerException(dae.getMessage());
 			}
 		} else
