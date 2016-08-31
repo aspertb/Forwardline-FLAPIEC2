@@ -151,19 +151,21 @@ public class FunderaAPIHelper {
 						Offer off = new Offer();
 						fndResponse.setPreapproved(false);
 						fndResponse.setRejection_reason(newApplication.getReason());
-						List<Offer> lst = new ArrayList<Offer>();
-						lst.add(off);
-						fndResponse.setOffers(lst);
+						/*
+						 * List<Offer> lst = new ArrayList<Offer>();
+						 * lst.add(off); fndResponse.setOffers(lst);
+						 */
 						return fndResponse;
 					} else {
 						ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 						if (!decision.getApproved()) {
 							Offer off = new Offer();
 							fndResponse.setPreapproved(false);
-							fndResponse.setRejection_reason(newApplication.getReason());
-							List<Offer> lst = new ArrayList<Offer>();
-							lst.add(off);
-							fndResponse.setOffers(lst);
+							fndResponse.setRejection_reason(decision.getReason());
+							/*
+							 * List<Offer> lst = new ArrayList<Offer>();
+							 * lst.add(off); fndResponse.setOffers(lst);
+							 */
 							return fndResponse;
 						} else {
 							Offer off = new Offer();
