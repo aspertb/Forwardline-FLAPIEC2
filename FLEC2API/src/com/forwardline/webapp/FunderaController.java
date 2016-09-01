@@ -36,7 +36,8 @@ public class FunderaController {
 		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
-
+	
+	//http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/flwebapp/funderaRequest
 	@RequestMapping(value = "/funderaRequest", method = RequestMethod.GET)
 	public String funderaRequestInit(Model model) {
 		System.out.println("FunderaController.funderaRequestInit invoked.");
