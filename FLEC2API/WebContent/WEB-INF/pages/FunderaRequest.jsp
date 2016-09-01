@@ -262,12 +262,17 @@
 				            <td><form:label path="owners[0].citizenship">Citizenship (String)</form:label></td>
 				            <td><form:input path="owners[0].citizenship"/></td>
 				        </tr>
+				        <tr>
+				            <td></td>
+				            <td></td>
+				        </tr>
+				        <tr>
+				            <td></td>
+				            <td><input type="submit" value="Submit"/></td>
+				        </tr>
 					</table>
 				</td>
 			</tr>
-			<tr>
-	            <td><input type="submit" value="Submit"/></td>
-	        </tr>
 		</table>
 	</form:form>
 </body>
