@@ -17,7 +17,7 @@
       "credit_score" : "Good (640-659)",
       "last_bankruptcy" : "Discharged 3-4 years ago",
       "drivers_license_number" : "12-345-123",
-      "drivers_license_state" : "AS",
+      "drivers_license_state" : "CA",
       "drivers_license_expiration" : "2021-08-31",
       "passport_number" : "12345000",
       "passport_country" : "Philippines",

@@ -17,6 +17,8 @@ public class Contact {
 	public String zip;
 	public Double annualIncome;
 	public Float ownershipPercent;
+	public String dlState;
+	public String dlNumber;
 
 	public Contact(String id, String firstName, String lastName, String email, String phone, String mobilePhone) {
 		this.id = id;
@@ -26,7 +28,6 @@ public class Contact {
 		this.setPhone(phone);
 		this.setMobilePhone(mobilePhone);
 	}
-	
 
 	public Contact() {
 		// TODO Auto-generated constructor stub
@@ -142,6 +143,22 @@ public class Contact {
 
 	public void setOwnershipPercent(Float ownershipPercent) {
 		this.ownershipPercent = ownershipPercent;
+	}
+
+	public String getDlState() {
+		return dlState;
+	}
+
+	public void setDlState(String dlState) {
+		this.dlState = dlState;
+	}
+
+	public String getDlNumber() {
+		return dlNumber;
+	}
+
+	public void setDlNumber(String dlNumber) {
+		this.dlNumber = dlNumber;
 	}
 
 }

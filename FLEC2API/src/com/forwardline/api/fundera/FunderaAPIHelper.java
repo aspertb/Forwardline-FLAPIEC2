@@ -48,13 +48,15 @@ public class FunderaAPIHelper {
 		cont.setDob(p.getDate_of_birth());
 		cont.setSsn(p.getSsn());
 		String st = (p.getStreet_line1() != null) ? p.getStreet_line1() : "";
-		st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() : "";
+		//st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() : "";
 		cont.setStreet(st);
 		cont.setCity(p.getCity());
 		cont.setState(p.getState());
 		cont.setZip(p.getZip());
 		cont.setAnnualIncome(p.getPersonal_annual_income());
 		cont.setOwnershipPercent(p.getOwnership_percentage());
+		cont.setDlNumber(p.getDrivers_license_number());
+		cont.setDlState(p.getDrivers_license_state());
 		return cont;
 	}
 
