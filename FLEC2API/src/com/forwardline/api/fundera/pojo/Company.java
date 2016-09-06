@@ -7,6 +7,7 @@ public class Company {
 	public Double loan_amount;
 	public String loan_purpose;
 	public String industry;
+	public String industry_naics;
 	public String business_name;
 	public String business_dba;
 	public String entity_type;
@@ -230,6 +231,14 @@ public class Company {
 
 	public void setOfficer_in_lawsuit(String officer_in_lawsuit) {
 		this.officer_in_lawsuit = officer_in_lawsuit;
+	}
+
+	public String getIndustry_naics() {
+		return industry_naics;
+	}
+
+	public void setIndustry_naics(String industry_naics) {
+		this.industry_naics = industry_naics;
 	}
 
 }
