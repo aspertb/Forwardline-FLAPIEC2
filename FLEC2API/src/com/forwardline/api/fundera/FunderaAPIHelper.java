@@ -106,12 +106,12 @@ public class FunderaAPIHelper {
 		app.setBusinessAddressCity(request.getCompany().getCity());
 		app.setBusinessAddressState(request.getCompany().getState());
 		app.setBusinessAddressZip(request.getCompany().getZip());
-		app.setBusinessAcceptsCreditCard(request.getCompany().getMonthly_business_location_payment() != null);
-		app.setAverageMonthlySales(request.getCompany().getMonthly_business_location_payment());
-		app.setCcSalesLastMonth(request.getCompany().getMonthly_business_location_payment());
-		app.setCcSalesTwoMonthsAgo(request.getCompany().getMonthly_business_location_payment());
-		app.setCcSalesThreeMonthsAgo(request.getCompany().getMonthly_business_location_payment());
-		app.setCcSalesFourMonthsAgo(request.getCompany().getMonthly_business_location_payment());
+		app.setBusinessAcceptsCreditCard(request.getCompany().getCredit_card_volume_per_month() != null);
+		app.setAverageMonthlySales(request.getCompany().getCredit_card_volume_per_month());
+		app.setCcSalesLastMonth(request.getCompany().getCredit_card_volume_per_month());
+		app.setCcSalesTwoMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
+		app.setCcSalesThreeMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
+		app.setCcSalesFourMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
 		return app;
 	}
 
