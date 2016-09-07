@@ -30,7 +30,8 @@ public class TestFunderaService {
 			Client client = Client.create(clientConfig);
 			WebResource webResource = client.resource(endPoint);
 
-			FileInputStream f = new FileInputStream("sampleReqMininfied.txt");
+			//FileInputStream f = new FileInputStream("sampleReqMininfied.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample2.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
@@ -70,7 +71,7 @@ public class TestFunderaService {
 
 		try {
 			FunderaRequest request = new FunderaRequest();
-			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample2.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
@@ -94,10 +95,10 @@ public class TestFunderaService {
 	}
 
 	public static void main(String[] args) {
-		// getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
+		getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		System.out.println("Inside Main");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
 		//getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
-		testAPIHelper();
+		//testAPIHelper();
 	}
 }
