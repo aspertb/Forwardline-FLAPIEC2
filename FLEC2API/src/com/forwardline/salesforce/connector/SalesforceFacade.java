@@ -36,7 +36,7 @@ public class SalesforceFacade {
 			}
 		}
 	}
-
+	
 	public Customer getCustomer(String email, String partner) throws ConnectorException {
 		SalesforcePort port = new SalesforcePort(session);
 		try {
@@ -132,7 +132,7 @@ public class SalesforceFacade {
 		}
 		return decision;
 	}
-
+	
 	public Contact createContact(Contact contact, String partner) throws ConnectorException {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);

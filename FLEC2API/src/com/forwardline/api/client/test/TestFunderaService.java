@@ -95,10 +95,12 @@ public class TestFunderaService {
 	}
 
 	public static void main(String[] args) {
-		getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
+		//getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		System.out.println("Inside Main");
+		//forwardlinepartnerapi.us-west-2.elasticbeanstalk.com
+		//getOffers("http://forwardlineolaapi.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
 		//getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
-		//testAPIHelper();
+		testAPIHelper();
 	}
 }

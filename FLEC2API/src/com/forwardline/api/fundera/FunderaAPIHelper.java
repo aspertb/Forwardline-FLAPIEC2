@@ -48,7 +48,8 @@ public class FunderaAPIHelper {
 		cont.setDob(p.getDate_of_birth());
 		cont.setSsn(p.getSsn());
 		String st = (p.getStreet_line1() != null) ? p.getStreet_line1() : "";
-		//st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() : "";
+		// st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() :
+		// "";
 		cont.setStreet(st);
 		cont.setCity(p.getCity());
 		cont.setState(p.getState());
@@ -82,11 +83,13 @@ public class FunderaAPIHelper {
 	private Application getApplication(FunderaRequest request) {
 		Application app = new Application();
 		Contact primaryContact = getPrimaryContact(request);
-		List<Contact> conList = new ArrayList<Contact>();
 		Lead merchant = getLead(request);
 		app.setPrimaryContact(primaryContact);
-		conList.add(primaryContact);
-		app.setGuarantors(conList);
+		
+		List<Contact> conList = getGuarantors(request);
+		if (conList != null && !conList.isEmpty())
+			app.setGuarantors(conList);
+		
 		app.setLead(merchant);
 		app.setAccountsReceivable(request.getCompany().getAccounts_receivable());
 		app.setAnnualRevenue(request.getCompany().getAnnual_revenue());
@@ -114,7 +117,8 @@ public class FunderaAPIHelper {
 		app.setCcSalesFourMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
 		return app;
 	}
-
+	
+	/*
 	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
 
 		FunderaResponse fndResponse = new FunderaResponse();
@@ -153,10 +157,6 @@ public class FunderaAPIHelper {
 						Offer off = new Offer();
 						fndResponse.setPreapproved(false);
 						fndResponse.setRejection_reason(newApplication.getReason());
-						/*
-						 * List<Offer> lst = new ArrayList<Offer>();
-						 * lst.add(off); fndResponse.setOffers(lst);
-						 */
 						return fndResponse;
 					} else {
 						ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
@@ -164,10 +164,6 @@ public class FunderaAPIHelper {
 							Offer off = new Offer();
 							fndResponse.setPreapproved(false);
 							fndResponse.setRejection_reason(decision.getReason());
-							/*
-							 * List<Offer> lst = new ArrayList<Offer>();
-							 * lst.add(off); fndResponse.setOffers(lst);
-							 */
 							return fndResponse;
 						} else {
 							Offer off = new Offer();
@@ -186,6 +182,45 @@ public class FunderaAPIHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 			// throw new InternalServerException(e.getMessage());
+			return new FunderaResponse(false, e.getMessage());
+		}
+	}*/
+
+	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
+
+		FunderaResponse fndResponse = new FunderaResponse();
+		fndResponse.setUpdated(false);
+
+		Application appl = getApplication(request);
+		String partner = "Fundera";
+
+		try {
+			SalesforceFacade sfFacade = new SalesforceFacade();
+			APIPropertiesDAO apiDAO = new APIPropertiesDAO();
+			Map<String, String> apiProperties = apiDAO.getAPIProperties();
+
+			sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),
+					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
+
+			Application newApplication = sfFacade.createApplication(appl, partner);
+			ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
+			if (!decision.getApproved()) {
+				Offer off = new Offer();
+				fndResponse.setPreapproved(false);
+				fndResponse.setRejection_reason(decision.getReason());
+				return fndResponse;
+			} else {
+				Offer off = new Offer();
+				fndResponse.setPreapproved(true);
+				off.setInterest_rate(decision.getOffer().getRate());
+				List<Offer> lst = new ArrayList<Offer>();
+				lst.add(off);
+				fndResponse.setOffers(lst);
+				return fndResponse;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 			return new FunderaResponse(false, e.getMessage());
 		}
 	}
