@@ -20,6 +20,7 @@ public class ConnectionManager {
 		userName = "fladmin";
 		password = "!#FlFiN16app--$";
 		db = "flapimysqldb";
+		
 		/*
 		host = "aa1l1i5iv3j4ye3.cjq0nqtekxcq.us-west-2.rds.amazonaws.com";
 		port = "3306";

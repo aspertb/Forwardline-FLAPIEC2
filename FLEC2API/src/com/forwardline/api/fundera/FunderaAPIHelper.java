@@ -14,7 +14,6 @@ import com.forwardline.exception.InternalServerException;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
 import com.forwardline.salesforce.connector.types.Contact;
-import com.forwardline.salesforce.connector.types.Customer;
 import com.forwardline.salesforce.connector.types.ForsightDecision;
 import com.forwardline.salesforce.connector.types.Lead;
 import com.forwardline.util.IFLAPIConstants;
@@ -85,11 +84,11 @@ public class FunderaAPIHelper {
 		Contact primaryContact = getPrimaryContact(request);
 		Lead merchant = getLead(request);
 		app.setPrimaryContact(primaryContact);
-		
+
 		List<Contact> conList = getGuarantors(request);
 		if (conList != null && !conList.isEmpty())
 			app.setGuarantors(conList);
-		
+
 		app.setLead(merchant);
 		app.setAccountsReceivable(request.getCompany().getAccounts_receivable());
 		app.setAnnualRevenue(request.getCompany().getAnnual_revenue());
@@ -103,7 +102,7 @@ public class FunderaAPIHelper {
 		app.setLoanAmount(request.getCompany().getLoan_amount());
 		// app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
 		app.setNumberOfEmployees(request.getCompany().getNumber_of_employees());
-		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien() == 1);
+		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien() != null);
 		app.setBusinessAddressStreet1(request.getCompany().getStreet_line1());
 		app.setBusinessAddressStreet2(request.getCompany().getStreet_line2());
 		app.setBusinessAddressCity(request.getCompany().getCity());
@@ -117,74 +116,59 @@ public class FunderaAPIHelper {
 		app.setCcSalesFourMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
 		return app;
 	}
-	
+
 	/*
-	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
-
-		FunderaResponse fndResponse = new FunderaResponse();
-		fndResponse.setUpdated(false);
-
-		Contact primaryContact = getPrimaryContact(request);
-		Lead merchant = getLead(request);
-		Application appl = getApplication(request);
-		String partner = "Fundera";
-
-		try {
-			SalesforceFacade sfFacade = new SalesforceFacade();
-			APIPropertiesDAO apiDAO = new APIPropertiesDAO();
-			Map<String, String> apiProperties = apiDAO.getAPIProperties();
-
-			sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),
-					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
-
-			Customer c = sfFacade.getCustomer(merchant.getEmail(), partner);
-			if (c != null) {
-				Application app = sfFacade.getApplication(merchant.getEmail(), partner);
-				if (app != null)
-					return new FunderaResponse(false, "Merchant already has an application in progress.");
-				return new FunderaResponse(false, "Merchant is a forwardline customer.");
-			} else {
-				Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner);
-				Lead l = new Lead();
-				if (existingLead == null) {
-					Lead newLead = sfFacade.createLead(merchant, partner);
-					Contact con = sfFacade.createContact(primaryContact, partner);
-					appl.setPrimaryContact(con);
-					appl.setLead(newLead);
-					appl.setGuarantors(getGuarantors(request));
-					Application newApplication = sfFacade.createApplication(appl, partner);
-					if (newApplication.declinedInPreScoreBranching) {
-						Offer off = new Offer();
-						fndResponse.setPreapproved(false);
-						fndResponse.setRejection_reason(newApplication.getReason());
-						return fndResponse;
-					} else {
-						ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
-						if (!decision.getApproved()) {
-							Offer off = new Offer();
-							fndResponse.setPreapproved(false);
-							fndResponse.setRejection_reason(decision.getReason());
-							return fndResponse;
-						} else {
-							Offer off = new Offer();
-							fndResponse.setPreapproved(true);
-							off.setInterest_rate(decision.getOffer().getRate());
-							List<Offer> lst = new ArrayList<Offer>();
-							lst.add(off);
-							fndResponse.setOffers(lst);
-							return fndResponse;
-						}
-					}
-				} else {
-					return new FunderaResponse(false, "Merchant is a lead at Forwardline.");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			// throw new InternalServerException(e.getMessage());
-			return new FunderaResponse(false, e.getMessage());
-		}
-	}*/
+	 * public FunderaResponse getOffers(FunderaRequest request) throws
+	 * InternalServerException {
+	 * 
+	 * FunderaResponse fndResponse = new FunderaResponse();
+	 * fndResponse.setUpdated(false);
+	 * 
+	 * Contact primaryContact = getPrimaryContact(request); Lead merchant =
+	 * getLead(request); Application appl = getApplication(request); String
+	 * partner = "Fundera";
+	 * 
+	 * try { SalesforceFacade sfFacade = new SalesforceFacade();
+	 * APIPropertiesDAO apiDAO = new APIPropertiesDAO(); Map<String, String>
+	 * apiProperties = apiDAO.getAPIProperties();
+	 * 
+	 * sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT),
+	 * apiProperties.get(IFLAPIConstants.SF_USER_NAME),
+	 * apiProperties.get(IFLAPIConstants.SF_PASSWORD),
+	 * apiProperties.get(IFLAPIConstants.SF_TOKEN),
+	 * apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID),
+	 * apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
+	 * 
+	 * Customer c = sfFacade.getCustomer(merchant.getEmail(), partner); if (c !=
+	 * null) { Application app = sfFacade.getApplication(merchant.getEmail(),
+	 * partner); if (app != null) return new FunderaResponse(false,
+	 * "Merchant already has an application in progress."); return new
+	 * FunderaResponse(false, "Merchant is a forwardline customer."); } else {
+	 * Lead existingLead = sfFacade.getLead(merchant.getEmail(), partner); Lead
+	 * l = new Lead(); if (existingLead == null) { Lead newLead =
+	 * sfFacade.createLead(merchant, partner); Contact con =
+	 * sfFacade.createContact(primaryContact, partner);
+	 * appl.setPrimaryContact(con); appl.setLead(newLead);
+	 * appl.setGuarantors(getGuarantors(request)); Application newApplication =
+	 * sfFacade.createApplication(appl, partner); if
+	 * (newApplication.declinedInPreScoreBranching) { Offer off = new Offer();
+	 * fndResponse.setPreapproved(false);
+	 * fndResponse.setRejection_reason(newApplication.getReason()); return
+	 * fndResponse; } else { ForsightDecision decision =
+	 * sfFacade.scoreApplication(newApplication, partner); if
+	 * (!decision.getApproved()) { Offer off = new Offer();
+	 * fndResponse.setPreapproved(false);
+	 * fndResponse.setRejection_reason(decision.getReason()); return
+	 * fndResponse; } else { Offer off = new Offer();
+	 * fndResponse.setPreapproved(true);
+	 * off.setInterest_rate(decision.getOffer().getRate()); List<Offer> lst =
+	 * new ArrayList<Offer>(); lst.add(off); fndResponse.setOffers(lst); return
+	 * fndResponse; } } } else { return new FunderaResponse(false,
+	 * "Merchant is a lead at Forwardline."); } } } catch (Exception e) {
+	 * e.printStackTrace(); // throw new
+	 * InternalServerException(e.getMessage()); return new
+	 * FunderaResponse(false, e.getMessage()); } }
+	 */
 
 	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
 
@@ -203,6 +187,12 @@ public class FunderaAPIHelper {
 					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
 
 			Application newApplication = sfFacade.createApplication(appl, partner);
+			if (newApplication.declinedInPreScoreBranching) {
+				Offer off = new Offer();
+				fndResponse.setPreapproved(false);
+				fndResponse.setRejection_reason(newApplication.getReason());
+				return fndResponse;
+			}
 			ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 			if (!decision.getApproved()) {
 				Offer off = new Offer();
