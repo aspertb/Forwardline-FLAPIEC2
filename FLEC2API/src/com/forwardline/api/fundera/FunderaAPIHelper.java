@@ -47,8 +47,6 @@ public class FunderaAPIHelper {
 		cont.setDob(p.getDate_of_birth());
 		cont.setSsn(p.getSsn());
 		String st = (p.getStreet_line1() != null) ? p.getStreet_line1() : "";
-		// st += (p.getStreet_line2() != null) ? "\\n" + p.getStreet_line2() :
-		// "";
 		cont.setStreet(st);
 		cont.setCity(p.getCity());
 		cont.setState(p.getState());
@@ -97,10 +95,7 @@ public class FunderaAPIHelper {
 		app.setBusinessInception(request.getCompany().getBusiness_inception());
 		app.setBusinessName(request.getCompany().getBusiness_name());
 		app.setEntityType(request.getCompany().getEntity_type());
-		/// app.setIndustryId(request.getCompany().getIndustry()); TODO
-		// app.setLastBankruptcy(request.getCompany().getL);
 		app.setLoanAmount(request.getCompany().getLoan_amount());
-		// app.setLastBankruptcy(request.getCompany().getLast_bankruptcy());
 		app.setNumberOfEmployees(request.getCompany().getNumber_of_employees());
 		app.setOutstandingTaxLien(request.getCompany().getOutstanding_tax_lien() != null);
 		app.setBusinessAddressStreet1(request.getCompany().getStreet_line1());
