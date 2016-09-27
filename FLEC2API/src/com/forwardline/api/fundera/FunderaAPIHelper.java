@@ -31,7 +31,7 @@ public class FunderaAPIHelper {
 		l.setCompanyName(merchant.getBusiness_name());
 		l.setPhone(merchant.getPhone_number());
 		l.setEmail(guarantor.getEmail());
-		l.setFirstName(guarantor.getFirst_name());
+		l.setFirstName(guarantor.getFirst_name()); 
 		l.setLastName(guarantor.getLast_name());
 		l.setMobilePhone(guarantor.getPhone_number());
 		return l;
