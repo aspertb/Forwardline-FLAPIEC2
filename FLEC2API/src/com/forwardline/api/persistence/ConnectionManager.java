@@ -15,7 +15,18 @@ public class ConnectionManager {
 	private Connection connection;
 
 	static {
+		/*
+		host = "aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com";
+		port = "3306";
+		userName = "fladmin";
+		password = "!#FlFiN16app--$";
+		db = "flapimysqldb";*/
 		
+		host = "aa1l1i5iv3j4ye3.cjq0nqtekxcq.us-west-2.rds.amazonaws.com";
+		port = "3306";
+		userName = "awsdbadmin";
+		password = "5huaerHWgh";
+		db = "apollo";
 	}
 
 	public ConnectionManager() throws Exception {
