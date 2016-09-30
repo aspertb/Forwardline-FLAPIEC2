@@ -14,8 +14,7 @@ public class ConnectionManager {
 	private static ConnectionManager cm;
 	private Connection connection;
 
-	static {
-		/*
+	static {/*
 		host = "aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com";
 		port = "3306";
 		userName = "fladmin";

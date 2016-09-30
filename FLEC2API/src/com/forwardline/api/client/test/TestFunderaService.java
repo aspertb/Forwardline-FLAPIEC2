@@ -50,9 +50,13 @@ public class TestFunderaService {
 			ClientResponse response = webResource.accept("application/json").type("application/json").header("Authorization", "Basic " + APIUtil.encode(s)).post(ClientResponse.class, request);
 
 			//System.out.println(response.getEntity(String.class));
-
+			
+			System.out.println(response.toString());
+			System.out.println(response.getEntity(String.class));
+			
 			if (response.getStatus() != 200)
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus() + " - " + response.getHeaders());
+			/*
 			FunderaResponse res = response.getEntity(FunderaResponse.class);
 			List<Offer> offersList = res.getOffers();
 
@@ -60,7 +64,7 @@ public class TestFunderaService {
 				System.out.println("...Offers returned successfully...");
 			}
 
-			System.out.println("Server response .... \n");
+			System.out.println("Server response .... \n");*/
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,7 +75,7 @@ public class TestFunderaService {
 
 		try {
 			FunderaRequest request = new FunderaRequest();
-			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample2.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\Atser.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
@@ -98,9 +102,10 @@ public class TestFunderaService {
 		//getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
 		System.out.println("Inside Main");
 		//forwardlinepartnerapi.us-west-2.elasticbeanstalk.com
-		getOffers("https://forwardlineolaapi.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
+		//getOffers("https://forwardlineolaapi.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
+		//getOffers("https://api.forwardline.com/partner/fundera/getOffer");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
 		//getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
-		//testAPIHelper();
+		testAPIHelper();
 	}
 }

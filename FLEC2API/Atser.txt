@@ -1,0 +1,42 @@
+{
+  "owners" : [
+    {
+      "uuid" : "02ff76dc-7cd0-4d81-baa6-63a4f24f9609",
+      "email" : "mray-TEST@atser.com",
+      "phone_number" : "2814678362",
+      "first_name" : "David",
+      "last_name" : "Martinez",
+      "ownership_percentage" : 100,
+      "date_of_birth" : "1959-06-26",
+      "street_line1" : "50 Wincrest Falls Drive",
+      "city" : "Cypress",
+      "state" : "TX",
+      "zip" : "77429",
+      "ssn" : "461279813",
+      "credit_score" : "Challenged (Below 550)",
+      "personal_annual_income" : 240000
+    }
+  ],
+  "company" : {
+    "uuid" : "8b3da49c-0a0b-48f8-a3bb-0820d0aacc78",
+    "loan_amount" : 300000,
+    "loan_purpose" : "Purchasing equipment",
+    "industry" : "Software Development",
+    "industry_naics" : "541511",
+    "business_name" : "ATSER, LP",
+    "entity_type" : "LLP/Partnership",
+    "street_line1" : "1150 Richcrest",
+    "city" : "Houston",
+    "state" : "TX",
+    "zip" : "77060",
+    "phone_number" : "2819999961",
+    "ein" : "760590821",
+    "number_of_employees" : 50,
+    "annual_revenue" : 2500000,
+    "average_bank_balance" : 20000,
+    "accounts_receivable" : 1800000,
+    "business_inception" : "1999-01-01",
+    "monthly_business_location_payment" : 4500,
+    "business_location_rent_or_own" : "Own"
+  }
+}

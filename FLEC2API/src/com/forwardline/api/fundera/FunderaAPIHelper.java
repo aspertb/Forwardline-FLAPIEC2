@@ -31,7 +31,7 @@ public class FunderaAPIHelper {
 		l.setCompanyName(merchant.getBusiness_name());
 		l.setPhone(merchant.getPhone_number());
 		l.setEmail(guarantor.getEmail());
-		l.setFirstName(guarantor.getFirst_name()); 
+		l.setFirstName(guarantor.getFirst_name());
 		l.setLastName(guarantor.getLast_name());
 		l.setMobilePhone(guarantor.getPhone_number());
 		return l;
@@ -195,11 +195,14 @@ public class FunderaAPIHelper {
 				fndResponse.setRejection_reason(decision.getReason());
 				return fndResponse;
 			} else {
-				Offer off = new Offer();
 				fndResponse.setPreapproved(true);
-				off.setInterest_rate(decision.getOffer().getRate());
 				List<Offer> lst = new ArrayList<Offer>();
-				lst.add(off);
+				for (com.forwardline.salesforce.connector.types.Offer o : decision.getOffers()) {
+					Offer off = new Offer();
+					off.setInterest_rate(o.getRate());
+					off.setTerm(o.getTerm());
+					lst.add(off);
+				}
 				fndResponse.setOffers(lst);
 				return fndResponse;
 			}

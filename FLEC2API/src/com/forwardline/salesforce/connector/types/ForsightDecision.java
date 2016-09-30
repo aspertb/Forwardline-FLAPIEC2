@@ -1,9 +1,11 @@
 package com.forwardline.salesforce.connector.types;
 
+import java.util.List;
+
 public class ForsightDecision {
 
 	private Analysis analysis;
-	private Offer offer;
+	private List<Offer> offers;
 	private Boolean approved;
 	private String reason;
 
@@ -19,12 +21,12 @@ public class ForsightDecision {
 		this.analysis = analysis;
 	}
 
-	public Offer getOffer() {
-		return offer;
+	public List<Offer> getOffers() {
+		return offers;
 	}
 
-	public void setOffer(Offer offer) {
-		this.offer = offer;
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
 	}
 
 	public Boolean getApproved() {
