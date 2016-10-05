@@ -101,7 +101,7 @@ public class SalesforcePort {
 		if (response.getStatusCode() == 200) {
 			ApplicationResponse appResponse = gson.fromJson(response.getJson(), ApplicationResponse.class);
 			if (!appResponse.isSuccess())
-				throw new ServiceCalloutException(response.getErrorMessage());
+				throw new ServiceCalloutException(appResponse.getErrorMessage());
 			return appResponse.getApplication();
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
