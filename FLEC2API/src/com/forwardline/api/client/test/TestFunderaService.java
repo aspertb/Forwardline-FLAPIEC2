@@ -31,7 +31,7 @@ public class TestFunderaService {
 			WebResource webResource = client.resource(endPoint);
 
 			//FileInputStream f = new FileInputStream("sampleReqMininfied.txt");
-			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\FunderaSample2.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\RFS.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
@@ -75,7 +75,7 @@ public class TestFunderaService {
 
 		try {
 			FunderaRequest request = new FunderaRequest();
-			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\Atser.txt");
+			FileInputStream f = new FileInputStream("C:\\Development_Code\\GitRepositories\\git\\Forwardline-FLAPIEC2\\FLEC2API\\RAR.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(f));
 
 			String inputLine;
