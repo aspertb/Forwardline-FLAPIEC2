@@ -117,6 +117,18 @@ public class FunderaAPIHelper {
 		app.setCcSalesTwoMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
 		app.setCcSalesThreeMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
 		app.setCcSalesFourMonthsAgo(request.getCompany().getCredit_card_volume_per_month());
+
+		String ein = request.getCompany().getEin();
+		Long federalTaxId = null;
+		if (ein != null) {
+			try {
+				federalTaxId = Long.valueOf(ein);
+			} catch (NumberFormatException nfe) {
+				nfe.printStackTrace();
+			}
+		}
+		app.setFederalTaxId(federalTaxId);
+
 		return app;
 	}
 
