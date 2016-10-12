@@ -5,6 +5,7 @@ public class Partner {
 	private String userName;
 	private String password;
 	private String partnerId;
+	private Boolean loggingEnabled;
 
 	public Partner() {
 		// TODO Auto-generated constructor stub
@@ -40,6 +41,14 @@ public class Partner {
 
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
+	}
+
+	public Boolean getLoggingEnabled() {
+		return loggingEnabled;
+	}
+
+	public void setLoggingEnabled(Boolean loggingEnabled) {
+		this.loggingEnabled = loggingEnabled;
 	}
 
 }

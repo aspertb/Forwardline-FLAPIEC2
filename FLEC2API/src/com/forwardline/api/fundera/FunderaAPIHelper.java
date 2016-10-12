@@ -10,6 +10,7 @@ import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
 import com.forwardline.api.fundera.pojo.Person;
 import com.forwardline.api.persistence.APIPropertiesDAO;
+import com.forwardline.api.pojo.Partner;
 import com.forwardline.exception.InternalServerException;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
@@ -17,11 +18,18 @@ import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.ForsightDecision;
 import com.forwardline.salesforce.connector.types.Lead;
 import com.forwardline.util.IFLAPIConstants;
+import com.forwardline.util.Logger;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @SuppressWarnings("unused")
 public class FunderaAPIHelper {
+	private Partner partner;
+	private Logger log;
 
-	public FunderaAPIHelper() {
+	public FunderaAPIHelper(Partner partner) {
+		this.partner = partner;
+		log = new Logger(this.partner);
 	}
 
 	private Lead getLead(FunderaRequest request) {
@@ -165,7 +173,32 @@ public class FunderaAPIHelper {
 	 * FunderaResponse(false, e.getMessage()); } }
 	 */
 
+	private String getRequestJSON(FunderaRequest request) {
+		String json = null;
+		try {
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			json = gson.toJson(request);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Do not propogate
+		}
+		return json;
+	}
+
+	private String getResponseJSON(FunderaResponse response) {
+		String json = null;
+		try {
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			json = gson.toJson(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Do not propogate
+		}
+		return json;
+	}
+
 	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
+		log.logRequest(getRequestJSON(request));
 
 		FunderaResponse fndResponse = new FunderaResponse();
 		fndResponse.setUpdated(false);
@@ -186,14 +219,12 @@ public class FunderaAPIHelper {
 				Offer off = new Offer();
 				fndResponse.setPreapproved(false);
 				fndResponse.setRejection_reason(newApplication.getReason());
-				return fndResponse;
 			}
 			ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
 			if (!decision.getApproved()) {
 				Offer off = new Offer();
 				fndResponse.setPreapproved(false);
 				fndResponse.setRejection_reason(decision.getReason());
-				return fndResponse;
 			} else {
 				fndResponse.setPreapproved(true);
 				List<Offer> lst = new ArrayList<Offer>();
@@ -205,12 +236,15 @@ public class FunderaAPIHelper {
 					lst.add(off);
 				}
 				fndResponse.setOffers(lst);
-				return fndResponse;
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new FunderaResponse(false, e.getMessage());
+			fndResponse = new FunderaResponse(false, e.getMessage());
 		}
+
+		log.logResponse(getResponseJSON(fndResponse));
+		log.flush();
+
+		return fndResponse;
 	}
 }

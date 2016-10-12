@@ -22,7 +22,7 @@ public class PartnerDAO {
 		try {
 			cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
-			pStmt = conn.prepareStatement("select Partner_Name, Partner_Id from Forwardline_Partner where Partner_Id = ? and User_Name = ? and Password = ?");
+			pStmt = conn.prepareStatement("select Partner_Name, Partner_Id, Enable_Logging from Forwardline_Partner where Partner_Id = ? and User_Name = ? and Password = ?");
 			pStmt.setString(1, p.getPartnerId());
 			pStmt.setString(2, p.getUserName());
 			pStmt.setString(3, p.getPassword());
@@ -31,6 +31,7 @@ public class PartnerDAO {
 				partner = new Partner();
 				partner.setPartnerName(rs.getString(1));
 				partner.setPartnerId(rs.getString(2));
+				partner.setLoggingEnabled(rs.getBoolean(3));
 			}
 			rs.close();
 			pStmt.close();

@@ -9,6 +9,14 @@
 	<description>Forwardline Partner API on EC2</description>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<resources>
+	        <resource>
+	            <directory>.ebextensions</directory>
+	            <includes>
+	                <include>**/*.*</include>
+	            </includes>
+	        </resource>
+	    </resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

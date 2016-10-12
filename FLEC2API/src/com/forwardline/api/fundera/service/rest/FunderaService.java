@@ -31,7 +31,7 @@ public class FunderaService {
 			p.setPartnerId("FUNDERA");
 			try {
 				if (new PartnerLogin().isPartnerAuthorized(p)) {
-					FunderaAPIHelper fndHelper = new FunderaAPIHelper();
+					FunderaAPIHelper fndHelper = new FunderaAPIHelper(p);
 					return fndHelper.getOffers(fndRequest);
 				} else
 					throw new UnauthorizedException("Unauthorized.");
