@@ -43,7 +43,7 @@ public class Application {
 	public Boolean declinedInPreScoreBranching;
 	public String reason;
 
-	public Long federalTaxId;
+	public String federalTaxId;
 
 	public Application() {
 		// TODO Auto-generated constructor stub
@@ -313,11 +313,11 @@ public class Application {
 		this.averageMonthlySales = averageMonthlySales;
 	}
 
-	public Long getFederalTaxId() {
+	public String getFederalTaxId() {
 		return federalTaxId;
 	}
 
-	public void setFederalTaxId(Long federalTaxId) {
+	public void setFederalTaxId(String federalTaxId) {
 		this.federalTaxId = federalTaxId;
 	}
 
