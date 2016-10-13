@@ -19,7 +19,7 @@ public class LogDAO {
 		try {
 			cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
-			pStmt = conn.prepareStatement("insert into Forwardline_Partner_Log (Partner_Name, Transaction_Id, Request, Response) values (?, ?, ?, ?)");
+			pStmt = conn.prepareStatement("insert into Forwardline_Partner_API_Log (Partner_Name, Transaction_Id, Request, Response) values (?, ?, ?, ?)");
 			pStmt.setString(1, p.getPartnerName());
 			pStmt.setLong(2, transactionId);
 			pStmt.setString(3, request);
