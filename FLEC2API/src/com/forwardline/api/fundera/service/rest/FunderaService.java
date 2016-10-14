@@ -29,9 +29,10 @@ public class FunderaService {
 			String basicHeader = headers.getRequestHeader("Authorization").get(0);
 			Partner p = getUserNameAndPasswordFromBasicHeader(basicHeader);
 			p.setPartnerId("FUNDERA");
+			PartnerLogin pl = new PartnerLogin();
 			try {
-				if (new PartnerLogin().isPartnerAuthorized(p)) {
-					FunderaAPIHelper fndHelper = new FunderaAPIHelper(p);
+				if (pl.isPartnerAuthorized(p)) {
+					FunderaAPIHelper fndHelper = new FunderaAPIHelper(pl.getPartner());
 					return fndHelper.getOffers(fndRequest);
 				} else
 					throw new UnauthorizedException("Unauthorized.");

@@ -14,8 +14,10 @@ import com.forwardline.api.pojo.Partner;
 import com.forwardline.exception.InternalServerException;
 import com.forwardline.salesforce.connector.SalesforceFacade;
 import com.forwardline.salesforce.connector.types.Application;
+import com.forwardline.salesforce.connector.types.ApplicationResponse;
 import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.ForsightDecision;
+import com.forwardline.salesforce.connector.types.ForsightResponse;
 import com.forwardline.salesforce.connector.types.Lead;
 import com.forwardline.util.IFLAPIConstants;
 import com.forwardline.util.Logger;
@@ -199,7 +201,12 @@ public class FunderaAPIHelper {
 		}
 		return json;
 	}
-
+	
+	private void log(FunderaResponse fndResponse) {
+		log.logResponse(getResponseJSON(fndResponse));
+		log.flush();
+	}
+	
 	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
 		log.logRequest(getRequestJSON(request));
 
@@ -216,14 +223,28 @@ public class FunderaAPIHelper {
 
 			sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),
 					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
+			
+			ApplicationResponse response = sfFacade.createApplication(appl, partner);
+			if (!response.isSuccess()) {
+				fndResponse = new FunderaResponse(false, response.getErrorMessage());
+				log(fndResponse);
+				return fndResponse;
+			}
 
-			Application newApplication = sfFacade.createApplication(appl, partner);
+			Application newApplication = response.getApplication();
 			if (newApplication.declinedInPreScoreBranching) {
 				Offer off = new Offer();
 				fndResponse.setPreapproved(false);
 				fndResponse.setRejection_reason(newApplication.getReason());
 			}
-			ForsightDecision decision = sfFacade.scoreApplication(newApplication, partner);
+			ForsightResponse forResponse = sfFacade.scoreApplication(newApplication, partner);
+			if (!forResponse.isSuccess()) {
+				fndResponse = new FunderaResponse(false, forResponse.getErrorMessage());
+				log(fndResponse);
+				return fndResponse;
+			}
+			
+			ForsightDecision decision = forResponse.getDecision();
 			if (!decision.getApproved()) {
 				Offer off = new Offer();
 				fndResponse.setPreapproved(false);
@@ -245,9 +266,8 @@ public class FunderaAPIHelper {
 			fndResponse = new FunderaResponse(false, e.getMessage());
 		}
 
-		log.logResponse(getResponseJSON(fndResponse));
-		log.flush();
-
+		log(fndResponse);
+		
 		return fndResponse;
 	}
 }

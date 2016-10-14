@@ -9,6 +9,7 @@ import com.forwardline.api.fundera.FunderaAPIHelper;
 import com.forwardline.api.fundera.pojo.FunderaRequest;
 import com.forwardline.api.fundera.pojo.FunderaResponse;
 import com.forwardline.api.fundera.pojo.Offer;
+import com.forwardline.api.pojo.Partner;
 import com.forwardline.util.APIUtil;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
@@ -58,6 +59,7 @@ public class TestFunderaService {
 				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus() + " - " + response.getHeaders());
 			/*
 			FunderaResponse res = response.getEntity(FunderaResponse.class);
+			System.out.println(res);
 			List<Offer> offersList = res.getOffers();
 
 			if (offersList != null) {
@@ -89,7 +91,10 @@ public class TestFunderaService {
 				Gson gson = new Gson();
 				request = gson.fromJson(json.toString(), FunderaRequest.class);
 			}
-			FunderaAPIHelper helper = new FunderaAPIHelper(null);
+			Partner p = new Partner();
+			p.setLoggingEnabled(true);
+			p.setPartnerName("Fundera");
+			FunderaAPIHelper helper = new FunderaAPIHelper(p);
 
 			FunderaResponse res = helper.getOffers(request);
 
@@ -99,11 +104,11 @@ public class TestFunderaService {
 	}
 
 	public static void main(String[] args) {
-		//getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
-		System.out.println("Inside Main");
+		getOffers("http://forwardlineec2api-env.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
+		//System.out.println("Inside Main");
 		//forwardlinepartnerapi.us-west-2.elasticbeanstalk.com
 		//getOffers("https://forwardlineolaapi.us-west-2.elasticbeanstalk.com/partner/fundera/getOffer");
-		getOffers("https://api.forwardline.com/partner/fundera/getOffer");
+		//getOffers("https://api.forwardline.com/partner/fundera/getOffer");
 		// getOffers("http://localhost:8080/FLEC2API/partner/fundera/getOffer");
 		//getOffers("http://localhost:8080/FLAPIEC2/partner/fundera/getOffer");
 		//testAPIHelper();

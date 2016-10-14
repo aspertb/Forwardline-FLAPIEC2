@@ -8,19 +8,14 @@ import com.forwardline.salesforce.connector.command.GetCommand;
 import com.forwardline.salesforce.connector.command.PostCommand;
 import com.forwardline.salesforce.connector.exception.InvalidSessionException;
 import com.forwardline.salesforce.connector.exception.ServiceCalloutException;
-import com.forwardline.salesforce.connector.types.Application;
 import com.forwardline.salesforce.connector.types.ApplicationLookupResponse;
 import com.forwardline.salesforce.connector.types.ApplicationRequest;
 import com.forwardline.salesforce.connector.types.ApplicationResponse;
-import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.ContactRequest;
 import com.forwardline.salesforce.connector.types.ContactResponse;
-import com.forwardline.salesforce.connector.types.Customer;
 import com.forwardline.salesforce.connector.types.CustomerLookupResponse;
-import com.forwardline.salesforce.connector.types.ForsightDecision;
 import com.forwardline.salesforce.connector.types.ForsightRequest;
 import com.forwardline.salesforce.connector.types.ForsightResponse;
-import com.forwardline.salesforce.connector.types.Lead;
 import com.forwardline.salesforce.connector.types.LeadLookupResponse;
 import com.forwardline.salesforce.connector.types.LeadRequest;
 import com.forwardline.salesforce.connector.types.LeadResponse;
@@ -43,7 +38,7 @@ public class SalesforcePort {
 		this.session = session;
 	}
 
-	public Contact createContact(ContactRequest request) throws ServiceCalloutException, InvalidSessionException {
+	public ContactResponse createContact(ContactRequest request) throws ServiceCalloutException, InvalidSessionException {
 		StringBuffer url = new StringBuffer(session.getInstance_url()).append(ENDPOINT_CONTACT);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		SalesforceRequest<ContactRequest> sr = new SalesforceRequest<ContactRequest>();
@@ -53,12 +48,12 @@ public class SalesforcePort {
 		SalesforceResponse response = command.execute();
 		if (response.getStatusCode() == 200) {
 			ContactResponse contactResponse = gson.fromJson(response.getJson(), ContactResponse.class);
-			return contactResponse.getContact();
+			return contactResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public Customer getCustomer(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
+	public CustomerLookupResponse getCustomer(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("email", email);
 		parameters.put("operation", "is_customer");
@@ -68,12 +63,12 @@ public class SalesforcePort {
 		if (response.getStatusCode() == 200) {
 			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			CustomerLookupResponse custLkpResponse = gson.fromJson(response.getJson(), CustomerLookupResponse.class);
-			return custLkpResponse.getCustomer();
+			return custLkpResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public Application getApplication(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
+	public ApplicationLookupResponse getApplication(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("email", email);
 		parameters.put("operation", "has_application");
@@ -85,12 +80,12 @@ public class SalesforcePort {
 		if (response.getStatusCode() == 200) {
 			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			ApplicationLookupResponse applkResponse = gson.fromJson(response.getJson(), ApplicationLookupResponse.class);
-			return applkResponse.getApplication();
+			return applkResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public Application createApplication(ApplicationRequest request) throws ServiceCalloutException, InvalidSessionException {
+	public ApplicationResponse createApplication(ApplicationRequest request) throws ServiceCalloutException, InvalidSessionException {
 		String endpoint = new StringBuffer(session.getInstance_url()).append(ENDPOINT_OLA).toString();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		SalesforceRequest<ApplicationRequest> sr = new SalesforceRequest<ApplicationRequest>();
@@ -100,14 +95,12 @@ public class SalesforcePort {
 		SalesforceResponse response = command.execute();
 		if (response.getStatusCode() == 200) {
 			ApplicationResponse appResponse = gson.fromJson(response.getJson(), ApplicationResponse.class);
-			if (!appResponse.isSuccess())
-				throw new ServiceCalloutException(appResponse.getErrorMessage());
-			return appResponse.getApplication();
+			return appResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public Lead getLead(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
+	public LeadLookupResponse getLead(String email, String partner) throws ServiceCalloutException, InvalidSessionException {
 		String endpoint = new StringBuffer(session.getInstance_url()).append(ENDPOINT_LEAD).toString();
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("email", email);
@@ -119,12 +112,12 @@ public class SalesforcePort {
 		if (response.getStatusCode() == 200) {
 			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			LeadLookupResponse leadLookupResponse = gson.fromJson(response.getJson(), LeadLookupResponse.class);
-			return leadLookupResponse.getnLead();
+			return leadLookupResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public Lead createLead(LeadRequest request) throws ServiceCalloutException, InvalidSessionException {
+	public LeadResponse createLead(LeadRequest request) throws ServiceCalloutException, InvalidSessionException {
 		String endpoint = new StringBuffer(session.getInstance_url()).append(ENDPOINT_LEAD).toString();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		SalesforceRequest<LeadRequest> sr = new SalesforceRequest<LeadRequest>();
@@ -135,12 +128,12 @@ public class SalesforcePort {
 
 		if (response.getStatusCode() == 200) {
 			LeadResponse leadResponse = gson.fromJson(response.getJson(), LeadResponse.class);
-			return leadResponse.getnLead();
+			return leadResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}
 
-	public ForsightDecision scoreApplication(ForsightRequest request) throws ServiceCalloutException, InvalidSessionException {
+	public ForsightResponse scoreApplication(ForsightRequest request) throws ServiceCalloutException, InvalidSessionException {
 		String endpoint = new StringBuffer(session.getInstance_url()).append(ENDPOINT_FORSIGHT).toString();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		SalesforceRequest<ForsightRequest> sr = new SalesforceRequest<ForsightRequest>();
@@ -151,7 +144,7 @@ public class SalesforcePort {
 
 		if (response.getStatusCode() == 200) {
 			ForsightResponse forsightResponse = gson.fromJson(response.getJson(), ForsightResponse.class);
-			return forsightResponse.getDecision();
+			return forsightResponse;
 		} else
 			throw new ServiceCalloutException(response.getErrorMessage());
 	}

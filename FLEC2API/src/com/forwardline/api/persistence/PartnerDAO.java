@@ -31,7 +31,8 @@ public class PartnerDAO {
 				partner = new Partner();
 				partner.setPartnerName(rs.getString(1));
 				partner.setPartnerId(rs.getString(2));
-				partner.setLoggingEnabled(rs.getBoolean(3));
+				String le = rs.getString(3);
+				partner.setLoggingEnabled(le != null && le.equalsIgnoreCase("true"));
 			}
 			rs.close();
 			pStmt.close();

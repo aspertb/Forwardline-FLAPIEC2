@@ -6,19 +6,28 @@ import com.forwardline.exception.DataAccessException;
 import com.forwardline.exception.QueryException;
 
 public class PartnerLogin {
-
+	private Partner partner;
+	
 	public PartnerLogin() {
 	}
 
 	public boolean isPartnerAuthorized(Partner p) throws DataAccessException {
 		try {
 			PartnerDAO dao = new PartnerDAO();
-			Partner partner = dao.getPartner(p);
-			if (partner != null)
+			this.partner = dao.getPartner(p);
+			if (this.partner != null)
 				return true;
 		} catch (QueryException e) {
 			throw new DataAccessException(e.getMessage());
 		}
 		return false;
+	}
+
+	public Partner getPartner() {
+		return partner;
+	}
+
+	public void setPartner(Partner partner) {
+		this.partner = partner;
 	}
 }

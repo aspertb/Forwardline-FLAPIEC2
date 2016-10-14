@@ -25,6 +25,8 @@ public class Logger {
 	}
 
 	public void flush() {
+		System.out.println("Partner >>>>>>>>>>>>>>>>>>>> " + partner);
+		System.out.println("Logging enabled >>>>>>>>>>>>>>>>>>>> " + partner.getLoggingEnabled());
 		if (partner.getLoggingEnabled()) {
 			try {
 				LogDAO dao = new LogDAO();

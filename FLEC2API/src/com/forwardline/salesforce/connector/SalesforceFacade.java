@@ -7,14 +7,20 @@ import com.forwardline.salesforce.connector.port.SalesforceLoginPort;
 import com.forwardline.salesforce.connector.port.SalesforcePort;
 import com.forwardline.salesforce.connector.types.Analysis;
 import com.forwardline.salesforce.connector.types.Application;
+import com.forwardline.salesforce.connector.types.ApplicationLookupResponse;
 import com.forwardline.salesforce.connector.types.ApplicationRequest;
+import com.forwardline.salesforce.connector.types.ApplicationResponse;
 import com.forwardline.salesforce.connector.types.Contact;
 import com.forwardline.salesforce.connector.types.ContactRequest;
-import com.forwardline.salesforce.connector.types.Customer;
+import com.forwardline.salesforce.connector.types.ContactResponse;
+import com.forwardline.salesforce.connector.types.CustomerLookupResponse;
 import com.forwardline.salesforce.connector.types.ForsightDecision;
 import com.forwardline.salesforce.connector.types.ForsightRequest;
+import com.forwardline.salesforce.connector.types.ForsightResponse;
 import com.forwardline.salesforce.connector.types.Lead;
+import com.forwardline.salesforce.connector.types.LeadLookupResponse;
 import com.forwardline.salesforce.connector.types.LeadRequest;
+import com.forwardline.salesforce.connector.types.LeadResponse;
 import com.forwardline.salesforce.connector.types.RequestHeader;
 import com.forwardline.salesforce.connector.types.SalesforceSession;
 
@@ -36,8 +42,8 @@ public class SalesforceFacade {
 			}
 		}
 	}
-	
-	public Customer getCustomer(String email, String partner) throws ConnectorException {
+
+	public CustomerLookupResponse getCustomer(String email, String partner) throws ConnectorException {
 		SalesforcePort port = new SalesforcePort(session);
 		try {
 			return port.getCustomer(email, partner);
@@ -48,7 +54,7 @@ public class SalesforceFacade {
 		}
 	}
 
-	public Lead getLead(String email, String partner) throws ConnectorException {
+	public LeadLookupResponse getLead(String email, String partner) throws ConnectorException {
 		SalesforcePort port = new SalesforcePort(session);
 		try {
 			return port.getLead(email, partner);
@@ -59,7 +65,7 @@ public class SalesforceFacade {
 		}
 	}
 
-	public Lead createLead(Lead lead, String partner) throws ConnectorException {
+	public LeadResponse createLead(Lead lead, String partner) throws ConnectorException {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);
 		header.setOperation("create_lead");
@@ -74,7 +80,7 @@ public class SalesforceFacade {
 		}
 	}
 
-	public Application getApplication(String email, String partner) throws ConnectorException {
+	public ApplicationLookupResponse getApplication(String email, String partner) throws ConnectorException {
 		SalesforcePort port = new SalesforcePort(session);
 		try {
 			return port.getApplication(email, partner);
@@ -85,7 +91,7 @@ public class SalesforceFacade {
 		}
 	}
 
-	public Application createApplication(Application application, String partner) throws ConnectorException {
+	public ApplicationResponse createApplication(Application application, String partner) throws ConnectorException {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);
 		header.setOperation("create_application");
@@ -94,8 +100,7 @@ public class SalesforceFacade {
 		request.setHeader(header);
 		SalesforcePort port = new SalesforcePort(session);
 		try {
-			Application createdApplication = port.createApplication(request);
-			return createdApplication;
+			return port.createApplication(request);
 		} catch (ServiceCalloutException se) {
 			throw new ConnectorException(se.getMessage());
 		} catch (InvalidSessionException ive) {
@@ -103,7 +108,7 @@ public class SalesforceFacade {
 		}
 	}
 
-	public ForsightDecision scoreApplication(Application application, String partner) throws ConnectorException {
+	public ForsightResponse scoreApplication(Application application, String partner) throws ConnectorException {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);
 		header.setOperation("start_scoring");
@@ -115,9 +120,13 @@ public class SalesforceFacade {
 		ForsightDecision decision = new ForsightDecision();
 		decision.setAnalysis(new Analysis());
 		decision.getAnalysis().setBranchingComplete(false);
+		ForsightResponse response = null;
 		try {
 			while (!decision.getAnalysis().getBranchingComplete()) {
-				decision = port.scoreApplication(request);
+				response = port.scoreApplication(request);
+				if (!response.isSuccess())
+					return response;
+				decision = response.getDecision();
 				if (decision.getAnalysis() != null)
 					request.setAnalysis(decision.getAnalysis());
 				if (!decision.getAnalysis().getBranchingComplete()) {
@@ -130,10 +139,10 @@ public class SalesforceFacade {
 		} catch (InvalidSessionException ive) {
 			throw new ConnectorException(ive.getMessage());
 		}
-		return decision;
+		return response;
 	}
-	
-	public Contact createContact(Contact contact, String partner) throws ConnectorException {
+
+	public ContactResponse createContact(Contact contact, String partner) throws ConnectorException {
 		RequestHeader header = new RequestHeader();
 		header.setPartner(partner);
 		header.setOperation("create_contact");
