@@ -254,9 +254,12 @@ public class FunderaAPIHelper {
 				List<Offer> lst = new ArrayList<Offer>();
 				for (com.forwardline.salesforce.connector.types.Offer o : decision.getOffers()) {
 					Offer off = new Offer();
-					off.setLoan_approval_amount(request.getCompany().getLoan_amount());
+					off.setLoan_approval_amount(o.getLoanAmount());
 					off.setInterest_rate(o.getRate());
 					off.setTerm(o.getTerm());
+					off.setOrigination_fee(o.getProcessingFee());
+					if (o.getControlAccountFee() != null)
+						off.setMiscellaneous_fee(o.getControlAccountFee().intValue());
 					lst.add(off);
 				}
 				fndResponse.setOffers(lst);
