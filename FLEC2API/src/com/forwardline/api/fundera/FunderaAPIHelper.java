@@ -1,6 +1,8 @@
 package com.forwardline.api.fundera;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -208,6 +210,11 @@ public class FunderaAPIHelper {
 	}
 	
 	public FunderaResponse getOffers(FunderaRequest request) throws InternalServerException {
+		Date curDate = new Date();
+		SimpleDateFormat format = new SimpleDateFormat();
+        String DateToStr = format.format(curDate);
+        System.out.println(DateToStr);
+		
 		log.logRequest(getRequestJSON(request));
 
 		FunderaResponse fndResponse = new FunderaResponse();

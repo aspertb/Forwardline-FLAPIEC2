@@ -1,5 +1,7 @@
 package com.forwardline.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.forwardline.api.persistence.LogDAO;
@@ -10,10 +12,14 @@ public class Logger {
 	private Long transactionId;
 	private String request;
 	private String response;
+	private Date requestDateTime;
 
 	public Logger(Partner partner) {
 		this.partner = partner;
 		this.transactionId = new GregorianCalendar().getTimeInMillis();
+
+		Calendar cal = Calendar.getInstance();
+		requestDateTime = cal.getTime();
 	}
 
 	public void logRequest(String request) {
@@ -30,7 +36,7 @@ public class Logger {
 		if (partner.getLoggingEnabled()) {
 			try {
 				LogDAO dao = new LogDAO();
-				dao.createLog(partner, transactionId, request, response);
+				dao.createLog(partner, transactionId, request, response, requestDateTime);
 			} catch (Exception e) {
 				e.printStackTrace();
 				// Do not propogate
