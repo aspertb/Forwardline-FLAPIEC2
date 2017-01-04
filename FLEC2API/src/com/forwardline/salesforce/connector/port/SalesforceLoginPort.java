@@ -70,7 +70,7 @@ public class SalesforceLoginPort {
 			while ((line = rd.readLine()) != null)
 				json = new StringBuffer(json).append(line).toString();
 			
-			System.out.println(line);
+			System.out.println(json);
 			Gson gson = new Gson();
 			SalesforceSession sfSession = gson.fromJson(json, SalesforceSession.class);
 			return sfSession;

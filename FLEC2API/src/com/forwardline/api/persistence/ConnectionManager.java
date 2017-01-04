@@ -21,6 +21,7 @@ public class ConnectionManager {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			// String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?user=" + userName + "&password=" + password;
 			String url = System.getProperty("JDBC_CONNECTION_STRING");
+			//String url = "jdbc:mysql://aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com:3306/flapimysqldb?user=fladmin&password=!#FlFiN16app--$";
 			System.out.println(url);
 			connection = DriverManager.getConnection(url);
 		} catch (Exception e) {

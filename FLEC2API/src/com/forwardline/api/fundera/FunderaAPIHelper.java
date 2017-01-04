@@ -243,33 +243,34 @@ public class FunderaAPIHelper {
 				Offer off = new Offer();
 				fndResponse.setPreapproved(false);
 				fndResponse.setRejection_reason(newApplication.getReason());
-			}
-			ForsightResponse forResponse = sfFacade.scoreApplication(newApplication, partner);
-			if (!forResponse.isSuccess()) {
-				fndResponse = new FunderaResponse(false, forResponse.getErrorMessage());
-				log(fndResponse);
-				return fndResponse;
-			}
-			
-			ForsightDecision decision = forResponse.getDecision();
-			if (!decision.getApproved()) {
-				Offer off = new Offer();
-				fndResponse.setPreapproved(false);
-				fndResponse.setRejection_reason(decision.getReason());
 			} else {
-				fndResponse.setPreapproved(true);
-				List<Offer> lst = new ArrayList<Offer>();
-				for (com.forwardline.salesforce.connector.types.Offer o : decision.getOffers()) {
-					Offer off = new Offer();
-					off.setLoan_approval_amount(o.getLoanAmount());
-					off.setInterest_rate(o.getRate());
-					off.setTerm(o.getTerm());
-					off.setOrigination_fee(o.getProcessingFee());
-					if (o.getControlAccountFee() != null)
-						off.setMiscellaneous_fee(o.getControlAccountFee().intValue());
-					lst.add(off);
+				ForsightResponse forResponse = sfFacade.scoreApplication(newApplication, partner);
+				if (!forResponse.isSuccess()) {
+					fndResponse = new FunderaResponse(false, forResponse.getErrorMessage());
+					log(fndResponse);
+					return fndResponse;
 				}
-				fndResponse.setOffers(lst);
+				
+				ForsightDecision decision = forResponse.getDecision();
+				if (!decision.getApproved()) {
+					Offer off = new Offer();
+					fndResponse.setPreapproved(false);
+					fndResponse.setRejection_reason(decision.getReason());
+				} else {
+					fndResponse.setPreapproved(true);
+					List<Offer> lst = new ArrayList<Offer>();
+					for (com.forwardline.salesforce.connector.types.Offer o : decision.getOffers()) {
+						Offer off = new Offer();
+						off.setLoan_approval_amount(o.getLoanAmount());
+						off.setInterest_rate(o.getRate());
+						off.setTerm(o.getTerm());
+						off.setOrigination_fee(o.getProcessingFee());
+						if (o.getControlAccountFee() != null)
+							off.setMiscellaneous_fee(o.getControlAccountFee().intValue());
+						lst.add(off);
+					}
+					fndResponse.setOffers(lst);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
