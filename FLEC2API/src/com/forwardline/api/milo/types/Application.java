@@ -16,7 +16,7 @@ public class Application {
 	}
 
 	public Analysis getAnalysis() {
-		return analysis;
+		return analysis; 
 	}
 
 	public void setAnalysis(Analysis analysis) {

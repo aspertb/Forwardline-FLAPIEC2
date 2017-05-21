@@ -20,8 +20,8 @@ public class ConnectionManager {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			// String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?user=" + userName + "&password=" + password;
-			String url = System.getProperty("JDBC_CONNECTION_STRING");
-			//String url = "jdbc:mysql://aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com:3306/flapimysqldb?user=fladmin&password=!#FlFiN16app--$";
+			String url = System.getProperty("JDBC_CONNECTION_STRING"); //This property is set in AWS but not in local tomcat.
+			url = (url == null) ? "jdbc:mysql://aaof84atcb0bk1.c3jldtex5t6b.us-west-2.rds.amazonaws.com:3306/flapimysqldb?user=fladmin&password=!#FlFiN16app--$" : url;
 			System.out.println(url);
 			connection = DriverManager.getConnection(url);
 		} catch (Exception e) {

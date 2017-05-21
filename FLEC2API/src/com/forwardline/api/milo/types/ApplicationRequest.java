@@ -15,7 +15,7 @@ public class ApplicationRequest {
 	}
 
 	public void setHeader(RequestHeader header) {
-		this.header = header;
+		this.header = header; 
 	}
 
 	public Application getnApplication() {

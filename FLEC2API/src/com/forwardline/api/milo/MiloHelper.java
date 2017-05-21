@@ -27,7 +27,7 @@ public class MiloHelper {
 			facade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),
 					apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_ID), apiProperties.get(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID));
 
-			redirectEndpoint = facade.processApplication(nApplication);
+			redirectEndpoint = facade.processApplication(nApplication); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

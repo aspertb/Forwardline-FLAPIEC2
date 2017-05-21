@@ -34,7 +34,7 @@ public class MiloController {
 		Application application = new Application();
 		application.setId(applicationID);
 		model.addAttribute("application", application);
-		return "MiloCustomerJourney";
+		return "MiloCustomerJourney"; 
 	}
 
 	@RequestMapping(value = "/processApplication", method = RequestMethod.POST)
