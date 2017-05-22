@@ -30,7 +30,7 @@
 		  left: 0;
 		  width: 100%;
 		  height: 100%;
-		  background-color: rgba(0,0,0,0.3);
+		  background-color: rgba(255,255,255,0.3);
 		}
 		
 		/* :not(:required) hides these rules from IE9 and below */
@@ -151,16 +151,20 @@
 				type: "POST",
 				success: function(data) { 
             		$("#errorMessageDiv").text(data);
+					console.log('Success!! ');
+					console.log('Data ' + data);
+					window.location.replace(data); //to prevent back button
 				},
 				error: function(xhr, status, error) {
 					$("#errorMessageDiv").text(error);
+					console.log('Error!!');
 				}
             });
     	});
 	</script>
 </head>
 <body>
-	<div class="loading">Loading&#8230;</div>
+	<div class="loading">Loading</div>
 	<form:form id="form1" modelAttribute="application">
 		<form:hidden path="id" />
 	</form:form>
