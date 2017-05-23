@@ -36,12 +36,23 @@ public class MiloController {
 		model.addAttribute("application", application);
 		return "MiloCustomerJourney"; 
 	}
-
+	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String error(Model model) {
+		System.out.println("MiloController.error invoked.");
+		return "MiloError"; 
+	}
+	
 	@RequestMapping(value = "/processApplication", method = RequestMethod.POST)
 	public @ResponseBody String processApplication(@RequestBody Application application) throws Exception {
 		System.out.println("MiloController.processApplication invoked with Id " + application.getId());
-		MiloHelper helper = new MiloHelper(application.getId());
-		String redirectUrl = helper.processApplication();
-		return "Redirect Url " + redirectUrl;
+		try {
+			MiloHelper helper = new MiloHelper(application.getId());
+			String redirectUrl = helper.processApplication();
+			return redirectUrl;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 }

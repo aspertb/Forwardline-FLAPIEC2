@@ -30,6 +30,8 @@ import com.google.gson.GsonBuilder;
 public class FunderaAPIHelper {
 	private Partner partner;
 	private Logger log;
+	
+	public static final String PARTNER_NAME = "Fundera";
 
 	public FunderaAPIHelper(Partner partner) {
 		this.partner = partner;
@@ -225,7 +227,7 @@ public class FunderaAPIHelper {
 
 		try {
 			SalesforceFacade sfFacade = new SalesforceFacade();
-			APIPropertiesDAO apiDAO = new APIPropertiesDAO();
+			APIPropertiesDAO apiDAO = new APIPropertiesDAO(PARTNER_NAME);
 			Map<String, String> apiProperties = apiDAO.getAPIProperties();
 
 			sfFacade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),

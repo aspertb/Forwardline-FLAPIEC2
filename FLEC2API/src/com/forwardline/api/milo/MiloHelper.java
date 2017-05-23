@@ -7,6 +7,8 @@ import com.forwardline.api.persistence.APIPropertiesDAO;
 import com.forwardline.util.IFLAPIConstants;
 
 public class MiloHelper {
+	public static final String PARTNER_NAME = "Milo";
+	
 	private String applicationId;
 
 	public MiloHelper(String applicationId) {
@@ -21,7 +23,7 @@ public class MiloHelper {
 
 		try {
 			MiloFacade facade = new MiloFacade();
-			APIPropertiesDAO apiDAO = new APIPropertiesDAO();
+			APIPropertiesDAO apiDAO = new APIPropertiesDAO(PARTNER_NAME);
 			Map<String, String> apiProperties = apiDAO.getAPIProperties();
 
 			facade.login(apiProperties.get(IFLAPIConstants.SF_LOGIN_ENDPOINT), apiProperties.get(IFLAPIConstants.SF_USER_NAME), apiProperties.get(IFLAPIConstants.SF_PASSWORD), apiProperties.get(IFLAPIConstants.SF_TOKEN),

@@ -20,6 +20,7 @@ public class MiloFacade {
 			SalesforceLoginPort port = new SalesforceLoginPort(loginEndPoint, userName, password, securityToken, clientId, clientSecret);
 			try {
 				this.session = port.getSession();
+				System.out.println(this.session);
 			} catch (ServiceCalloutException se) {
 				throw new ConnectorException(se.getMessage());
 			}

@@ -1,0 +1,332 @@
+
+.gsi-step-no-available-before-current li.current~li>* .desc label,
+.gsi-step-no-available-before-current li.current~li>*:hover .desc label {
+    cursor: pointer !important
+}
+
+
+.gsi-step-indicator {
+    width: 100%;
+    padding: 0 1.2em;
+    margin: 1em auto;
+    background-color: #edeff0;
+    border-radius: .25em
+}
+.gsi-step-indicator li {
+    display: inline-block;
+    float: left;
+    margin: 1.2em 0
+}
+
+.gsi-step-indicator li .desc {
+  padding:8px 40px;
+    vertical-align: super;
+
+}
+
+.gsi-step-indicator li .desc span {
+    font-size: 14px;
+    display: block
+	
+}
+
+.gsi-step-indicator li:last-of-type::after {
+    display: none
+}
+.gsi-step-indicator li>* {
+    display: flex;
+    font-size: 1.6rem;
+    color: #fff;
+	
+
+}
+.gsi-step-indicator li.current>* {
+    color: #96c03d;
+	font-weight:bold;
+}
+
+
+.gsi-step-indicator a:hover {
+    color: #96c03d
+}
+.gsi-step-indicator a {
+    text-decoration: none !important
+}
+.gsi-step-indicator:after {
+    content: "";
+    display: table;
+    clear: both
+}
+.gsi-step-indicator.triangle {
+    background-color: transparent;
+    padding: 0
+}
+.gsi-step-indicator.triangle li {
+    position: relative;
+    padding: 0;
+    margin: 4px 0px 4px 0
+}
+.gsi-step-indicator.triangle li:last-of-type {
+    margin-right: 0
+}
+.gsi-step-indicator.triangle li>* {
+    position: relative;
+    padding: 3px 6px 3px 10px;
+    color: #2c3f4c;
+    background-color: #edeff0;
+    border-color: #edeff0
+}
+.gsi-step-indicator.triangle li.current>* {
+    color: #fff;
+    background-color: #73e600;
+    border-color: #73e600;
+}
+
+
+.gsi-step-indicator.triangle a:hover {
+    color: #fff;
+    background-color: #6cd900;
+    border-color: #6cd900;
+}
+.gsi-step-indicator.triangle li::after,
+.gsi-step-indicator.triangle li>*::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    height: 0;
+    width: 0;
+    border: 22px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px
+}
+.gsi-step-indicator.triangle li::after {
+    z-index:2;
+	content:url(../img/arrw.png);
+    position: absolute;
+    top: -10px;
+	left:94%;
+ 
+	
+}
+.gsi-step-indicator.triangle li>*::after {
+    z-index: 2;
+    border-left-color: inherit
+}
+.gsi-step-indicator.triangle .triangle li:last-of-type::after,
+.gsi-step-indicator.triangle li:last-of-type>*::after {
+    display: none
+}
+
+.gsi-step-indicator.triangle.gsi-arrow-left li>*::after {
+    z-index: 2;
+    border-right-color: inherit
+}
+.gsi-step-indicator.gsi-vertical li {
+    float: inherit !important;
+    display: block
+}
+
+.gsi-style-1 li .desc label {
+    padding-bottom: 10px
+}
+.gsi-style-1 li .desc span {
+    display: none
+}
+
+@media only screen and (min-width: 317px) and (max-width: 480px) {
+    .gsi-step-indicator {
+        width: 100%;
+        padding: 0
+    }
+    .gsi-step-indicator li {
+        float: inherit !important;
+        display: block
+    }
+    .gsi-step-indicator li .number {
+        display: none;
+        font-size: 24px
+    }
+    .gsi-step-indicator li .desc {
+        padding-top: 0;
+        padding-left: 4px;
+        vertical-align: super
+    }
+    .gsi-step-indicator li .desc label {
+        font-size: 1.1em
+    }
+    .gsi-step-indicator li .desc span {
+        font-size: 14px;
+        display: block
+    }
+    .gsi-step-indicator li::after {
+        display: inline-block;
+        content: '»';
+        margin: 0 1em;
+        color: #959fa5
+    }
+    .gsi-step-indicator li:last-of-type::after {
+        display: none
+    }
+    .gsi-step-indicator li>* {
+        display: flex;
+        font-size: 16px;
+        color: #2c3f4c
+    }
+    .gsi-step-indicator.triangle {
+        background-color: transparent;
+        padding: 0
+    }
+    .gsi-step-indicator.triangle li {
+        margin: 4px 4px 4px 0
+    }
+    .gsi-step-indicator.triangle li>* {
+        padding: 6px 6px 6px 13px
+    }
+    .gsi-step-indicator.triangle li:first-of-type>* {
+        border-radius: .25em 0 0 .25em
+    }
+    .gsi-step-indicator.triangle li:last-of-type>* {
+        padding-right: 1.6em;
+        border-radius: 0 .25em .25em 0
+    }
+    .gsi-step-indicator.triangle li::after,
+    .gsi-step-indicator.triangle li>*::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 100%;
+        height:0px;
+        width: 0;
+        border: 21px solid transparent;
+        border-right-width: 0;
+        border-left-width: 12px
+    }
+    .gsi-step-indicator.triangle li::after {
+        z-index: 1;
+        -webkit-transform: translateX(4px);
+        -moz-transform: translateX(4px);
+        -ms-transform: translateX(4px);
+        -o-transform: translateX(4px);
+        transform: translateX(4px);
+        border-left-color: #fff;
+        margin: 0
+    }
+    .gsi-step-indicator.triangle li>*::after {
+        z-index: 2;
+        border-left-color: inherit
+    }
+    .gsi-step-indicator.triangle .triangle li:last-of-type::after,
+    .gsi-step-indicator.triangle li:last-of-type>*::after {
+        display: none
+    }
+    .gsi-vertical {
+        width: 100% !important
+    }
+    .gsi-vertical li {
+        margin-right: 10px
+    }
+    .gsi-vertical li>*,
+    .gsi-vertical li.current>* {
+        padding: 8px 7px 7px 5px !important
+    }
+    .gsi-number-circle li {
+        display: block;
+        margin: 5px 0
+    }
+    .gsi-number-circle li>* .number {
+        padding: 2px 4px 4px 4px;
+        width: 18px;
+        height: 18px;
+        font-size: 16px
+    }
+    .gsi-number-circle li>* .desc {
+        padding-left: 10px
+    }
+   
+}
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    .gsi-step-indicator {
+        width: 100%;
+        padding: 0
+    }
+    .gsi-step-indicator li .number {
+        font-size: 24px
+    }
+    .gsi-step-indicator li .desc {
+        padding-top: 6px;
+        vertical-align: super
+    }
+    .gsi-step-indicator li .desc label {
+        font-size: 1.1em
+    }
+    .gsi-step-indicator li .desc span {
+        font-size: 14px;
+        display: block
+    }
+    .gsi-step-indicator li::after {
+        display: none;
+        content: '»';
+        margin: 0 1em;
+        color: #959fa5
+    }
+    .gsi-step-indicator li:last-of-type::after {
+        display: none
+    }
+    .gsi-step-indicator li>* {
+        display: flex;
+        font-size: 1.6rem;
+        color: #2c3f4c
+    }
+    .gsi-step-indicator.triangle {
+        background-color: transparent;
+        padding: 0
+    }
+    .gsi-step-indicator.triangle li {
+        margin: 4px 4px 4px 0;
+        display: block;
+        float: none
+    }
+    .gsi-step-indicator.triangle li>* {
+        padding: 6px 6px 6px 14px
+    }
+    .gsi-step-indicator.triangle li:first-of-type>* {
+        border-radius: .25em 0 0 .25em
+    }
+    .gsi-step-indicator.triangle li:last-of-type>* {
+        padding-right: 1.6em;
+        border-radius: 0 .25em .25em 0
+    }
+    .gsi-step-indicator.triangle li::after,
+    .gsi-step-indicator.triangle li>*::after {
+        display: none !important;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        height: 0;
+        width: 0;
+        border: 21px solid transparent;
+        border-right-width: 0;
+        border-left-width: 13px
+    }
+    .gsi-step-indicator.triangle li::after {
+        z-index: 1;
+        -webkit-transform: translateX(4px);
+        -moz-transform: translateX(4px);
+        -ms-transform: translateX(4px);
+        -o-transform: translateX(4px);
+        transform: translateX(4px);
+        border-left-color: #fff;
+        margin: 0
+    }
+    .gsi-step-indicator.triangle li>*::after {
+        z-index: 2;
+        border-left-color: inherit
+    }
+    .gsi-step-indicator.triangle .triangle li:last-of-type::after,
+    .gsi-step-indicator.triangle li:last-of-type>*::after {
+        display: none
+    }
+   
+}

@@ -8,8 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.forwardline.exception.QueryException;
+import com.forwardline.util.IFLAPIConstants;
 
 public class APIPropertiesDAO {
+	private String partnerName;
+
+	public APIPropertiesDAO(String partnerName) {
+		this.partnerName = partnerName;
+	}
+
 	public Map<String, String> getAPIProperties() throws QueryException {
 		Map<String, String> propertiesMap = new HashMap<String, String>();
 		PreparedStatement pStmt = null;
@@ -18,10 +25,17 @@ public class APIPropertiesDAO {
 		try {
 			cm = new ConnectionManager();
 			Connection conn = cm.getConnection();
-			pStmt = conn.prepareStatement("select Property_Name, Property_Value from API_Properties");
+			pStmt = conn.prepareStatement("select Login_Endpoint, Username, Password, Client_Id, Client_Secret, Token from API_Salesforce_Properties where Partner_Name = ?");
+			pStmt.setString(1, partnerName);
 			rs = pStmt.executeQuery();
-			while (rs.next())
-				propertiesMap.put(rs.getString(1), rs.getString(2));
+			if (rs.next()) {
+				propertiesMap.put(IFLAPIConstants.SF_LOGIN_ENDPOINT, rs.getString(1));
+				propertiesMap.put(IFLAPIConstants.SF_USER_NAME, rs.getString(2));
+				propertiesMap.put(IFLAPIConstants.SF_PASSWORD, rs.getString(3));
+				propertiesMap.put(IFLAPIConstants.SF_OAUTH_CLIENT_ID, rs.getString(4));
+				propertiesMap.put(IFLAPIConstants.SF_OAUTH_CLIENT_SECRET_ID, rs.getString(5));
+				propertiesMap.put(IFLAPIConstants.SF_TOKEN, rs.getString(6));
+			}
 			rs.close();
 			pStmt.close();
 		} catch (SQLException sqlExp) {
